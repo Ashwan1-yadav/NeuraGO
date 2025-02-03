@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const driverModel = require("../models/driverModel");
 const { createDriver } = require("../services/driverService");
 const jwt = require("jsonwebtoken");
+const BlockedTokenModel = require("../models/blockedToken");
 
 const registerDriver = async (req, res) => {
   const errors = validationResult(req);
@@ -61,8 +62,22 @@ const driverLogin = async (req, res) => {
   res.status(200).json({ token, driver });
 };
 
+const driverLogout = async (req, res) => {
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+  await BlockedTokenModel.create({ token });
+  
+  res.clearCookie("token");
+  res.status(200).json({ message: "User Logged Out" });
+};
+
+const driverProfile = async (req, res) => {
+  res.status(200).json({ driver : req.driver});
+}
+
 
 module.exports = {
   registerDriver,
   driverLogin,
+  driverLogout,
+  driverProfile
 };

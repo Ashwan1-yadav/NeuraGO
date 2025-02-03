@@ -57,16 +57,15 @@ const userLogin = async (req, res, next) => {
   res.status(200).json({ token, user });
 };
 
-const userProfile = async (req, res, next) => {
-  await res.status(200).json(req.user);
+const userProfile = async (req, res) => {
+  res.status(200).json({ user : req.user});
 };
 
 const userLogout = async (req, res, next) => {
-  res.clearCookie("token");
-
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
   await BlockedTokenModel.create({ token });
-
+  
+  res.clearCookie("token");
   res.status(200).json({ message: "User Logged Out" });
 };
 
