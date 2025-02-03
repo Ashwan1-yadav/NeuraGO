@@ -67,7 +67,7 @@ const driverLogout = async (req, res) => {
   await BlockedTokenModel.create({ token });
   
   res.clearCookie("token");
-  res.status(200).json({ message: "User Logged Out" });
+  res.status(200).json({ message: "Driver Logged Out" });
 };
 
 const driverProfile = async (req, res) => {
