@@ -8,7 +8,14 @@ const userRegister = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { firstName,lastName, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
+
+  const isUserExist = await userModel.findOne({ email });
+
+  if (isUserExist) {
+    return res.status(400).json({ msg: "User already exists" });
+  }
+
   const hashedPass = await userModel.hashPass(password);
 
   const user = await createUser({
@@ -56,7 +63,7 @@ const userProfile = async (req, res, next) => {
 
 const userLogout = async (req, res, next) => {
   res.clearCookie("token");
-  
+
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
   await BlockedTokenModel.create({ token });
 

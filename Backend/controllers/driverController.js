@@ -10,10 +10,6 @@ const registerDriver = async (req, res) => {
   }
   const { firstName, lastName, email, password, vehicleColor, vehicleType, vehicleNoPlate, vehicleCapacity } = req.body;
 
-  if (!firstName || !lastName || !email || !password || !vehicleColor || !vehicleType || !vehicleNoPlate || !vehicleCapacity) {
-    throw new Error("All fields are required");
-  }
-
   const isDriverExist = await driverModel.findOne({ email });
 
   if (isDriverExist) {
@@ -32,12 +28,41 @@ const registerDriver = async (req, res) => {
     vehicleNoPlate,
     vehicleCapacity,
   });
-  const token = await jwt.sign({ _id: driver._id }, process.env.JWT_SECRET, {
-    expiresIn: "24h",
-  });
+
+ 
   res.status(201).json({ driver, token });
 };
 
+const driverLogin = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { email, password } = req.body;
+
+  const driver = await driverModel.findOne({ email });
+
+  if (!driver) {
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
+
+  const isMatchPass = await driver.comparePass(password);
+
+  if (!isMatchPass) {
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
+
+  const token = await jwt.sign({ _id: driver._id }, process.env.JWT_SECRET, {
+    expiresIn: "24h",
+  });
+
+  res.cookie("token", token);
+
+  res.status(200).json({ token, driver });
+};
+
+
 module.exports = {
   registerDriver,
+  driverLogin,
 };
