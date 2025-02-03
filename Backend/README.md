@@ -1,24 +1,24 @@
 # NeuraGo Backend API Documentation
 
-## 🔐 Authentication API
+## User Management System
 
-The authentication system provides user registration, login, profile management, and logout functionality.
-
-### Tech Stack
-- Node.js
-- Express.js
-- MongoDB
-- JWT for authentication
-- Express Validator for input validation
+### Architecture
+The user management system follows a layered architecture:
+- Routes (`userRouter.js`): Handles HTTP routes and input validation
+- Controllers (`userController.js`): Manages request/response logic
+- Services (`userService.js`): Contains business logic
+- Models (`userModel.js`): Defines data structure and database interactions
 
 ### API Endpoints
 
-#### 1. User Registration
-```http
-POST /api/auth/register
-```
-
-**Request Body:**
+#### User Registration
+- **Route**: POST /register
+- **Description**: Register a new user
+- **Validation**:
+	- firstName: Min 3 characters
+	- email: Valid email format
+	- password: Min 8 characters
+- **Request Body**:
 ```json
 {
 	"firstName": "string",
@@ -27,164 +27,116 @@ POST /api/auth/register
 	"password": "string"
 }
 ```
+- **Response**: Returns user object and authentication token
 
-**Response (201):**
-```json
-{
-	"user": {
-		"firstname": "string",
-		"lastname": "string",
-		"email": "string"
-	},
-	"token": "JWT_TOKEN"
-}
-```
-
-#### 2. User Login
-```http
-POST /api/auth/login
-```
-
-**Request Body:**
+#### User Login
+- **Route**: POST /login
+- **Description**: Authenticate user and generate token
+- **Validation**:
+	- email: Valid email format
+	- password: Min 8 characters
+- **Request Body**:
 ```json
 {
 	"email": "string",
 	"password": "string"
 }
 ```
+- **Response**: Returns user object and authentication token
 
-**Response (200):**
+#### User Profile
+- **Route**: GET /profile
+- **Description**: Get authenticated user's profile
+- **Authentication**: Required
+- **Response**: Returns user profile data
+
+#### User Logout
+- **Route**: GET /logout
+- **Description**: Logout user and invalidate token
+- **Authentication**: Required
+- **Response**: Logout confirmation message
+
+### Security Features
+1. Password Hashing: Uses bcrypt for secure password storage
+2. JWT Authentication: Implements JSON Web Tokens for session management
+3. Token Blacklisting: Maintains blocked tokens list for secure logout
+4. Password Selection: Password field excluded from general queries
+
+## Driver Management System
+
+# Driver Management API Documentation
+
+## Overview
+The Driver API provides endpoints for managing driver accounts, including registration, authentication, and vehicle information management.
+
+### Architecture
+The driver management system follows a layered architecture similar to the user system:
+- Routes (`driverRouter.js`): Handles HTTP routes and input validation
+- Controllers (`driverController.js`): Manages request/response logic
+- Services (`driverService.js`): Contains business logic
+- Models (`driverModel.js`): Defines data structure and database interactions
+
+### API Endpoints
+
+#### Driver Registration
+- **Route**: POST /api/driver/register
+- **Description**: Register a new driver
+- **Validation**:
+	- firstName: Min 3 characters
+	- email: Valid email format
+	- password: Min 6 characters
+	- vehicleColor: Required, min 3 characters
+	- vehicleType: Must be one of: "car", "bike", "van"
+	- vehicleNoPlate: Required, min 9 characters
+	- vehicleCapacity: Required, minimum value 1
+- **Request Body**:
 ```json
 {
-	"user": {
-		"firstname": "string",
-		"lastname": "string",
-		"email": "string"
-	},
-	"token": "JWT_TOKEN"
+	"firstName": "string",
+	"lastName": "string",
+	"email": "string",
+	"password": "string",
+	"vehicleColor": "string",
+	"vehicleType": "car|bike|van",
+	"vehicleNoPlate": "string",
+	"vehicleCapacity": "number"
 }
 ```
+- **Response**: Returns driver object and authentication token
 
-#### 3. Get User Profile
-```http
-GET /api/auth/profile
-```
-
-**Headers:**
-```
-Authorization: Bearer JWT_TOKEN
-```
-
-**Response (200):**
+#### Driver Login
+- **Route**: POST /api/driver/login
+- **Description**: Authenticate driver and generate token
+- **Validation**:
+	- email: Valid email format
+	- password: Min 6 characters
+- **Request Body**:
 ```json
 {
-	"firstname": "string",
-	"lastname": "string",
-	"email": "string"
+	"email": "string",
+	"password": "string"
 }
 ```
+- **Response**: Returns driver object and authentication token
 
-#### 4. User Logout
-```http
-POST /api/auth/logout
-```
+### Driver Model Schema
+- firstName: String (Required, min 3 chars)
+- lastName: String (Optional, min 3 chars)
+- email: String (Required, unique)
+- password: String (Required)
+- socketId: String (Optional)
+- status: String (enum: ["active", "inactive"])
+- vehicleColor: String (Required)
+- vehicleType: String (Required, enum: ["car", "bike", "van"])
+- vehicleNoPlate: String (Required)
+- vehicleCapacity: Number (Required, min: 1)
+- location: Object (latitude, longitude)
 
-**Headers:**
-```
-Authorization: Bearer JWT_TOKEN
-```
+### Security Features
+1. Password Hashing: Uses bcrypt for secure password storage
+2. JWT Authentication: Implements JSON Web Tokens for session management
+3. Input Validation: Comprehensive validation using express-validator
+4. Status Tracking: Monitors driver's active/inactive status
 
-**Response (200):**
-```json
-{
-	"message": "User Logged Out"
-}
-```
 
-### Authentication Flow
-
-1. **Token-based Authentication:**
-	 - JWT (JSON Web Tokens) are used for authentication
-	 - Tokens are stored in cookies and can be sent via Authorization header
-	 - Tokens are verified using the `isLoggedIn` middleware
-
-2. **Security Features:**
-	 - Password hashing
-	 - Token blacklisting for logout
-	 - Input validation using express-validator
-	 - Protected routes using middleware
-
-### Setup Instructions
-
-1. **Install Dependencies:**
-```bash
-npm install
-```
-
-2. **Environment Variables:**
-Create a `.env` file in the root directory with:
-```env
-PORT=3000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-```
-
-3. **Start the Server:**
-```bash
-# Development mode
-npm run dev
-
-# Production mode
-npm start
-```
-
-### Error Handling
-
-The API returns appropriate HTTP status codes:
-- 200: Success
-- 201: Created
-- 400: Bad Request
-- 401: Unauthorized
-- 500: Internal Server Error
-
-### Middleware Usage
-
-1. **Authentication Middleware (`isLoggedIn`):**
-	 - Verifies JWT token
-	 - Checks for token in cookies or Authorization header
-	 - Validates against blocked tokens
-	 - Attaches user to request object
-
-### Models
-
-1. **User Model:**
-	 - Handles password hashing
-	 - Generates authentication tokens
-	 - Manages user data
-
-2. **BlockedToken Model:**
-	 - Stores invalidated tokens
-	 - Used for logout functionality
-
-### Best Practices
-
-1. **Security:**
-	 - Always use HTTPS in production
-	 - Implement rate limiting
-	 - Validate all inputs
-	 - Use secure password hashing
-
-2. **Development:**
-	 - Follow REST API conventions
-	 - Use meaningful status codes
-	 - Implement proper error handling
-	 - Document all endpoints
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
 

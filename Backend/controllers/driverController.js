@@ -30,7 +30,7 @@ const registerDriver = async (req, res) => {
   });
 
  
-  res.status(201).json({ driver, token });
+    res.status(201).json({ driver, token });
 };
 
 const driverLogin = async (req, res) => {
