@@ -6,6 +6,10 @@ const DriverSignup = () => {
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [vehicleColor, setVehicleColor] = useState("");
+  const [vehicleCapacity, setVehicleCapacity] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
+  const [vehicleNoPlate, setVehicleNoPlate] = useState("");
   const [newUserData, setnewUserData] = useState({});
 
   const submithandler = (e) => {
@@ -14,13 +18,21 @@ const DriverSignup = () => {
       firstName: firstName, 
       lastName: lastName,
       email: email, 
-      password: password 
+      password: password,
+      vehicleColor: vehicleColor,
+      vehicleCapacity: vehicleCapacity,
+      vehicleType: vehicleType,
+      vehicleNoPlate : vehicleNoPlate
     });
     console.log(newUserData)
     setfirstName("");
     setlastName("");
     setemail("");
     setpassword("");
+    setVehicleColor("");
+    setVehicleCapacity("");
+    setVehicleType("");
+    setVehicleNoPlate("");
   };
 
   return (
@@ -32,7 +44,7 @@ const DriverSignup = () => {
         </p>
       </div>
       <div className="bg-zinc-200 h-screen mt-[10px] rounded-t-xl shadow-2xl">
-        <div className="p-7 bg-zinc-100 rounded-xl shadow-2xl h-full">
+        <div className="p-5 bg-zinc-100 rounded-xl shadow-2xl h-full">
           <form
             onSubmit={submithandler}
             className="flex gap-4 flex-col justify-center"
@@ -40,7 +52,7 @@ const DriverSignup = () => {
             <p className="text-zinc-800 text-md font-bold">
               Name 
             </p>
-            <div className='flex gap-2'>
+            <div className='flex gap-2 mt-[-18px]'>
             <input
               value={firstName}
               onChange={(e) => {
@@ -57,7 +69,7 @@ const DriverSignup = () => {
                 setlastName(e.target.value);
               }}
               name="lastName"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px] "
               type="text"
               placeholder="last name"
             />
@@ -71,7 +83,7 @@ const DriverSignup = () => {
                 setemail(e.target.value);
               }}
               name="email"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px] mt-[-18px]"
               type="email"
               placeholder="johnDoe@gmail.com"
             />
@@ -84,10 +96,58 @@ const DriverSignup = () => {
                 setpassword(e.target.value);
               }}
               name="password"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px] mt-[-18px]"
               type="password"
               placeholder="john@Doe"
             />
+            <p className="text-zinc-800 text-md font-bold">Vehicle Details</p>
+            <div className='flex gap-3 mt-[-18px]'>
+            <input
+              value={vehicleNoPlate}
+              onChange={(e) => {
+                setVehicleNoPlate(e.target.value);
+              }}
+              name="vehicleNoPlate"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px] "
+              type="text"
+              placeholder="Vehicle No"
+            />
+            <input
+              value={vehicleColor}
+              onChange={(e) => {
+              setVehicleColor(e.target.value);
+              }}
+              name="vehicleColor"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px]"
+              type="text"
+              placeholder="Vehicle Color"
+            />
+            </div>
+            <div className='flex gap-2 mt-[-10px]'>
+            <input
+              value={vehicleCapacity}
+              onChange={(e) => {
+              setVehicleCapacity(e.target.value);
+              }}
+              name="vehicleCapacity"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px]"
+              type="number"
+              placeholder="Vehicle Capacity"
+            />
+            <select
+              value={vehicleType}
+              onChange={(e) => {
+              setVehicleType(e.target.value);
+              }}
+              name="vehicleType"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none w-1/2 h-9 text-[15px] text-zinc-500"
+            >
+              <option value="">Select Vehicle Type</option>
+              <option value="Car">Car</option>
+              <option value="Bike">Bike</option>
+              <option value="Van">Van</option>
+            </select>
+            </div>
             <button
               type="submit"
               className="bg-zinc-900 hover:bg-black text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl"

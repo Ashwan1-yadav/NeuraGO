@@ -3,7 +3,7 @@ const { createUser } = require("../services/userService");
 const { validationResult } = require("express-validator");
 const BlockedTokenModel = require("../models/blockedToken");
 
-const userRegister = async (req, res, next) => {
+const userRegister = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -61,10 +61,9 @@ const userProfile = async (req, res) => {
   res.status(200).json({ user : req.user});
 };
 
-const userLogout = async (req, res, next) => {
+const userLogout = async (req, res) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
   await BlockedTokenModel.create({ token });
-  
   res.clearCookie("token");
   res.status(200).json({ message: "User Logged Out" });
 };

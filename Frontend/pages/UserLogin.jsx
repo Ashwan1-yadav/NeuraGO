@@ -1,19 +1,30 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState,useContext } from "react";
+import { Link,useNavigate } from "react-router-dom";
+import {UserDataContext} from '../context/UserContext'
+import axios from 'axios'
 
 const UserLogin = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [userData, setuserData] = useState({});
 
-  const submithandler = (e) => {
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserDataContext);
+
+  const submithandler = async (e) => {
     e.preventDefault();
-    setuserData({ 
-      email: email, 
-      password: password 
-    });
-    console.log(userData)
+    const userData = {
+      email: email,
+      password: password,
+    };
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData);
+    if (response.status === 200) {
+      const data = response.data;
+      setUser(data.user);
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
+    }
     setemail("");
     setpassword("");
   };
