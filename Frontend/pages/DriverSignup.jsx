@@ -2,17 +2,23 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 const DriverSignup = () => {
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [userData, setuserData] = useState({});
+  const [newUserData, setnewUserData] = useState({});
 
   const submithandler = (e) => {
     e.preventDefault();
-    setuserData({ 
+    setnewUserData({ 
+      firstName: firstName, 
+      lastName: lastName,
       email: email, 
       password: password 
     });
-    console.log(userData)
+    console.log(newUserData)
+    setfirstName("");
+    setlastName("");
     setemail("");
     setpassword("");
   };
@@ -20,9 +26,9 @@ const DriverSignup = () => {
   return (
     <div className="bg-zinc-200 h-screen w-full">
       <div className="p-2 flex justify-center items-center bg-zinc-900 h-[80px] w-full rounded-b-xl shadow-lg">
-      <img src="../public/login-icon.png" alt="car-icon" className="w-7 h-7 mr-2" />
-        <p className="text-zinc-100 font-bold text-center  text-lg">
-          Join NeuraGO 
+      <img src="../car-icon.png" alt="car-icon" className="w-14 h-14 mr-2" />
+        <p className="text-zinc-100 font-bold text-center  text-xl">
+          Join NeuraGO
         </p>
       </div>
       <div className="bg-zinc-200 h-screen mt-[10px] rounded-t-xl shadow-2xl">
@@ -32,7 +38,32 @@ const DriverSignup = () => {
             className="flex gap-4 flex-col justify-center"
           >
             <p className="text-zinc-800 text-md font-bold">
-              Whats your email address?
+              Name 
+            </p>
+            <div className='flex gap-2'>
+            <input
+              value={firstName}
+              onChange={(e) => {
+                setfirstName(e.target.value);
+              }}
+              name="firstName"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
+              type="text"
+              placeholder="first name"
+            />
+            <input
+              value={lastName}
+              onChange={(e) => {
+                setlastName(e.target.value);
+              }}
+              name="lastName"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
+              type="text"
+              placeholder="last name"
+            />
+            </div>
+            <p className="text-zinc-800 text-md font-bold">
+               Email 
             </p>
             <input
               value={email}
@@ -45,7 +76,7 @@ const DriverSignup = () => {
               placeholder="johnDoe@gmail.com"
             />
             <p className="text-zinc-800 text-md font-bold">
-              Whats your password?
+              Password
             </p>
             <input
               value={password}
@@ -61,24 +92,19 @@ const DriverSignup = () => {
               type="submit"
               className="bg-zinc-900 hover:bg-black text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl"
             >
-              Login
+              Register as Driver
             </button>
           </form>
           <p className=" mt-[15px] text-zinc-700 text-center text-sm">
-            New to NeuraGO ? &nbsp;
+            Already registered ? &nbsp;
             <Link
-              to="/user-signup"
+              to="/driver-login"
               className="text-emerald-600 font-bold hover:text-black"
             >
-              Signup
+              Login
             </Link>
           </p>
-          <Link
-            to="/driver-login"
-            className=" mt-[150px] inline-block bg-green-400 hover:bg-emerald-700 text-black font-bold py-1 px-2 rounded-lg w-full text-[20px] text-center text-lg"
-          >
-            Continue as Driver &rarr;
-          </Link>
+          
         </div>
       </div>
     </div>

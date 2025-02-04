@@ -21,7 +21,7 @@ const UserLogin = () => {
   return (
     <div className="bg-zinc-200 h-screen w-full">
       <div className="p-2 flex justify-center items-center bg-zinc-900 h-[80px] w-full rounded-b-xl shadow-lg">
-      <img src="../public/login-icon.png" alt="car-icon" className="w-7 h-7 mr-2" />
+      <img src="../login-icon.png" alt="car-icon" className="w-7 h-7 mr-2" />
         <p className="text-zinc-100 font-bold text-center  text-xl">
           Login to Neurago
         </p>
@@ -33,7 +33,7 @@ const UserLogin = () => {
             className="flex gap-4 flex-col justify-center"
           >
             <p className="text-zinc-800 text-md font-bold">
-              Whats your email address?
+              What&apos;s your email address?
             </p>
             <input
               value={email}
@@ -46,7 +46,7 @@ const UserLogin = () => {
               placeholder="johnDoe@gmail.com"
             />
             <p className="text-zinc-800 text-md font-bold">
-              Whats your password?
+               What&apos;s your password?
             </p>
             <input
               value={password}

@@ -21,7 +21,7 @@ const DriverLogin = () => {
   return (
     <div className="bg-zinc-200 h-screen w-full">
       <div className="p-2 flex justify-center items-center bg-zinc-900 h-[80px] w-full rounded-b-xl shadow-lg">
-        <img src="../public/car-icon.png" alt="car-icon" className="w-14 h-14 mr-2" />
+        <img src="../car-icon.png" alt="car-icon" className="w-14 h-14 mr-2" />
         <p className="text-zinc-100 font-bold text-center  text-xl">
           Login as Driver
         </p>
