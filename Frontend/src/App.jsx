@@ -6,12 +6,14 @@ import UserSignup from "../pages/UserSignup";
 import UserLogin from "../pages/UserLogin";
 import DriverSignup from "../pages/DriverSignup";
 import DriverLogin from "../pages/DriverLogin";
+import {Navigate} from 'react-router-dom'
 
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/user-signup" element={<UserSignup />} />
         <Route path="/user-login" element={<UserLogin />} />
         <Route path="/driver-signup" element={<DriverSignup />} />

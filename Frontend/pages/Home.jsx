@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Home = () => {
   return (
     <div>
-      <div className='h-screen w-full bg-cover bg-[url("./public/home-cover.jpg")] flex flex-col justify-between'>
+      <div className='h-screen w-full bg-cover bg-[url("../home-cover.jpg")] flex flex-col justify-between'>
         <h1 className='text-zinc-200 px-4 py-3 text-xl font-bold '>NeuraGO</h1>
         <div className='bg-zinc-100  p-5 rounded-t-2xl shadow-t-2xl shadow-black w-screen  '>
             <h2 className='text-2xl font-bold text-center '>Welcome to NeuraGO</h2>
