@@ -7,10 +7,9 @@ import axios from 'axios'
 const UserLogin = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [userData, setuserData] = useState({});
 
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserDataContext);
+  const { setUser } = useContext(UserDataContext);
 
   const submithandler = async (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ const UserLogin = () => {
     if (response.status === 200) {
       const data = response.data;
       setUser(data.user);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("user-token", data.token);
       navigate("/dashboard");
     }
     setemail("");

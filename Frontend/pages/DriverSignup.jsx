@@ -1,7 +1,12 @@
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { Link,useNavigate } from 'react-router-dom'
+import { useState,useContext } from 'react'
+import {DriverDataContext} from '../context/DriverContext'
+import axios from 'axios'
 
 const DriverSignup = () => {
+
+  const navigate = useNavigate();
+
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
@@ -10,11 +15,13 @@ const DriverSignup = () => {
   const [vehicleCapacity, setVehicleCapacity] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleNoPlate, setVehicleNoPlate] = useState("");
-  const [newUserData, setnewUserData] = useState({});
 
-  const submithandler = (e) => {
+  const {setDriver} = useContext(DriverDataContext)
+
+  const submithandler = async (e) => {
     e.preventDefault();
-    setnewUserData({ 
+
+    const newDriver = {
       firstName: firstName, 
       lastName: lastName,
       email: email, 
@@ -23,8 +30,17 @@ const DriverSignup = () => {
       vehicleCapacity: vehicleCapacity,
       vehicleType: vehicleType,
       vehicleNoPlate : vehicleNoPlate
-    });
-    console.log(newUserData)
+    };
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/driver/register`, newDriver);
+    
+    if(response.status === 200){
+      const data = response.data;
+      setDriver(data.driver);
+      localStorage.setItem("driver-token", data.token);
+      navigate('/driver-dashboard')
+    }
+    
     setfirstName("");
     setlastName("");
     setemail("");
@@ -140,12 +156,12 @@ const DriverSignup = () => {
               setVehicleType(e.target.value);
               }}
               name="vehicleType"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none w-1/2 h-9 text-[15px] text-zinc-500"
+              className="bg-[#eeeeee] rounded px-4 py-1 outline-none w-1/2 h-9 text-[15px] text-zinc-900"
             >
               <option value="">Select Vehicle Type</option>
-              <option value="Car">Car</option>
-              <option value="Bike">Bike</option>
-              <option value="Van">Van</option>
+              <option value="car">car</option>
+              <option value="bike">bike</option>
+              <option value="van">van</option>
             </select>
             </div>
             <button

@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
+const morgan = require("morgan")
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -11,6 +12,7 @@ const driverRouter = require("./routes/driverRouter");
 DBconnnect(process.env.MONGO_URL);
 
 app.use(cors());
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));

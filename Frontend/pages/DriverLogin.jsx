@@ -1,19 +1,32 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState,useContext } from "react";
+import { Link,useNavigate } from "react-router-dom";
+import {DriverDataContext} from '../context/DriverContext'
+import axios from "axios" 
 
 const DriverLogin = () => {
+  const navigate = useNavigate();
+
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [driverData, setdriverData] = useState({});
 
-  const submithandler = (e) => {
+  const {setDriver} = useContext(DriverDataContext)
+
+  const submithandler = async (e) => {
     e.preventDefault();
-    setdriverData({ 
+    const newDriver = { 
       email: email, 
       password: password 
-    });
-    console.log(driverData)
+    };
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/driver/login`, newDriver);
+    if(response.status === 200){
+      const data = response.data
+      setDriver(data.driver)
+      localStorage.setItem("driver-token",data.token)
+      navigate("/driver-dashboard")
+    }
+
     setemail("");
     setpassword("");
   };

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState,useContext } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -9,7 +8,7 @@ const UserSignup = () => {
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const { user, setUser } = useContext(UserDataContext);
+  const { setUser } = useContext(UserDataContext);
 
   const navigate = useNavigate();
 
@@ -26,7 +25,7 @@ const UserSignup = () => {
     if (response.status === 201) {
       const data = response.data;
       setUser(data.user);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("user-token", data.token);
       navigate("/dashboard");
     }
 

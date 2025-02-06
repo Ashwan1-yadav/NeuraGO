@@ -1,7 +1,6 @@
 const { validationResult } = require("express-validator");
 const driverModel = require("../models/driverModel");
 const { createDriver } = require("../services/driverService");
-const jwt = require("jsonwebtoken");
 const BlockedTokenModel = require("../models/blockedToken");
 
 const registerDriver = async (req, res) => {
@@ -29,9 +28,9 @@ const registerDriver = async (req, res) => {
     vehicleNoPlate,
     vehicleCapacity,
   });
-
- 
-    res.status(201).json({ driver, token });
+   
+    const token = await driver.genAuthToken() 
+    res.status(200).json({ driver, token });
 };
 
 const driverLogin = async (req, res) => {
@@ -53,14 +52,16 @@ const driverLogin = async (req, res) => {
     return res.status(401).json({ message: "Invalid email or password" });
   }
 
-  const token = await jwt.sign({ _id: driver._id }, process.env.JWT_SECRET, {
-    expiresIn: "24h",
-  });
+  const token = await driver.genAuthToken()
 
   res.cookie("token", token);
 
   res.status(200).json({ token, driver });
 };
+
+const driverProfile = async (req, res) => {
+  res.status(200).json({ driver : req.driver});
+}
 
 const driverLogout = async (req, res) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
@@ -70,9 +71,7 @@ const driverLogout = async (req, res) => {
   res.status(200).json({ message: "Driver Logged Out" });
 };
 
-const driverProfile = async (req, res) => {
-  res.status(200).json({ driver : req.driver});
-}
+
 
 
 module.exports = {

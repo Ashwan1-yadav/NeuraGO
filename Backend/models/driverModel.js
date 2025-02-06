@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const driverSchema = new mongoose.Schema({
   
@@ -61,6 +62,11 @@ const driverSchema = new mongoose.Schema({
     },
   
 });
+
+driverSchema.methods.genAuthToken = function (){
+  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+  return token;
+};
 
 driverSchema.methods.comparePass = function (Password) {
   return bcrypt.compare(Password, this.password);
