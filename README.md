@@ -4,11 +4,7 @@
 	
 </div>
 
-<div align="center">
-	<img src="./assets/neurago_demo.gif" alt="NeuraGo Banner" width="100%">
-	<h1>NeuraGo - Smart Urban Mobility</h1>
-	
-</div>
+
 
 
 ## 🚀 About NeuraGo
@@ -86,6 +82,13 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 2. Set your pickup location and destination
 3. Choose your ride type
 4. Confirm and track your ride
+
+## Demo Video
+<div align="center">
+	<img src="./assets/neurago_demo.gif" alt="NeuraGo Banner" width="100%">
+	<h1>NeuraGo - Smart Urban Mobility</h1>
+	
+</div>
 
 ## 👥 Contributing
 
