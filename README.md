@@ -4,6 +4,13 @@
 	
 </div>
 
+<div align="center">
+	<img src="./assets/neurago_demo.gif" alt="NeuraGo Banner" width="100%">
+	<h1>NeuraGo - Smart Urban Mobility</h1>
+	
+</div>
+
+
 ## 🚀 About NeuraGo
 
 NeuraGo is a cutting-edge ride-hailing platform that connects passengers with drivers for seamless urban transportation. Built with modern technologies, it offers real-time tracking, secure payments, and an intuitive user experience for both riders and drivers.
