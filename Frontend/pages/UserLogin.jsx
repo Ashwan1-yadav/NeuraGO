@@ -33,7 +33,7 @@ const UserLogin = () => {
       <div className="p-2 flex justify-center items-center bg-zinc-900 h-[80px] w-full rounded-b-xl shadow-lg">
       <img src="../login-icon.png" alt="car-icon" className="w-7 h-7 mr-2" />
         <p className="text-zinc-100 font-bold text-center  text-xl">
-          Login to Neurago
+          Login to NeuraGO
         </p>
       </div>
       <div className="bg-zinc-200 h-screen mt-[10px] rounded-t-xl shadow-2xl">
