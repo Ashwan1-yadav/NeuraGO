@@ -6,6 +6,7 @@ import { FaLocationArrow } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import LocationPanel from "../components/LocationPanel";
+import RideSelection from "../components/RideSelection";
 
 
 const Dashboard = () => {
@@ -45,7 +46,7 @@ const Dashboard = () => {
 
 
   return (
-    <div className="h-screen w-screen relative">
+    <div className="h-screen w-screen relative overflow-hidden">
       <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center text-gray-200 shadow-lg">
         NeuraGO
       </p>
@@ -90,6 +91,9 @@ const Dashboard = () => {
         </div>
         <div ref={searchPanelRef} className="bg-zinc-100 h-0">
           <LocationPanel />
+        </div>
+        <div>
+          <RideSelection/>
         </div>
       </div>
     </div>
