@@ -1,13 +1,99 @@
+import { useState, useRef } from "react";
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { IoLocationSharp } from "react-icons/io5";
+import { FaLocationArrow } from "react-icons/fa6";
+import { FaCar } from "react-icons/fa";
+import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
+import LocationPanel from "../components/LocationPanel";
+
+
 const Dashboard = () => {
+  const [location, setLocation] = useState("");
+  const [destination, setDestination] = useState("");
+  const [searchPanel, setSearchPanel] = useState(false);
+  const searchPanelRef = useRef(null);
+  const panelRef = useRef(null); 
+  const panelCloseButtonRef = useRef(null);
+
+  const submithandler = async (e) => {
+    e.preventDefault();
+  };
+
+  useGSAP(() => {
+    // Create a timeline for smoother animations
+    const tl = gsap.timeline();
+    
+    tl.to(searchPanelRef.current, {
+      height: searchPanel ? "70%" : "0%",
+      duration: 0.5,
+      ease: "power2.inOut"
+    })
+    .to(panelCloseButtonRef.current, {
+      opacity: panelCloseButtonRef ? "1" : "0",
+      duration: 0.3,
+      ease: "power2.inOut"
+    }, "-=0.3")
+    .to(panelRef.current, {
+      borderRadius: searchPanel ? "0px" : "16px",
+      border: "none",
+      backgroundColor: searchPanel ? "#fff" : "transparent",
+      duration: 0.5,
+      ease: "power2.inOut"
+    }, "-=0.4");
+  }, [searchPanel]);
+
+
   return (
-    <div>
-      <p className="w-18 absolute left-3 top-3 z-10 text-black font-bold  bg-gray-400 rounded-full bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-8 border border-gray-100 text-[16px] text-center text-gray-800 shadow-md">NeuraGO</p>
+    <div className="h-screen w-screen relative">
+      <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center text-gray-200 shadow-lg">
+        NeuraGO
+      </p>
       <div className="h-screen w-screen">
         {/* Navigation Bar */}
-        <img src="https://storage.googleapis.com/support-forums-api/attachment/thread-311121232-12633085076850476787.png" alt="Map Background" className="w-full h-full object-cover" />
+        <img
+          src="../dashboard-background.png"
+          alt="Map Background"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl">
+        <div ref={panelRef} className="bg-transparent  bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-t-2xl shadow-black h-[30%] relative p-5">
+          <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex">
+              <MdOutlineKeyboardDoubleArrowDown ref={panelCloseButtonRef} onClick={()=>{
+                setSearchPanel(false)
+              }} className="text-xl mr-2 absolute top-5  right-2" />
+            <FaCar className="text-3xl mr-2" />
+            Book a ride
+          </h2>
+          <form onSubmit={(e) => submithandler(e)}>
+            <IoLocationSharp className="absolute top-16 left-7 text-zinc-400 text-lg" />
+            <input
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              onClick={() => setSearchPanel(true)}
+              className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
+              type="text"
+              placeholder="Search for a place or address"
+            />
+
+            <FaLocationArrow className="absolute top-26 left-7 text-zinc-400 text-lg" />
+            <input
+              value={destination}
+              onClick={() => setSearchPanel(true)}
+              onChange={(e) => setDestination(e.target.value)}
+              className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
+              type="text"
+              placeholder="Enter your destination"
+            />
+          </form>
+        </div>
+        <div ref={searchPanelRef} className="bg-zinc-100 h-0">
+          <LocationPanel />
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
