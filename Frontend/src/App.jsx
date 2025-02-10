@@ -13,6 +13,7 @@ import DriverLogout from "../pages/DriverLogout";
 import { Navigate } from "react-router-dom";
 import UserRouteProtector from "../utils/UserRouteProtector";
 import DriverRouteProtector from "../utils/DriverRouteProtector";
+import PaymentPage from "../pages/PaymentPage";
 
 const App = () => {
   return (
@@ -38,6 +39,8 @@ const App = () => {
             </UserRouteProtector>
           }
         />
+        <Route path="/riding" element={<PaymentPage/>}>
+        </Route>
         <Route path="/driver-dashboard" 
         element={
           <DriverRouteProtector>

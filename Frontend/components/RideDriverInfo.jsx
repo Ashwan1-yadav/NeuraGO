@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import {Link} from "react-router-dom"
 import gsap from "gsap";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
@@ -72,7 +73,9 @@ const RideDriverInfo = ({
           <h2 className="text-xl font-bold">Price</h2>
         </div>
         <hr className="mt-4 mb-2 border-zinc-200" />
-        <button  className="bg-green-400 text-black rounded-lg font-bold px-4 py-2 mt-4 flex justify-center items-center w-full active:bg-green-600 ">Accept Ride</button>
+        <Link to="/riding" onClick={()=>{
+          setRideDriverInfoPanel(false);
+        }} className="bg-green-400 text-black rounded-lg font-bold px-4 py-2 mt-4 flex justify-center items-center w-full active:bg-green-600">Accept Ride</Link>
         <button  className="bg-red-500 text-black rounded-lg font-bold px-4 py-2 mt-2 flex justify-center items-center w-full active:bg-red-600 " onClick={() => {
             setRideDriverInfoPanel(false);
             setSearchPanel(true);
