@@ -68,7 +68,7 @@ const RideConfirmation = ({
         <button onClick={()=>{
           setlookingForDriverPanel(true)
           setrideConfirmationPanel(false)
-        }} className=" bg-green-500 text-zinc-800 text-xl font-bold w-full rounded-lg px-4 py-1 mt-4">
+        }} className=" bg-green-400 active:bg-green-600 text-zinc-800 text-xl font-bold w-full rounded-lg px-4 py-1 mt-4">
             Confirm
         </button>
       </div>

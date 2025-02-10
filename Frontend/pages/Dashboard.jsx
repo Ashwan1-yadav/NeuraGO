@@ -9,6 +9,7 @@ import LocationPanel from "../components/LocationPanel";
 import RideSelection from "../components/RideSelection";
 import RideConfirmation from "../components/RideConfirmation";
 import LookingForDriver from "../components/LookingForDriver";
+import RideDriverInfo from "../components/RideDriverInfo";
 
 const Dashboard = () => {
   const [location, setLocation] = useState("");
@@ -17,6 +18,8 @@ const Dashboard = () => {
   const [rideSelectionPanel, setrideSelectionPanel] = useState(false);
   const [rideConfirmationPanel, setrideConfirmationPanel] = useState(false);
   const [lookingForDriverPanel, setlookingForDriverPanel] = useState(false);
+  const [RideDriverInfoPanel, setRideDriverInfoPanel] = useState(false)
+  
 
   const searchPanelRef = useRef(null);
   const panelRef = useRef(null);
@@ -132,7 +135,15 @@ const Dashboard = () => {
             <LookingForDriver
             lookingForDriverPanel={lookingForDriverPanel}
             setlookingForDriverPanel={setlookingForDriverPanel}
+            setRideDriverInfoPanel={setRideDriverInfoPanel}
           />
+        </div>
+        <div>
+          <RideDriverInfo 
+          RideDriverInfoPanel={RideDriverInfoPanel}
+          setRideDriverInfoPanel={setRideDriverInfoPanel}
+          setSearchPanel={setSearchPanel}
+           />
         </div>
       </div>
     </div>
