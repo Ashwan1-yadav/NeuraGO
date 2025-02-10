@@ -1,7 +1,7 @@
 import { IoLocation } from "react-icons/io5";
+import PropTypes from 'prop-types';
 
-const LocationPanel = () => {
- 
+const LocationPanel = ({ setrideSelectionPanel, setSearchPanel }) => {
   const locations = [
     "234/34 Main Road, Bangalore",
     "34/4 News street, Mumbai",
@@ -11,7 +11,10 @@ const LocationPanel = () => {
   return (
     <div className="my-4">
        {locations.map((location, index) => (
-         <div key={index} className="h-12 w-[90%]  bg-zinc-200 border-zinc-400 mx-4 my-[8px] rounded-xl p-2 flex gap-2  items-center">
+         <div onClick={()=>{
+           setrideSelectionPanel(true)
+           setSearchPanel(false)
+         }} key={index} className="h-12 w-[90%]  bg-zinc-200 border-zinc-400 mx-4 my-[8px] rounded-xl p-2 flex gap-2  items-center active:border-2">
          <IoLocation className="text-xl bg-slate-100 rounded-full text-black p-[6px] flex items-center h-7 w-9" />
          <p className="text-black text-xs">
           {location}
@@ -21,5 +24,10 @@ const LocationPanel = () => {
      </div>
   )
 }
+
+LocationPanel.propTypes = {
+  setrideSelectionPanel: PropTypes.func.isRequired,
+  setSearchPanel: PropTypes.func.isRequired,
+};
 
 export default LocationPanel

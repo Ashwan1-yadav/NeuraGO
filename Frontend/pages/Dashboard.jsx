@@ -1,20 +1,25 @@
 import { useState, useRef } from "react";
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaLocationArrow } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import LocationPanel from "../components/LocationPanel";
 import RideSelection from "../components/RideSelection";
-
+import RideConfirmation from "../components/RideConfirmation";
+import LookingForDriver from "../components/LookingForDriver";
 
 const Dashboard = () => {
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [searchPanel, setSearchPanel] = useState(false);
+  const [rideSelectionPanel, setrideSelectionPanel] = useState(false);
+  const [rideConfirmationPanel, setrideConfirmationPanel] = useState(false);
+  const [lookingForDriverPanel, setlookingForDriverPanel] = useState(false);
+
   const searchPanelRef = useRef(null);
-  const panelRef = useRef(null); 
+  const panelRef = useRef(null);
   const panelCloseButtonRef = useRef(null);
 
   const submithandler = async (e) => {
@@ -24,26 +29,33 @@ const Dashboard = () => {
   useGSAP(() => {
     // Create a timeline for smoother animations
     const tl = gsap.timeline();
-    
+
     tl.to(searchPanelRef.current, {
       height: searchPanel ? "70%" : "0%",
       duration: 0.5,
-      ease: "power2.inOut"
+      ease: "power2.inOut",
     })
-    .to(panelCloseButtonRef.current, {
-      opacity: panelCloseButtonRef ? "1" : "0",
-      duration: 0.3,
-      ease: "power2.inOut"
-    }, "-=0.3")
-    .to(panelRef.current, {
-      borderRadius: searchPanel ? "0px" : "16px",
-      border: "none",
-      backgroundColor: searchPanel ? "#fff" : "transparent",
-      duration: 0.5,
-      ease: "power2.inOut"
-    }, "-=0.4");
+      .to(
+        panelCloseButtonRef.current,
+        {
+          opacity: searchPanel ? "1" : "0",
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        "-=0.3"
+      )
+      .to(
+        panelRef.current,
+        {
+          borderRadius: searchPanel ? "0px" : "16px",
+          border: "none",
+          backgroundColor: searchPanel ? "#fff" : "transparent",
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        "-=0.4"
+      );
   }, [searchPanel]);
-
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">
@@ -51,7 +63,6 @@ const Dashboard = () => {
         NeuraGO
       </p>
       <div className="h-screen w-screen">
-        {/* Navigation Bar */}
         <img
           src="../dashboard-background.png"
           alt="Map Background"
@@ -59,11 +70,19 @@ const Dashboard = () => {
         />
       </div>
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl">
-        <div ref={panelRef} className="bg-transparent  bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-t-2xl shadow-black h-[30%] relative p-5">
+        <div
+          ref={panelRef}
+          className="bg-transparent  bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-t-2xl shadow-black h-[30%] relative p-5"
+        >
           <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex">
-              <MdOutlineKeyboardDoubleArrowDown ref={panelCloseButtonRef} onClick={()=>{
-                setSearchPanel(false)
-              }} className="text-xl mr-2 absolute top-5  right-2" />
+            <p ref={panelCloseButtonRef}>
+              <MdOutlineKeyboardDoubleArrowDown
+                onClick={() => {
+                  setSearchPanel(false);
+                }}
+                className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1  mr-2 absolute  top-5  right-2"
+              />
+            </p>
             <FaCar className="text-3xl mr-2" />
             Book a ride
           </h2>
@@ -90,10 +109,30 @@ const Dashboard = () => {
           </form>
         </div>
         <div ref={searchPanelRef} className="bg-zinc-100 h-0">
-          <LocationPanel />
+          <LocationPanel
+            setrideSelectionPanel={setrideSelectionPanel}
+            setSearchPanel={setSearchPanel}
+          />
         </div>
         <div>
-          <RideSelection/>
+          <RideSelection
+            rideSelectionPanel={rideSelectionPanel}
+            setrideSelectionPanel={setrideSelectionPanel}
+            setrideConfirmationPanel={setrideConfirmationPanel}
+          />
+        </div>
+        <div>
+          <RideConfirmation
+            setlookingForDriverPanel={setlookingForDriverPanel}
+            rideConfirmationPanel={rideConfirmationPanel}
+            setrideConfirmationPanel={setrideConfirmationPanel}
+          />
+        </div>
+        <div>
+            <LookingForDriver
+            lookingForDriverPanel={lookingForDriverPanel}
+            setlookingForDriverPanel={setlookingForDriverPanel}
+          />
         </div>
       </div>
     </div>
