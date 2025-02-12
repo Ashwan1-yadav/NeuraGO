@@ -14,6 +14,7 @@ import { Navigate } from "react-router-dom";
 import UserRouteProtector from "../utils/UserRouteProtector";
 import DriverRouteProtector from "../utils/DriverRouteProtector";
 import PaymentPage from "../pages/PaymentPage";
+import DriverRiding from "../pages/DriverRiding";
 
 const App = () => {
   return (
@@ -58,6 +59,8 @@ const App = () => {
             </UserRouteProtector>
           }
         />
+        <Route path="/driver-riding" element={<DriverRiding/>}>
+        </Route>
       </Routes>
     </div>
   );
