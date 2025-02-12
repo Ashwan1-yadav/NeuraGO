@@ -81,7 +81,7 @@ const FinishRide = ({ finishRidePanel, setfinishRidePanel }) => {
         </div>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <Link
-          to="/driver-riding"
+          to="/driver-dashboard"
           className=" inline-block text-center shadow-lg bg-green-400 active:bg-green-600 text-zinc-800 text-md font-bold w-full rounded-lg px-4 py-1 mt-4"
         >
           Finish Ride
