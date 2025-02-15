@@ -30,7 +30,6 @@ const FinishRide = ({ finishRidePanel, setfinishRidePanel }) => {
     },
     { dependencies: [finishRidePanel] }
   );
-
   return (
     <div className="h-screen w-screen relative overflow-hidden">
       <div

@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import axios from "axios";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaLocationArrow } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
@@ -13,13 +15,14 @@ import RideDriverInfo from "../components/RideDriverInfo";
 
 const Dashboard = () => {
   const [location, setLocation] = useState("");
+  const [locationSuggestions, setlocationSuggestions] = useState([]);
+  const [destinationSuggestions, setdestinationSuggestions] = useState([]);
   const [destination, setDestination] = useState("");
   const [searchPanel, setSearchPanel] = useState(false);
   const [rideSelectionPanel, setrideSelectionPanel] = useState(false);
   const [rideConfirmationPanel, setrideConfirmationPanel] = useState(false);
   const [lookingForDriverPanel, setlookingForDriverPanel] = useState(false);
-  const [RideDriverInfoPanel, setRideDriverInfoPanel] = useState(false)
-  
+  const [RideDriverInfoPanel, setRideDriverInfoPanel] = useState(false);
 
   const searchPanelRef = useRef(null);
   const panelRef = useRef(null);
@@ -29,8 +32,43 @@ const Dashboard = () => {
     e.preventDefault();
   };
 
+  const handleLocationChange = async (e) => {
+    setLocation(e.target.value);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/maps/getSuggestedLocations`,
+        {
+          params: { address: e.target.value },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user-token")}`,
+          },
+        }
+      );
+      setlocationSuggestions(response.data);
+    } catch {
+      // handle error
+    }
+  };
+
+  const handleDestinationChange = async (e) => {
+    setDestination(e.target.value);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/maps/getSuggestedLocations`,
+        {
+          params: { address: e.target.value },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user-token")}`,
+          },
+        }
+      );
+      setdestinationSuggestions(response.data);
+    } catch {
+      // handle error
+    }
+  };
+
   useGSAP(() => {
-    // Create a timeline for smoother animations
     const tl = gsap.timeline();
 
     tl.to(searchPanelRef.current, {
@@ -93,7 +131,7 @@ const Dashboard = () => {
             <IoLocationSharp className="absolute top-16 left-7 text-zinc-400 text-lg" />
             <input
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={handleLocationChange}
               onClick={() => setSearchPanel(true)}
               className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
               type="text"
@@ -104,7 +142,7 @@ const Dashboard = () => {
             <input
               value={destination}
               onClick={() => setSearchPanel(true)}
-              onChange={(e) => setDestination(e.target.value)}
+              onChange={handleDestinationChange}
               className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
               type="text"
               placeholder="Enter your destination"
@@ -132,18 +170,18 @@ const Dashboard = () => {
           />
         </div>
         <div>
-            <LookingForDriver
+          <LookingForDriver
             lookingForDriverPanel={lookingForDriverPanel}
             setlookingForDriverPanel={setlookingForDriverPanel}
             setRideDriverInfoPanel={setRideDriverInfoPanel}
           />
         </div>
         <div>
-          <RideDriverInfo 
-          RideDriverInfoPanel={RideDriverInfoPanel}
-          setRideDriverInfoPanel={setRideDriverInfoPanel}
-          setSearchPanel={setSearchPanel}
-           />
+          <RideDriverInfo
+            RideDriverInfoPanel={RideDriverInfoPanel}
+            setRideDriverInfoPanel={setRideDriverInfoPanel}
+            setSearchPanel={setSearchPanel}
+          />
         </div>
       </div>
     </div>
