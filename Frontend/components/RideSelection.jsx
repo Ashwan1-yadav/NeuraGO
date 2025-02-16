@@ -10,6 +10,7 @@ const RideSelection = ({
   rideSelectionPanel,
   setrideSelectionPanel,
   setrideConfirmationPanel,
+  rideFare,
 }) => {
   const rideSelectionPanelRef = useRef(null);
 
@@ -56,12 +57,10 @@ const RideSelection = ({
             Sedan
             <span className="text-xs ml-2 flex items-center gap-[2px]">
               <RiUser3Fill />
-              <span>4</span>
+              <span>3</span>
             </span>
           </h2>
-          <p className="text-xs flex items-center gap-1 justify-center">
-            2 mins away
-          </p>
+          
         </div>
         <div>
           <h2 className="flex items-center">
@@ -70,7 +69,7 @@ const RideSelection = ({
                 <FaIndianRupeeSign />
               </span>
             </span>
-            <span className="font-bold">280</span>
+            <span className="font-bold">{rideFare.car}</span>
           </h2>
         </div>
       </div>
@@ -87,12 +86,10 @@ const RideSelection = ({
             Auto
             <span className="text-xs ml-2 flex items-center gap-[2px]">
               <RiUser3Fill />
-              <span>3</span>
+              <span>2</span>
             </span>
           </h2>
-          <p className="text-xs flex items-center  justify-center">
-            2 mins away
-          </p>
+          
         </div>
         <div>
           <h2 className="flex items-center">
@@ -101,7 +98,7 @@ const RideSelection = ({
                 <FaIndianRupeeSign />
               </span>
             </span>
-            <span className="font-bold">123</span>
+            <span className="font-bold">{rideFare.auto}</span>
           </h2>
         </div>
       </div>
@@ -115,15 +112,13 @@ const RideSelection = ({
         <img className="h-10 w-17" src="../moto.png" alt="car image" />
         <div>
           <h2 className="flex items-center">
-            Moto
+            Bike
             <span className="text-xs ml-2 flex items-center gap-[2px]">
               <RiUser3Fill />
-              <span>2</span>
+              <span>1</span>
             </span>
           </h2>
-          <p className="text-xs flex items-center  justify-center">
-            2 mins away
-          </p>
+          
         </div>
         <div>
           <h2 className="flex items-center">
@@ -132,7 +127,7 @@ const RideSelection = ({
                 <FaIndianRupeeSign />
               </span>
             </span>
-            <span className="font-bold">78</span>
+            <span className="font-bold">{rideFare.bike}</span>
           </h2>
         </div>
       </div>

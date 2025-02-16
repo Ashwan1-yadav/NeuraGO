@@ -2,6 +2,55 @@ const RideModel = require("../models/rideModel");
 const { getDistanceAndTime } = require("./mapService");
 const crypto = require("crypto");
 
+module.exports.fareCalculation = async function(pickUpAddress, destination) {
+  if (!pickUpAddress || !destination) {
+    throw new Error("Pick up address and destination are required");
+  }
+  const { distance, duration } = await getDistanceAndTime(
+    pickUpAddress,
+    destination
+  );
+  const baseFare = {
+    auto: 5,
+    car: 8,
+    bike: 3,
+  };
+
+  const perKmRate = {
+    auto: 1,
+    car: 2,
+    bike: 0.5,
+  };
+
+  const perMinuteRate = {
+    auto: 0.5,
+    car: 0.6,
+    bike: 0.2,
+  };
+
+  const fare = {
+    auto: Math.round(
+      baseFare.auto +
+        (distance.value / 1000) * perKmRate.auto +
+        (duration.value / 60) * perMinuteRate.auto
+    ),
+
+    car: Math.round(
+      baseFare.car +
+        (distance.value / 1000) * perKmRate.car +
+        (duration.value / 60) * perMinuteRate.car
+    ),
+
+    bike: Math.round(
+      baseFare.bike +
+        (distance.value / 1000) * perKmRate.bike +
+        (duration.value / 60) * perMinuteRate.bike
+    ),
+  };
+
+  return fare;
+}
+
 async function fareCalculation(pickUpAddress, destination) {
   if (!pickUpAddress || !destination) {
     throw new Error("Pick up address and destination are required");
@@ -11,21 +60,21 @@ async function fareCalculation(pickUpAddress, destination) {
     destination
   );
   const baseFare = {
-    auto: 30,
-    car: 50,
-    bike: 20,
+    auto: 5,
+    car: 8,
+    bike: 3,
   };
 
   const perKmRate = {
-    auto: 10,
-    car: 15,
-    bike: 8,
+    auto: 1,
+    car: 2,
+    bike: 0.5,
   };
 
   const perMinuteRate = {
-    auto: 2,
-    car: 3,
-    bike: 1.5,
+    auto: 0.5,
+    car: 0.6,
+    bike: 0.2,
   };
 
   const fare = {

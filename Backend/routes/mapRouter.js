@@ -10,6 +10,6 @@ router.get('/getCoordinates',isLoggedInUser, query('address').isString().isLengt
 
 router.get("/getDistanceAndTime", isLoggedInUser, query("from").isString().isLength({ min: 3 }).withMessage("From must be at least 3 characters long"), query("to").isString().isLength({ min: 3 }).withMessage("To must be at least 3 characters long"), getDistanceAndTime);
 
-router.get("/getSuggestedLocations", isLoggedInUser, query("address").isString().isLength({ min: 3 }).withMessage("Address must be at least 3 characters long"), getSuggestedLocations);
+router.get("/getSuggestedLocations",isLoggedInUser,query("address").isString(), getSuggestedLocations);
 
 module.exports = router;

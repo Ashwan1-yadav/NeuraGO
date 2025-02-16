@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -17,7 +16,9 @@ const Dashboard = () => {
   const [location, setLocation] = useState("");
   const [locationSuggestions, setlocationSuggestions] = useState([]);
   const [destinationSuggestions, setdestinationSuggestions] = useState([]);
+  const [activeField, setActiveField] = useState(null);
   const [destination, setDestination] = useState("");
+  const [rideFare, setrideFare] = useState(0);
   const [searchPanel, setSearchPanel] = useState(false);
   const [rideSelectionPanel, setrideSelectionPanel] = useState(false);
   const [rideConfirmationPanel, setrideConfirmationPanel] = useState(false);
@@ -67,6 +68,22 @@ const Dashboard = () => {
       // handle error
     }
   };
+
+  async function selectRide(){
+    setrideSelectionPanel(true)
+    setSearchPanel(false)
+
+    const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/ride/getRideFare`,{
+      params : {
+        location,
+        destination,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("user-token")}`,
+      },
+    })
+    setrideFare(result.data)
+  }
 
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -132,7 +149,10 @@ const Dashboard = () => {
             <input
               value={location}
               onChange={handleLocationChange}
-              onClick={() => setSearchPanel(true)}
+              onClick={() => {
+                setSearchPanel(true)
+                setActiveField("location")
+              }}
               className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
               type="text"
               placeholder="Search for a place or address"
@@ -141,18 +161,27 @@ const Dashboard = () => {
             <FaLocationArrow className="absolute top-26 left-7 text-zinc-400 text-lg" />
             <input
               value={destination}
-              onClick={() => setSearchPanel(true)}
+              onClick={() => {
+                setSearchPanel(true)
+                setActiveField("destination")
+              }}
               onChange={handleDestinationChange}
               className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
               type="text"
               placeholder="Enter your destination"
             />
           </form>
+          
         </div>
         <div ref={searchPanelRef} className="bg-zinc-100 h-0">
           <LocationPanel
+            selectRide={selectRide}
             setrideSelectionPanel={setrideSelectionPanel}
             setSearchPanel={setSearchPanel}
+            activeField={activeField}
+            setDestination={setDestination}
+            setLocation={setLocation}
+            suggestions={activeField === "location" ? locationSuggestions : destinationSuggestions}
           />
         </div>
         <div>
@@ -160,6 +189,7 @@ const Dashboard = () => {
             rideSelectionPanel={rideSelectionPanel}
             setrideSelectionPanel={setrideSelectionPanel}
             setrideConfirmationPanel={setrideConfirmationPanel}
+            rideFare={rideFare}
           />
         </div>
         <div>

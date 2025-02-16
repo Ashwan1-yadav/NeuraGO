@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/user", userRouter);
 app.use("/driver", driverRouter);
-app.use("/map", mapRouter);
+app.use("/maps", mapRouter);
 app.use("/ride", rideRouter);
 
 app.get("/", (req, res) => {

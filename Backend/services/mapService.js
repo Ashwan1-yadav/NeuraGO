@@ -65,9 +65,9 @@ module.exports.getSuggestedLocations = async (address) => {
     if (!address) {
         throw new Error('address is required');
     }
-
+    const query = encodeURIComponent(address);
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
-    const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(address)}&key=${apiKey}`;
+    const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${query}&key=${apiKey}`;
    
     try {
         const response = await axios.get(url);
