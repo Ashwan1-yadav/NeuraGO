@@ -24,6 +24,8 @@ const Dashboard = () => {
   const [rideConfirmationPanel, setrideConfirmationPanel] = useState(false);
   const [lookingForDriverPanel, setlookingForDriverPanel] = useState(false);
   const [RideDriverInfoPanel, setRideDriverInfoPanel] = useState(false);
+  const [vehicleType, setVehicleType] = useState(null);
+  // const [pickUpAddress, setPickUpAddress] = useState(null);
 
   const searchPanelRef = useRef(null);
   const panelRef = useRef(null);
@@ -84,6 +86,19 @@ const Dashboard = () => {
     })
     setrideFare(result.data)
   }
+
+  // async function createRide(){
+  //   const result = await axios.post(`${import.meta.env.VITE_BASE_URL}/ride/createRide`,{
+  //     pickUpAddress,
+  //     destination,
+  //     vehicleType,
+  //   },{
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("user-token")}`,
+  //     },
+  //   })
+  //   setrideFare(result.data)
+  // }
 
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -190,6 +205,7 @@ const Dashboard = () => {
             setrideSelectionPanel={setrideSelectionPanel}
             setrideConfirmationPanel={setrideConfirmationPanel}
             rideFare={rideFare}
+            setVehicleType={setVehicleType}
           />
         </div>
         <div>
@@ -197,6 +213,11 @@ const Dashboard = () => {
             setlookingForDriverPanel={setlookingForDriverPanel}
             rideConfirmationPanel={rideConfirmationPanel}
             setrideConfirmationPanel={setrideConfirmationPanel}
+            location={location}
+            destination={destination}
+            setDestination={setDestination}
+            rideFare={rideFare}
+            vehicleType={vehicleType}
           />
         </div>
         <div>
@@ -204,6 +225,7 @@ const Dashboard = () => {
             lookingForDriverPanel={lookingForDriverPanel}
             setlookingForDriverPanel={setlookingForDriverPanel}
             setRideDriverInfoPanel={setRideDriverInfoPanel}
+            
           />
         </div>
         <div>

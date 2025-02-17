@@ -11,6 +11,7 @@ const RideSelection = ({
   setrideSelectionPanel,
   setrideConfirmationPanel,
   rideFare,
+  setVehicleType,
 }) => {
   const rideSelectionPanelRef = useRef(null);
 
@@ -48,6 +49,7 @@ const RideSelection = ({
         onClick={() => {
           setrideConfirmationPanel(true);
           setrideSelectionPanel(false);
+          setVehicleType("car");
         }}
         className="px-4 gap-3 py-2 h-15  bg-zinc-100 flex justify-between items-center active:border-2 my-2 rounded-lg"
       >
@@ -60,7 +62,6 @@ const RideSelection = ({
               <span>3</span>
             </span>
           </h2>
-          
         </div>
         <div>
           <h2 className="flex items-center">
@@ -77,6 +78,7 @@ const RideSelection = ({
         onClick={() => {
           setrideConfirmationPanel(true);
           setrideSelectionPanel(false);
+          setVehicleType("auto");
         }}
         className="px-4 gap-3 py-2 h-15  bg-zinc-100 flex justify-between items-center rounded-lg active:border-2"
       >
@@ -89,7 +91,6 @@ const RideSelection = ({
               <span>2</span>
             </span>
           </h2>
-          
         </div>
         <div>
           <h2 className="flex items-center">
@@ -106,6 +107,7 @@ const RideSelection = ({
         onClick={() => {
           setrideConfirmationPanel(true);
           setrideSelectionPanel(false);
+          setVehicleType("bike");
         }}
         className="px-4 gap-3 py-2 my-2 h-15  bg-zinc-100 flex justify-between items-center rounded-lg active:border-2"
       >
@@ -118,7 +120,6 @@ const RideSelection = ({
               <span>1</span>
             </span>
           </h2>
-          
         </div>
         <div>
           <h2 className="flex items-center">
