@@ -15,6 +15,8 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 
 - 🔐 Secure user authentication and authorization
 - 📍 Real-time location tracking
+- 💰 Secure payments using Razorpay
+- 📱 Responsive and mobile-friendly interface
 - 🚗 Driver-passenger matching algorithm
 - ⭐ Rating and review system
 
@@ -34,32 +36,32 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 	 cd NeuraGo
 	 ```
 
-2. Install dependencies for backend:
+2. Install dependencies for Backend:
 	 ```bash
 	 cd Backend
 	 npm install
 	 ```
 
-3. Install dependencies for frontend:
+3. Install dependencies for Frontend:
 	 ```bash
-	 cd ../frontend
+	 cd ../Frontend
 	 npm install
 	 ```
 
 4. Set up environment variables:
-	 Create `.env` files in both backend and frontend directories:
+	 Create `.env` files in both Backend and Frontend directories:
 
 	 Backend `.env`:
 	 ```
 	 PORT=3000
-	 MONGODB_URL=your_mongodb_url
+	 MONGO_URL=your_mongodb_url
 	 JWT_SECRET=your_jwt_secret
+	 GOOGLE_MAPS_API_KEY="your_google_maps_api_key"
 	 ```
 
 	 Frontend `.env`:
 	 ```
-	 REACT_APP_API_URL=http://localhost:5173
-	 REACT_APP_GOOGLE_MAPS_KEY=your_google_maps_key
+	 VITE_BASE_URL="http://localhost:3000"
 	 ```
 
 5. Start the development servers:
@@ -72,7 +74,7 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 
 	 Frontend:
 	 ```bash
-	 cd frontend
+	 cd Frontend
 	 npm start
 	 ```
 

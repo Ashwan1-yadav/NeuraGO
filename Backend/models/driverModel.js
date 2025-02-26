@@ -60,7 +60,9 @@ const driverSchema = new mongoose.Schema({
         type: Number,
       },
     },
-  
+    socket_id: {
+      type: String,
+    },
 });
 
 driverSchema.methods.genAuthToken = function (){

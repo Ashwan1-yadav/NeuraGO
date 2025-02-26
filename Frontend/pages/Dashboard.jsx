@@ -38,6 +38,7 @@ const Dashboard = () => {
   useEffect(() => {
     if(user !== ""){
       socket.emit("join",{userType:"user",userId:user._id,firstName:user.firstName})
+      console.log(user)
     }
   },[user, socket])
  
