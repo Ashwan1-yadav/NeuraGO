@@ -3,12 +3,21 @@ import { FaRegClock } from "react-icons/fa";
 import { MdOutlineSpeed } from "react-icons/md";
 import { LuNotebookTabs } from "react-icons/lu";
 import NewRideAvailable from "../components/NewRideAvailable";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import { DriverDataContext } from "../context/DriverContext";
+import { SocketContext } from "../context/SocketContext";
 
 const DriverDashboard = () => {
 
   const { driver } = useContext(DriverDataContext);
+  const { socket } = useContext(SocketContext);
+
+  useEffect(() => {
+    if(driver !== ""){
+      socket.emit("join",{userType:"driver",userId:driver._id,firstName:driver.firstName})
+      console.log(driver)
+    }
+  },[driver, socket])
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">

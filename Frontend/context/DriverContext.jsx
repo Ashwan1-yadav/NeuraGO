@@ -5,11 +5,7 @@ import {useState,createContext} from 'react'
 export const DriverDataContext = createContext()
 
 const DriverContext = ({ children }) => {
-  const [driver, setDriver] = useState({
-    email:"",
-    firstName:"",
-    lastName:"",
-  })
+  const [driver, setDriver] = useState("")
   return (
     <div>
         <DriverDataContext.Provider value={{driver, setDriver}}>

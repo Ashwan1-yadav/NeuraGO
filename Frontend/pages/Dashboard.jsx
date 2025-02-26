@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef,useContext, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -38,9 +37,9 @@ const Dashboard = () => {
   
   useEffect(() => {
     if(user !== ""){
-      socket.emit("join",{userType:"user",userId:user.user._id,firstName:user.user.firstName})
+      socket.emit("join",{userType:"user",userId:user._id,firstName:user.firstName})
     }
-  },[user])
+  },[user, socket])
  
   const submithandler = async (e) => {
     e.preventDefault();
