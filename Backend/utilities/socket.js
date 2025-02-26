@@ -16,14 +16,14 @@ function initSocket(server) {
         console.log(`Client connected : ${socket.id}`);
 
         socket.on('join', async (data) => {
-            const {user_id,user_Type} = data;
+            const {userId,userType,firstName} = data;
 
-            console.log(`User ${user_id} joined as ${user_Type}`)
-            if(user_Type === 'user'){
-                await userModel.findByIdAndUpdate(user_id,{$set:{socket_id:socket.id}});
+            console.log(`Username : ${firstName}, id : ${userId} joined as ${userType}`)
+            if(userType === 'user'){
+                await userModel.findByIdAndUpdate(userId,{$set:{socket_id:socket.id}});
                 console.log(`user connected : ${socket.id}`);
-            } else if(user_Type === 'driver'){
-                await driverModel.findByIdAndUpdate(user_id,{$set:{socket_id:socket.id}});
+            } else if(userType === 'driver'){
+                await driverModel.findByIdAndUpdate(userId,{$set:{socket_id:socket.id}});
                 console.log(`driver connected : ${socket.id}`);
             }
         });

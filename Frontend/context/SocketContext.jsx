@@ -18,17 +18,17 @@ const SocketContextProvider = ({ children }) => {
         });
     }, []);
 
-    const sendMessage = (eventName,message) => {
-        console.log(`sending message : ${message} to ${eventName}`)
-        socket.emit(eventName,message);
-    };
+    // const sendMessage = (eventName,message) => {
+    //     console.log(`sending message : ${message} to ${eventName}`)
+    //     socket.emit(eventName,message);
+    // };
 
-    const receiveMessage = (eventName,callback) => {
-        socket.on(eventName,callback);
-    };
+    // const receiveMessage = (eventName,callback) => {
+    //     socket.on(eventName,callback);
+    // };
 
     return (
-        <SocketContext.Provider value={{sendMessage,receiveMessage}}>
+        <SocketContext.Provider value={{socket}}>
             {children}
         </SocketContext.Provider>
     );

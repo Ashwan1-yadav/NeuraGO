@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef,useContext, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -33,14 +33,14 @@ const Dashboard = () => {
   const panelRef = useRef(null);
   const panelCloseButtonRef = useRef(null);
 
-  const {sendMessage,receiveMessage} = useContext(SocketContext);
+  const {socket} = useContext(SocketContext);
   const {user} = useContext(UserDataContext);
-
+  
   useEffect(() => {
-    if(!user) return;
-    console.log(user)
-    sendMessage("join",{user_id:user._id,user_Type:"user"})
-  })
+    if(user !== ""){
+      socket.emit("join",{userType:"user",userId:user.user._id,firstName:user.user.firstName})
+    }
+  },[user])
  
   const submithandler = async (e) => {
     e.preventDefault();
