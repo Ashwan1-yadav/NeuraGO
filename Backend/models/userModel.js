@@ -25,9 +25,10 @@ const userSchema = new mongoose.Schema({
     min: [8, "Password must be atleast 6 characters long"],
     select: false
   },
-  socketID: {
+  socket_id: {
     type: String,
   },
+  
 });
 
 userSchema.methods.genAuthToken = function (){

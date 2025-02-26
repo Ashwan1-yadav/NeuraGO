@@ -4,16 +4,33 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { FaIndianRupeeSign } from "react-icons/fa6";
 import { RiMapPinUserFill } from "react-icons/ri";
+import { FaLocationArrow } from "react-icons/fa6";
 
 
-const RideConfirmation = ({
+const LookingForDriver = ({
   lookingForDriverPanel,
   setlookingForDriverPanel,
   setRideDriverInfoPanel,
+  location,
+  destination,
+  vehicleType,
 }) => {
+
   const lookingForDriverPanelRef = useRef(null);
+
+  const getVehicleImage = () => {
+    switch(vehicleType) {
+      case 'car':
+        return "../car-2.png";
+      case 'auto':
+        return "../auto.png";
+      case 'bike':
+        return "../moto.png";
+      default:
+        return "Vehicle Image";
+    }
+  };
 
   useGSAP(() => {
     if (lookingForDriverPanel) {
@@ -35,7 +52,7 @@ const RideConfirmation = ({
     <div>
       <div
         ref={lookingForDriverPanelRef}
-        className="fixed w-full rounded-t-lg shadow-t-lg bg-white z-10 bottom-0 px-3 py-3 translate-y-full"
+        className="fixed w-full rounded-t-lg shadow-t-lg bg-white z-1 bottom-0 px-3 py-3 translate-y-full"
       >
         <h1 className="text-xl gap-2 font-bold flex items-center">
           <RiMapPinUserFill/>Looking For Driver ...</h1>
@@ -49,22 +66,26 @@ const RideConfirmation = ({
         </p>
         <hr className="mt-4 mb-2 border-zinc-200" />
         <div className="flex justify-center items-center mt-[20px]">
-          <img className="h-20 w-35 " src="../car-2.png" alt="car image" />
+          <img className="h-20 w-35 " src={getVehicleImage()} alt={`Vehicle image`} />
         </div>
-        <hr className="mt-4 mb-2 border-zinc-200" />
+        <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-10 w-[90%] flex items-center gap-2">
           <FaMapLocationDot />
-          <h2 className="text-xl font-bold">Address</h2>
+          <h2 className="text-lg font-bold">Pickup Address</h2>
         </div>
-        <p className="test-md text-zinc-400 mt-[-8px] ml-[29px]">
+        <p className="text-[18px] text-zinc-500 mt-[-8px] ml-[29px]">
           {" "}
-          full address
+          {location}
         </p>
-        <hr className="mt-4 mb-2 border-zinc-200" />
+        <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-10 w-[90%] flex items-center gap-2">
-          <FaIndianRupeeSign />
-          <h2 className="text-xl font-bold">Price</h2>
+          <FaLocationArrow />
+          <h2 className="text-lg font-bold">Destination Address</h2>
         </div>
+        <p className="text-[18px] text-zinc-500 mt-[-8px] ml-[29px]">
+          {" "}
+          {destination}
+        </p>
         <hr className="mt-4 mb-2 border-zinc-200" />
         <button  className="bg-yellow-400 font-bold text-black rounded-lg px-4 py-2 mt-4 flex justify-center items-center w-full " onClick={() => {
             setRideDriverInfoPanel(true);
@@ -75,4 +96,4 @@ const RideConfirmation = ({
   );
 };
 
-export default RideConfirmation;
+export default LookingForDriver;

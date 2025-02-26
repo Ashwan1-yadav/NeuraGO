@@ -20,7 +20,7 @@ const LocationPanel = ({
   return (
     <>
     <div className="mt-1 p-1">
-        <button onClick={selectRide} className="bg-zinc-900 text-white shadow-xl rounded-xl w-full px-4 py-2 text-md font-bold">
+        <button onClick={selectRide} className="bg-zinc-900 text-white shadow-xl rounded-xl w-full px-4 py-2 text-md font-bold z-10">
           Find Ride
         </button>
       </div>

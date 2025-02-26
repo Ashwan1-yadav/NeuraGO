@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+/* eslint-disable no-unused-vars */
+import { useState, useRef,useContext, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import axios from "axios";
@@ -11,6 +12,8 @@ import RideSelection from "../components/RideSelection";
 import RideConfirmation from "../components/RideConfirmation";
 import LookingForDriver from "../components/LookingForDriver";
 import RideDriverInfo from "../components/RideDriverInfo";
+import { SocketContext } from "../context/SocketContext";
+import {UserDataContext} from "../context/UserContext";
 
 const Dashboard = () => {
   const [location, setLocation] = useState("");
@@ -25,12 +28,20 @@ const Dashboard = () => {
   const [lookingForDriverPanel, setlookingForDriverPanel] = useState(false);
   const [RideDriverInfoPanel, setRideDriverInfoPanel] = useState(false);
   const [vehicleType, setVehicleType] = useState(null);
-  // const [pickUpAddress, setPickUpAddress] = useState(null);
 
   const searchPanelRef = useRef(null);
   const panelRef = useRef(null);
   const panelCloseButtonRef = useRef(null);
 
+  const {sendMessage,receiveMessage} = useContext(SocketContext);
+  const {user} = useContext(UserDataContext);
+
+  useEffect(() => {
+    if(!user) return;
+    console.log(user)
+    sendMessage("join",{user_id:user._id,user_Type:"user"})
+  })
+ 
   const submithandler = async (e) => {
     e.preventDefault();
   };
@@ -87,18 +98,18 @@ const Dashboard = () => {
     setrideFare(result.data)
   }
 
-  // async function createRide(){
-  //   const result = await axios.post(`${import.meta.env.VITE_BASE_URL}/ride/createRide`,{
-  //     pickUpAddress,
-  //     destination,
-  //     vehicleType,
-  //   },{
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("user-token")}`,
-  //     },
-  //   })
-  //   setrideFare(result.data)
-  // }
+  async function createRide(){
+    const result = await axios.post(`${import.meta.env.VITE_BASE_URL}/ride/createRide`,{
+      pickUpAddress: location,
+      destination,
+      vehicleType,
+    },{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("user-token")}`,
+      },
+    })
+    setrideFare(result.data)
+  }
 
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -218,6 +229,7 @@ const Dashboard = () => {
             setDestination={setDestination}
             rideFare={rideFare}
             vehicleType={vehicleType}
+            createRide={createRide}
           />
         </div>
         <div>
@@ -225,7 +237,9 @@ const Dashboard = () => {
             lookingForDriverPanel={lookingForDriverPanel}
             setlookingForDriverPanel={setlookingForDriverPanel}
             setRideDriverInfoPanel={setRideDriverInfoPanel}
-            
+            location={location}
+            vehicleType={vehicleType}
+            destination={destination}
           />
         </div>
         <div>

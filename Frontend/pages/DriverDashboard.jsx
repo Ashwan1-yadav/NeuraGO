@@ -3,8 +3,13 @@ import { FaRegClock } from "react-icons/fa";
 import { MdOutlineSpeed } from "react-icons/md";
 import { LuNotebookTabs } from "react-icons/lu";
 import NewRideAvailable from "../components/NewRideAvailable";
+import { useContext } from "react";
+import { DriverDataContext } from "../context/DriverContext";
 
 const DriverDashboard = () => {
+
+  const { driver } = useContext(DriverDataContext);
+
   return (
     <div className="h-screen w-screen relative overflow-hidden">
       <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center text-gray-200 shadow-lg">
@@ -25,7 +30,7 @@ const DriverDashboard = () => {
               src="../driver-placeholder.png"
               alt="driver image"
             />
-            <h2 className="text-md font-bold">Driver Name</h2>
+            <h2 className="text-md font-bold capitalize">{driver.firstName}{" "}{driver.lastName}</h2>
           </div>
           <div className="flex flex-col text-md gap-[-14px]">
             <div className="flex items-center">

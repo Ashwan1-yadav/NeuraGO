@@ -7,9 +7,6 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa6";
 
-
-
-
 const RideConfirmation = ({
   rideConfirmationPanel,
   setrideConfirmationPanel,
@@ -17,7 +14,8 @@ const RideConfirmation = ({
   location,
   destination,
   rideFare,
-  vehicleType
+  vehicleType,
+  createRide
 }) => {
   const rideConfirmationPanelRef = useRef(null);
 
@@ -51,7 +49,6 @@ const RideConfirmation = ({
     if (rideConfirmationPanel) {
       gsap.to(rideConfirmationPanelRef.current, {
         transform: "translateY(0%)",
-        opacity : 1,
         duration: 0.5,
         ease: "power2.inOut",
       });
@@ -68,7 +65,7 @@ const RideConfirmation = ({
     <div>
       <div
         ref={rideConfirmationPanelRef}
-        className="fixed w-full rounded-t-lg shadow-t-lg bg-white bottom-0 opacity-0 px-4 translate-y-full"
+        className="fixed w-full rounded-t-lg shadow-t-lg bg-white bottom-0 px-4 translate-y-full z-2"
       >
         <h1 className="text-2xl font-bold mt-2">Confirm your ride</h1>
         <p>
@@ -116,6 +113,7 @@ const RideConfirmation = ({
           onClick={() => {
             setlookingForDriverPanel(true);
             setrideConfirmationPanel(false);
+            createRide();
           }}
           className=" bg-green-400 active:bg-green-600 text-zinc-800 text-xl font-bold w-full rounded-lg px-4 py-1 mt-4 mb-2"
         >
