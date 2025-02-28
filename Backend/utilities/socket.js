@@ -27,6 +27,14 @@ function initSocket(server) {
                 console.log(`driver connected : ${socket.id}`);
             }
         });
+        socket.on('driver-location-update', async (data) => {
+            const {driverId,latitude,longitude} = data;
+            if(!driverId || !latitude || !longitude) {
+                throw new Error('Driver id, latitude and longitude are required');
+            }
+            await driverModel.findByIdAndUpdate(driverId,{$set:{location:{latitude,longitude}}});
+            
+        });
         socket.on('disconnect', function(){
             console.log('Client disconnected');
         });

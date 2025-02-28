@@ -3,25 +3,41 @@ import { FaRegClock } from "react-icons/fa";
 import { MdOutlineSpeed } from "react-icons/md";
 import { LuNotebookTabs } from "react-icons/lu";
 import NewRideAvailable from "../components/NewRideAvailable";
-import { useContext,useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { DriverDataContext } from "../context/DriverContext";
 import { SocketContext } from "../context/SocketContext";
 
 const DriverDashboard = () => {
-
   const { driver } = useContext(DriverDataContext);
   const { socket } = useContext(SocketContext);
 
   useEffect(() => {
-    if(driver !== ""){
-      socket.emit("join",{userType:"driver",userId:driver._id,firstName:driver.firstName})
-      console.log(driver)
+    if (driver !== "") {
+      socket.emit("join", {
+        userType: "driver",
+        userId: driver._id,
+        firstName: driver.firstName,
+      });
+      console.log(driver);
     }
-  },[driver, socket])
+    const updateLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          const { latitude, longitude } = position.coords;
+          socket.emit("driver-location-update", {
+            driverId: driver._id,
+            latitude,
+            longitude,
+          });
+        });
+      }
+    };
+    updateLocation();
+  }, [driver, socket]);
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">
-      <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center text-gray-200 shadow-lg">
+      <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg">
         NeuraGO
       </p>
       <div className="h-screen w-screen">
@@ -39,12 +55,14 @@ const DriverDashboard = () => {
               src="../driver-placeholder.png"
               alt="driver image"
             />
-            <h2 className="text-md font-bold capitalize">{driver.firstName}{" "}{driver.lastName}</h2>
+            <h2 className="text-md font-bold capitalize">
+              {driver.firstName} {driver.lastName}
+            </h2>
           </div>
           <div className="flex flex-col text-md gap-[-14px]">
             <div className="flex items-center">
-            <FaIndianRupeeSign />
-            <h2 className="text-md font-bold">200</h2>
+              <FaIndianRupeeSign />
+              <h2 className="text-md font-bold">200</h2>
             </div>
             <p className="text-zinc-500 ml-[20px] text-[13px]">Earned</p>
           </div>
@@ -52,23 +70,23 @@ const DriverDashboard = () => {
         <hr className="mt-3 mb-3 border-zinc-300" />
         <div className="flex justify-around p-5 items-center h-16 w-full bg-orange-300 border-1 border-orange-600 shadow-lg rounded-xl ">
           <div className="text-lg flex flex-col  items-center">
-            <FaRegClock className="text-md"/>
+            <FaRegClock className="text-md" />
             <p className="text-[15px]">Hours</p>
             <p className="text-[10px]">Hours Online</p>
           </div>
           <div className="text-lg flex flex-col items-center">
-            <MdOutlineSpeed className="text-md"/>
+            <MdOutlineSpeed className="text-md" />
             <p className="text-[15px]">Speed</p>
             <p className="text-[10px]">Speed Limit</p>
           </div>
           <div className="text-lg flex flex-col items-center">
-            <LuNotebookTabs className="text-md"/>
+            <LuNotebookTabs className="text-md" />
             <p className="text-[15px]">Pickup</p>
             <p className="text-[10px]">Passengers</p>
           </div>
         </div>
       </div>
-      <NewRideAvailable/>
+      <NewRideAvailable />
     </div>
   );
 };

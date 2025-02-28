@@ -1,6 +1,6 @@
 const axios = require('axios');
 require('dotenv').config();
-
+const DriverModel = require('../models/driverModel');
 
 module.exports.getAddressCoordinates = async (address) => {
     try {
@@ -79,4 +79,22 @@ module.exports.getSuggestedLocations = async (address) => {
     } catch (err) {
         throw err;
     }
+}
+
+module.exports.getDriverInRange = async (latitude, longitude, radius) => {
+   if(!latitude || !longitude || !radius) {
+       throw new Error('latitide, longitude and radius are required'); 
+   }
+   try {
+       const drivers = await DriverModel.find({
+           location: {
+               $geoWithin: {
+                   $centerSphere: [[parseFloat(latitude), parseFloat(longitude)], parseFloat(radius)/ 3963.2],
+               },
+           },
+       });
+       return drivers;
+   } catch (error) {
+       throw new Error(`Error getting drivers in range: ${error.message}`);
+   }
 }

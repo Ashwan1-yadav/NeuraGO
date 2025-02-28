@@ -28,6 +28,7 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 - **Real-time Updates**: Socket.io
 - **Maps**: Google Maps API
 
+
 ## 🏗️ Installation
 
 1. Clone the repository:
@@ -84,6 +85,7 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 2. Set your pickup location and destination
 3. Choose your ride type
 4. Confirm and track your ride
+ 
 
 ## Demo Video
 <div align="center">

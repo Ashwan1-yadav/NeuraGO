@@ -54,10 +54,10 @@ const driverSchema = new mongoose.Schema({
     },
     location: {
       latitude: {
-        type: Number,
+        type: String,
       },
       longitude: {
-        type: Number,
+        type: String,
       },
     },
     socket_id: {
@@ -66,7 +66,7 @@ const driverSchema = new mongoose.Schema({
 });
 
 driverSchema.methods.genAuthToken = function (){
-  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '12h' });
   return token;
 };
 
