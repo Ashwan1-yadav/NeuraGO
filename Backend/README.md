@@ -1,4 +1,4 @@
-# NeuraGo Backend API Documentation
+# NeuraGO Backend API Documentation
 
 ## User Management System
 

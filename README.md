@@ -33,8 +33,8 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 
 1. Clone the repository:
 	 ```bash
-	 git clone https://github.com/ashwan1-yadav/NeuraGo.git
-	 cd NeuraGo
+	 git clone https://github.com/ashwan1-yadav/NeuraGO.git
+	 cd NeuraGO
 	 ```
 
 2. Install dependencies for Backend:
@@ -108,5 +108,5 @@ Welcome contributors! Please follow these steps:
 ---
 
 <div align="center">
-	Made with ❤️ NeuraGo 
+	Made with ❤️ NeuraGO 
 </div>
