@@ -81,7 +81,7 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 
 ## 🎯 Usage
 
-1. Create an account or login
+1. Create an neuraGO account or login
 2. Set your pickup location and destination
 3. Choose your ride type
 4. Confirm and track your ride
