@@ -86,7 +86,7 @@ const UserLogin = () => {
           </p>
           <Link
             to="/driver-login"
-            className=" mt-[150px] inline-block bg-green-400 hover:bg-emerald-700 text-black font-bold py-1 px-2 rounded-lg w-full text-[20px] text-center text-lg"
+            className=" absolute bottom-5 left-[16px] inline-block bg-green-400 hover:bg-emerald-700 text-black font-bold py-1 px-5 rounded-lg w-[90%] text-[20px] text-center text-lg"
           >
             Continue as Driver &rarr;
           </Link>

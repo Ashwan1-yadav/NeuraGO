@@ -1,5 +1,5 @@
 const RideModel = require("../models/rideModel");
-const { getDistanceAndTime } = require("./mapService");
+const { getDistanceAndTime} = require("./mapService");
 const crypto = require("crypto");
 
 module.exports.fareCalculation = async function(pickUpAddress, destination) {
