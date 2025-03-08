@@ -54,10 +54,10 @@ const driverSchema = new mongoose.Schema({
     },
     location: {
       latitude: {
-        type: String,
+        type: Number,
       },
       longitude: {
-        type: String,
+        type: Number,
       },
     },
     socket_id: {
