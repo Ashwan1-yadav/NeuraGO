@@ -8,8 +8,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import NewRideConfirmation from "./NewRideConfirmation";
 
-const NewRideAvailable = () => {
-  const [newRideAvailablePanel, setnewRideAvailablePanel] = useState(true);
+const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel}) => {
 
   const [NewRideConfirmationPanel, setNewRideConfirmationPanel] = useState(false);
 

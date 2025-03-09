@@ -4,7 +4,8 @@ const {
   getDriverInRange,
   getAddressCoordinates,
 } = require("../services/mapService");
-const { sendMessage } = require("../utilities/socket")
+const { sendMessage } = require("../utilities/socket");
+const rideModel = require("../models/rideModel");
 
 module.exports.createRide = async (req, res) => {
   const errors = validationResult(req);
@@ -13,11 +14,13 @@ module.exports.createRide = async (req, res) => {
   }
   try {
     const { pickUpAddress, destination, vehicleType } = req.body;
+    const otp = "";
     const ride = await createRide(
       req.user._id,
       pickUpAddress,
       destination,
-      vehicleType
+      vehicleType,
+      otp
     );
     const address_Coordinates = await getAddressCoordinates(pickUpAddress);
     const { latitude, longitude } = address_Coordinates;
@@ -26,10 +29,16 @@ module.exports.createRide = async (req, res) => {
     if (!driversInRange || driversInRange.length === 0) {
       return res.status(400).json({ error: "No drivers found in range" });
     }
-    ride.otp = "";
+
+    const userOfRide = await rideModel
+      .findById({ _id: ride._id })
+      .populate("user");
 
     driversInRange.map((driver) => {
-       sendMessage(driver.socket_id, "new_ride", ride);
+      sendMessage(driver.socket_id, {
+        event: "new_ride",
+        data: userOfRide,
+      });
     });
 
     res.status(201).json(ride);

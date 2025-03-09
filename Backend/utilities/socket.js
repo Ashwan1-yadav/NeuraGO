@@ -29,9 +29,7 @@ function initSocket(server) {
         });
         socket.on('driver-location-update', async (data) => {
             const {driverId,latitude,longitude} = data;
-            if(!driverId || !latitude || !longitude) {
-                throw new Error('Driver id, latitude and longitude are required');
-            }
+           
             await driverModel.findByIdAndUpdate(driverId,{$set:{location:{latitude,longitude}}});
             
         });
@@ -43,8 +41,9 @@ function initSocket(server) {
 }
 
 function sendMessage(socket_id,message){
+    console.log(message,socket_id);
     if(io){
-        io.to(socket_id).emit('message',message);
+        io.to(socket_id).emit(message.event,message.data);
     } else {
         console.log('socket not initialized');
     }

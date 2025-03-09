@@ -3,13 +3,16 @@ import { FaRegClock } from "react-icons/fa";
 import { MdOutlineSpeed } from "react-icons/md";
 import { LuNotebookTabs } from "react-icons/lu";
 import NewRideAvailable from "../components/NewRideAvailable";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DriverDataContext } from "../context/DriverContext";
 import { SocketContext } from "../context/SocketContext";
 
 const DriverDashboard = () => {
   const { driver } = useContext(DriverDataContext);
   const { socket } = useContext(SocketContext);
+
+  const [newRideAvailablePanel, setnewRideAvailablePanel] = useState(false);
+
 
   useEffect(() => {
     if (driver !== "") {
@@ -18,7 +21,6 @@ const DriverDashboard = () => {
         userId: driver._id,
         firstName: driver.firstName,
       });
-      console.log(driver);
     }
     const updateLocation = () => {
       if (navigator.geolocation) {
@@ -34,6 +36,11 @@ const DriverDashboard = () => {
     };
     updateLocation();
   }, [driver, socket]);
+
+  socket.on("new_ride", (ride) => {
+    console.log(ride);
+    setnewRideAvailablePanel(true);
+  });
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">
@@ -86,7 +93,7 @@ const DriverDashboard = () => {
           </div>
         </div>
       </div>
-      <NewRideAvailable />
+      <NewRideAvailable newRideAvailablePanel={newRideAvailablePanel} setnewRideAvailablePanel={setnewRideAvailablePanel} />
     </div>
   );
 };
