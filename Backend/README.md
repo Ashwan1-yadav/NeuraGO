@@ -1,24 +1,35 @@
 # NeuraGO Backend API Documentation
 
-## User Management System
+## 🚀 Overview
+NeuraGO is a ride-hailing platform that connects users with drivers. This backend system provides APIs for user management, driver management, ride booking, and real-time location tracking.
 
-### Architecture
-The user management system follows a layered architecture:
-- Routes (`userRouter.js`): Handles HTTP routes and input validation
-- Controllers (`userController.js`): Manages request/response logic
-- Services (`userService.js`): Contains business logic
-- Models (`userModel.js`): Defines data structure and database interactions
+## 🏗 System Architecture
+The application follows a layered architecture:
+- **Routes**: Handle HTTP endpoints and request validation
+- **Controllers**: Manage request/response logic
+- **Services**: Implement business logic
+- **Models**: Define data structure and database interactions
+- **Middlewares**: Handle authentication and request processing
+- **Utilities**: Provide helper functions and socket management
 
-### API Endpoints
+## 🔧 Technical Stack
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB with Mongoose
+- **Real-time Communication**: Socket.IO
+- **Authentication**: JWT
+- **Location Services**: Google Maps API
+- **Input Validation**: Express Validator
 
-#### User Registration
-- **Route**: POST user/register
-- **Description**: Register a new user
-- **Validation**:
-	- firstName: Min 3 characters
-	- email: Valid email format
-	- password: Min 8 characters
-- **Request Body**:
+## 📚 API Documentation
+
+### 🧑 User Management
+
+#### Register User
+```http
+POST /user/register
+```
+**Body:**
 ```json
 {
 	"firstName": "string",
@@ -27,216 +38,188 @@ The user management system follows a layered architecture:
 	"password": "string"
 }
 ```
-- **Response**: Returns user object and authentication token
 
 #### User Login
-- **Route**: POST user/login
-- **Description**: Authenticate user and generate token
-- **Validation**:
-	- email: Valid email format
-	- password: Min 8 characters
-- **Request Body**:
+```http
+POST /user/login
+```
+**Body:**
 ```json
 {
 	"email": "string",
 	"password": "string"
 }
 ```
-- **Response**: Returns user object and authentication token
 
-#### User Profile
-- **Route**: GET user/profile
-- **Description**: Get authenticated user's profile
-- **Authentication**: Required
-- **Response**: Returns user profile data
+#### User Profile & Logout
+```http
+GET /user/profile
+GET /user/logout
+```
 
-#### User Logout
-- **Route**: GET user/logout
-- **Description**: Logout user and invalidate token
-- **Authentication**: Required
-- **Response**: Logout confirmation message
+### 🚗 Driver Management
 
-### Security Features
-1. Password Hashing: Uses bcrypt for secure password storage
-2. JWT Authentication: Implements JSON Web Tokens for session management
-3. Token Blacklisting: Maintains blocked tokens list for secure logout
-4. Password Selection: Password field excluded from general queries
-
-## 🚗 Driver Management System
-
-### Overview
-The Driver Management System provides comprehensive functionality for managing delivery drivers, including registration, authentication, and vehicle information management.
-
-### Architecture
-The system follows a layered architecture:
-- Routes (`driverRouter.js`): HTTP routes and input validation
-- Controllers (`driverController.js`): Request/response handling
-- Services (`driverService.js`): Business logic
-- Models (`driverModel.js`): Data structure and database interactions
-
-### API Endpoints
-
-#### 1. Driver Registration
+#### Register Driver
 ```http
 POST /driver/register
 ```
-
-**Request Body:**
+**Body:**
 ```json
 {
-    "firstName": "string",
-    "lastName": "string",
-    "email": "string",
-    "password": "string",
-    "vehicleColor": "string",
-    "vehicleType": "car|bike|van",
-    "vehicleNoPlate": "string",
-    "vehicleCapacity": "number"
+	"firstName": "string",
+	"lastName": "string",
+	"email": "string",
+	"password": "string",
+	"vehicleColor": "string",
+	"vehicleType": "car|bike|van",
+	"vehicleNoPlate": "string",
+	"vehicleCapacity": "number"
 }
 ```
 
-**Validation:**
-- firstName: Minimum 3 characters
-- email: Valid email format
-- password: Minimum 6 characters
-- vehicleColor: Required, minimum 3 characters
-- vehicleType: Must be one of: "car", "bike", "van"
-- vehicleNoPlate: Required, minimum 9 characters
-- vehicleCapacity: Required, minimum value 1
-
-**Response (201):**
-```json
-{
-    "driver": {
-        "firstName": "string",
-        "lastName": "string",
-        "email": "string",
-        "vehicleColor": "string",
-        "vehicleType": "string",
-        "vehicleNoPlate": "string",
-        "vehicleCapacity": "number",
-        "status": "inactive"
-    },
-    "token": "JWT_TOKEN"
-}
-```
-
-#### 2. Driver Login
+#### Driver Login
 ```http
 POST /driver/login
 ```
-
-**Request Body:**
+**Body:**
 ```json
 {
-    "email": "string",
-    "password": "string"
+	"email": "string",
+	"password": "string"
 }
 ```
 
-**Response (200):**
-```json
-{
-    "driver": {
-        "firstName": "string",
-        "lastName": "string",
-        "email": "string",
-        "vehicleDetails": {
-            "color": "string",
-            "type": "string",
-            "noPlate": "string",
-            "capacity": "number"
-        },
-        "status": "string"
-    },
-    "token": "JWT_TOKEN"
-}
-```
-
-#### 3. Driver Profile
+#### Driver Profile & Logout
 ```http
 GET /driver/profile
-```
-
-**Headers:**
-```
-Authorization: Bearer JWT_TOKEN
-```
-
-**Response (200):**
-```json
-{
-    "driver": {
-        "firstName": "string",
-        "lastName": "string",
-        "email": "string",
-        "vehicleDetails": {
-            "color": "string",
-            "type": "string",
-            "noPlate": "string",
-            "capacity": "number"
-        },
-        "status": "string"
-    }
-}
-```
-
-#### 4. Driver Logout
-```http
 GET /driver/logout
 ```
 
-**Headers:**
-```
-Authorization: Bearer JWT_TOKEN
-```
+### 🚕 Ride Management
 
-**Response (200):**
+#### Create Ride
+```http
+POST /ride/createRide
+```
+**Body:**
 ```json
 {
-    "message": "Driver Logged Out"
+	"pickUpAddress": "string",
+	"destination": "string",
+	"vehicleType": "auto|car|bike"
 }
 ```
 
-### Data Model
-
-#### Driver Schema
-```javascript
-{
-    firstName: String,      // Required, min 3 chars
-    lastName: String,       // Optional, min 3 chars
-    email: String,         // Required, unique
-    password: String,      // Required, min 6 chars
-    socketId: String,      // Optional
-    status: String,        // "active" or "inactive"
-    vehicleColor: String,  // Required
-    vehicleType: String,   // Required: "car", "bike", or "van"
-    vehicleNoPlate: String,// Required
-    vehicleCapacity: Number,// Required, min: 1
-    location: {
-        latitude: Number,  // Optional
-        longitude: Number  // Optional
-    }
-}
+#### Get Ride Fare
+```http
+GET /ride/getRideFare?location=string&destination=string
 ```
 
-### Security Features
-1. **Password Security:**
-   - Bcrypt hashing for passwords
-   - Password field excluded from queries
+### 🗺 Map Services
 
-2. **Authentication:**
+#### Get Location Coordinates
+```http
+GET /maps/getCoordinates?address=string
+```
+
+#### Get Distance and Time
+```http
+GET /maps/getDistanceAndTime?from=string&to=string
+```
+
+#### Get Location Suggestions
+```http
+GET /maps/getSuggestedLocations?address=string
+```
+
+## 🔌 Real-time Features
+
+### Socket Events
+- **join**: Connect user/driver to socket
+- **driver-location-update**: Update driver's real-time location
+- **new_ride**: Notify nearby drivers about new ride requests
+
+## 🔐 Security Features
+
+1. **Authentication**
    - JWT-based authentication
-   - Token blacklisting for logout
-   - Middleware protection for routes
+   - Token blacklisting for secure logout
+   - Protected routes using middleware
 
-3. **Input Validation:**
-   - Express-validator implementation
-   - Comprehensive field validation
-   - Vehicle information verification
+2. **Password Security**
+   - Bcrypt hashing
+   - Password field exclusion from queries
+   - Minimum length requirements
 
-4. **Status Management:**
-   - Active/Inactive status tracking
-   - Real-time status updates
+3. **Input Validation**
+   - Request body validation
+   - Query parameter validation
+   - File type validation
+
+## 💾 Data Models
+
+### User Model
+- firstName (String, required)
+- lastName (String)
+- email (String, unique, required)
+- password (String, required)
+- socket_id (String)
+
+### Driver Model
+- firstName (String, required)
+- lastName (String)
+- email (String, unique, required)
+- password (String, required)
+- vehicleDetails (Object)
+- status (String: active/inactive)
+- location (Object: latitude/longitude)
+- socket_id (String)
+
+### Ride Model
+- user (ObjectId, ref: 'User')
+- driver (ObjectId, ref: 'Driver')
+- pickUpAddress (String)
+- destination (String)
+- fare (Number)
+- status (String: pending/accepted/ongoing/cancelled/completed)
+- duration (String)
+- distance (String)
+- otp (String)
+
+## 🚀 Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up environment variables:
+```env
+PORT=3000
+MONGO_URL=your_mongodb_url
+JWT_SECRET=your_jwt_secret
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+
+4. Start the server:
+```bash
+npm start
+```
+
+## 📝 Environment Variables
+- `PORT`: Server port number
+- `MONGO_URL`: MongoDB connection string
+- `JWT_SECRET`: Secret key for JWT
+- `GOOGLE_MAPS_API_KEY`: Google Maps API key
+
+## 🔄 Error Handling
+The API uses standard HTTP status codes:
+- 200: Success
+- 201: Created
+- 400: Bad Request
+- 401: Unauthorized
+- 404: Not Found
+- 500: Server Error
 
 
