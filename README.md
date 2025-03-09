@@ -1,11 +1,7 @@
 <div align="center">
 	<img src="./assets/neurago-banner.png" alt="NeuraGo Banner" width="100%">
 	<h1>NeuraGo - Smart Urban Mobility</h1>
-	
 </div>
-
-
-
 
 ## 🚀 About NeuraGo
 
@@ -28,6 +24,26 @@ NeuraGo is a cutting-edge ride-hailing platform that connects passengers with dr
 - **Real-time Updates**: Socket.io
 - **Maps**: Google Maps API
 
+## 📁 Project Structure
+
+NeuraGO/
+├── Backend/
+│   ├── controllers/     # Request handlers and business logic
+│   ├── models/         # MongoDB schema definitions
+│   ├── routes/         # API route definitions
+│   ├── middleware/     # Custom middleware functions
+│   ├── utils/          # Helper functions and utilities
+│   └── server.js       # Main server file
+├── Frontend/
+│   ├── src/
+│   │   ├── components/ # Reusable UI components
+│   │   ├── pages/      # Page components
+│   │   ├── services/   # API integration services
+│   │   ├── context/    # React context providers
+│   │   ├── hooks/      # Custom React hooks
+│   │   └── utils/      # Helper functions
+│   └── index.jsx       # Entry point
+└── README.md
 
 ## 🏗️ Installation
 
@@ -102,8 +118,21 @@ Welcome contributors! Please follow these steps:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## 🔧 Configuration
 
+### Backend Configuration
+Required environment variables for the backend:
+- `PORT`: Server port (default: 3000)
+- `MONGO_URL`: MongoDB connection string
+- `JWT_SECRET`: Secret key for JWT authentication
+- `GOOGLE_MAPS_API_KEY`: Google Maps API key for location services
+- `RAZORPAY_KEY_ID`: Razorpay API key for payments
+- `RAZORPAY_SECRET`: Razorpay secret key
 
+### Frontend Configuration
+Required environment variables for the frontend:
+- `VITE_BASE_URL`: Backend API URL
+- `VITE_GOOGLE_MAPS_API_KEY`: Google Maps API key for frontend maps
 
 ---
 
