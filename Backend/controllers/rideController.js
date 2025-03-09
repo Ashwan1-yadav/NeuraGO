@@ -4,6 +4,7 @@ const {
   getDriverInRange,
   getAddressCoordinates,
 } = require("../services/mapService");
+const { sendMessage } = require("../utilities/socket")
 
 module.exports.createRide = async (req, res) => {
   const errors = validationResult(req);
@@ -25,6 +26,12 @@ module.exports.createRide = async (req, res) => {
     if (!driversInRange || driversInRange.length === 0) {
       return res.status(400).json({ error: "No drivers found in range" });
     }
+    ride.otp = "";
+
+    driversInRange.map((driver) => {
+       sendMessage(driver.socket_id, "new_ride", ride);
+    });
+
     res.status(201).json(ride);
   } catch (error) {
     return res.status(500).json({ error: error.message });
