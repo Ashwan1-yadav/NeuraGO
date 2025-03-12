@@ -10,7 +10,8 @@ import { SocketContext } from "../context/SocketContext";
 const DriverDashboard = () => {
   const { driver } = useContext(DriverDataContext);
   const { socket } = useContext(SocketContext);
-
+  
+  const [ride, setride] = useState(null)
   const [newRideAvailablePanel, setnewRideAvailablePanel] = useState(false);
 
 
@@ -39,6 +40,7 @@ const DriverDashboard = () => {
 
   socket.on("new_ride", (ride) => {
     console.log(ride);
+    setride(ride)
     setnewRideAvailablePanel(true);
   });
 
@@ -93,7 +95,7 @@ const DriverDashboard = () => {
           </div>
         </div>
       </div>
-      <NewRideAvailable newRideAvailablePanel={newRideAvailablePanel} setnewRideAvailablePanel={setnewRideAvailablePanel} />
+      <NewRideAvailable ride={ride} newRideAvailablePanel={newRideAvailablePanel} setnewRideAvailablePanel={setnewRideAvailablePanel} />
     </div>
   );
 };

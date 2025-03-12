@@ -41,7 +41,6 @@ function initSocket(server) {
 }
 
 function sendMessage(socket_id,message){
-    console.log(message,socket_id);
     if(io){
         io.to(socket_id).emit(message.event,message.data);
     } else {
