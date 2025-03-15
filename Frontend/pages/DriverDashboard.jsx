@@ -6,6 +6,8 @@ import NewRideAvailable from "../components/NewRideAvailable";
 import { useContext, useEffect, useState } from "react";
 import { DriverDataContext } from "../context/DriverContext";
 import { SocketContext } from "../context/SocketContext";
+import axios from "axios";
+import DriverRiding from "./DriverRiding";
 
 const DriverDashboard = () => {
   const { driver } = useContext(DriverDataContext);
@@ -39,10 +41,34 @@ const DriverDashboard = () => {
   }, [driver, socket]);
 
   socket.on("new_ride", (ride) => {
-    console.log(ride);
     setride(ride)
     setnewRideAvailablePanel(true);
   });
+
+  async function acceptRide() {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/ride/confirmRide`, {
+        rideId: ride._id,
+        driverId: driver._id,
+        
+      },{
+        headers: {
+        Authorization: `Bearer ${localStorage.getItem("driver-token")}`,
+        },
+      });
+      
+      if (response.status === 200) {
+        setnewRideAvailablePanel(false);
+        socket.emit("ride_confirmed", {
+          rideId: ride._id,
+          driverId: driver._id
+        });
+      }
+
+    } catch (error) {
+      console.error("Error confirming ride:", error);
+    }
+  }
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">
@@ -81,21 +107,21 @@ const DriverDashboard = () => {
           <div className="text-lg flex flex-col  items-center">
             <FaRegClock className="text-md" />
             <p className="text-[15px]">Hours</p>
-            <p className="text-[10px]">Hours Online</p>
+            <p className="text-[10px]">2 hrs</p>
           </div>
           <div className="text-lg flex flex-col items-center">
             <MdOutlineSpeed className="text-md" />
             <p className="text-[15px]">Speed</p>
-            <p className="text-[10px]">Speed Limit</p>
+            <p className="text-[10px]">50 km/h</p>
           </div>
           <div className="text-lg flex flex-col items-center">
             <LuNotebookTabs className="text-md" />
             <p className="text-[15px]">Pickup</p>
-            <p className="text-[10px]">Passengers</p>
+            <p className="text-[10px]">12</p>
           </div>
         </div>
       </div>
-      <NewRideAvailable ride={ride} newRideAvailablePanel={newRideAvailablePanel} setnewRideAvailablePanel={setnewRideAvailablePanel} />
+      <NewRideAvailable ride={ride} newRideAvailablePanel={newRideAvailablePanel} setnewRideAvailablePanel={setnewRideAvailablePanel} acceptRide={acceptRide} />
     </div>
   );
 };

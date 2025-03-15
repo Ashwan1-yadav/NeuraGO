@@ -1,6 +1,5 @@
 import { GiPathDistance } from "react-icons/gi";
 import { FaIndianRupeeSign } from "react-icons/fa6";
-import { BsCashStack } from "react-icons/bs";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { useRef, useState } from "react";
@@ -12,7 +11,7 @@ import { FaRegClock } from "react-icons/fa";
 
 
 
-const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride}) => {
+const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride,acceptRide}) => {
 
   const [NewRideConfirmationPanel, setNewRideConfirmationPanel] = useState(false);
 
@@ -78,7 +77,7 @@ const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride}
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
           <FaMapLocationDot />
-          <h2 className="text-md font-bold">{ride?.pickUpAddress}</h2>
+          <h2 className="text-sm font-bold">{ride?.pickUpAddress}</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
           {" "}
@@ -87,7 +86,7 @@ const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride}
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
           <FaLocationArrow />
-          <h2 className="text-md font-bold">{ride?.destination}</h2>
+          <h2 className="text-sm font-bold">{ride?.destination}</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
           {" "}
@@ -102,6 +101,7 @@ const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride}
         </div>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <button onClick={() => {
+            acceptRide()
             setNewRideConfirmationPanel(true);
             setnewRideAvailablePanel(false);
           }} className=" bg-green-400 active:bg-green-600 text-zinc-800 text-md font-bold w-full rounded-lg px-4 py-1 mt-4">
@@ -118,7 +118,9 @@ const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride}
       </div>
       <div>
       <NewRideConfirmation NewRideConfirmationPanel = {NewRideConfirmationPanel} setNewRideConfirmationPanel ={setNewRideConfirmationPanel}
-      setnewRideAvailablePanel = {setnewRideAvailablePanel}/>
+      setnewRideAvailablePanel = {setnewRideAvailablePanel}
+      ride = {ride}
+      />
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ const Dashboard = () => {
   const [lookingForDriverPanel, setlookingForDriverPanel] = useState(false);
   const [RideDriverInfoPanel, setRideDriverInfoPanel] = useState(false);
   const [vehicleType, setVehicleType] = useState(null);
+  const [driverDetails, setDriverDetails] = useState(null);
 
   const searchPanelRef = useRef(null);
   const panelRef = useRef(null);
@@ -45,6 +46,12 @@ const Dashboard = () => {
     e.preventDefault();
   };
 
+  socket.on("ride_confirmed", (data) => {
+    setRideDriverInfoPanel(true);
+    setlookingForDriverPanel(false);
+    setDriverDetails(data);
+  });
+
   const handleLocationChange = async (e) => {
     setLocation(e.target.value);
     try {
@@ -59,7 +66,7 @@ const Dashboard = () => {
       );
       setlocationSuggestions(response.data);
     } catch {
-      // handle error
+      console.log("error in location suggestion api");
     }
   };
 
@@ -246,8 +253,10 @@ const Dashboard = () => {
             RideDriverInfoPanel={RideDriverInfoPanel}
             setRideDriverInfoPanel={setRideDriverInfoPanel}
             setSearchPanel={setSearchPanel}
+            driverDetails={driverDetails}
           />
         </div>
+        
       </div>
     </div>
   );

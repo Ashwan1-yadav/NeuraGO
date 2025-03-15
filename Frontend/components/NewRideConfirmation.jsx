@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { GiPathDistance } from "react-icons/gi";
 import { FaIndianRupeeSign } from "react-icons/fa6";
-import { BsCashStack } from "react-icons/bs";
+import { FaRegClock } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
+import { FaLocationArrow } from "react-icons/fa6";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -13,6 +14,7 @@ const NewRideConfirmation = ({
   NewRideConfirmationPanel,
   setNewRideConfirmationPanel,
   setnewRideAvailablePanel,
+  ride,
 }) => {
   const NewRideConfirmationPanelRef = useRef(null);
 
@@ -52,35 +54,50 @@ const NewRideConfirmation = ({
           />
         </p>
         <hr className="border-zinc-300 mt-2 mb-2" />
-        <div className="flex justify-between items-center bg-yellow-300 p-2 rounded-lg shadow-lg">
+        <div className="flex justify-between items-center bg-yellow-300  shadow-md p-2 rounded-lg">
           <div className="flex items-center gap-2">
             <img
-              className="h-8 w-8 object-cover rounded-full border-1"
+              className="h-8 w-8 object-cover shadow-md rounded-full border-1"
               src="../driver-placeholder.png"
               alt="driver image"
             />
-            <p className="text-sm font-bold">Passenger Name</p>
+            <p className="text-sm font-bold capitalize">{ride?.user.firstName + " " + ride?.user.lastName}</p>
           </div>
           <div className="flex items-center gap-1">
-            <GiPathDistance className="text-md font-bold" />
-            <p className="text-xs font-medium">2.73 KM</p>
+            <div className="flex flex-col gap-1">
+            <GiPathDistance className="font-bold" />
+            <FaRegClock className="text-sm"/>
+            </div>
+            <div className="flex flex-col gap-1">
+            <p className="text-[14px] font-bold uppercase">{ride?.distance}</p>
+            <p className="text-[12px] font-bold">{ride?.duration}</p>
+            </div>
           </div>
+          
         </div>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
           <FaMapLocationDot />
-          <h2 className="text-lg font-bold">Address</h2>
+          <h2 className="text-sm font-bold">{ride?.pickUpAddress}</h2>
         </div>
-        <p className="text-xs text-zinc-400 mt-[-3px] ml-[29px] ">
+        <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
           {" "}
-          full address
+          Pickup Location
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
-          <BsCashStack />
+          <FaLocationArrow />
+          <h2 className="text-sm font-bold">{ride?.destination}</h2>
+        </div>
+        <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
+          {" "}
+          Destination Location
+        </p>
+        <hr className="mt-2 mb-2 border-zinc-200" />
+        <div className="h-7 w-[90%] flex items-center gap-2">
+          <FaIndianRupeeSign />
           <div className="flex items-center">
-            <FaIndianRupeeSign />
-            <h2 className="text-md font-bold">200</h2>
+            <h2 className="text-md font-bold">{ride?.fare}</h2>
           </div>
         </div>
         <hr className="mt-2 mb-2 border-zinc-200" />

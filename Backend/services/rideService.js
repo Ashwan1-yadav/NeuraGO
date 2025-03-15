@@ -153,3 +153,19 @@ module.exports.createRide = async (
     throw new Error(`Error creating ride: ${error.message}`);
   }
 };
+
+module.exports.confirmRide = async (rideId, driverId) => {
+  if (!rideId || !driverId) {
+    throw new Error("Ride id and driver id are required");
+  }
+  
+  await RideModel.findByIdAndUpdate({ _id: rideId }, { $set: { driver: driverId, status: "accepted" } });
+
+  const ride = await RideModel.findById(rideId).populate("user").populate("driver");
+
+  if (!ride) {
+    throw new Error("Ride not found"); 
+  }
+  
+  return ride;
+}

@@ -1,4 +1,4 @@
-const { createRide, fareCalculation } = require("../services/rideService");
+const { createRide, fareCalculation, confirmRide } = require("../services/rideService");
 const { validationResult } = require("express-validator");
 const {
   getDriverInRange,
@@ -60,3 +60,22 @@ module.exports.getRideFare = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+module.exports.confirmRide = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    const { rideId, driverId } = req.body;
+    const ride = await confirmRide(rideId, driverId);
+    sendMessage(ride.user.socket_id, {
+      event: "ride_confirmed",
+      data: ride,
+    });
+    return res.status(200).json(ride);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
