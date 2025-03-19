@@ -74,7 +74,7 @@ const Dashboard = () => {
       } catch(e) {
         console.log("error in location suggestion api : ", e);
       }
-    }, 800);
+    }, 500);
     
     setLocationDebounceTimer(newTimer);
   };
@@ -99,7 +99,7 @@ const Dashboard = () => {
       } catch(e) {
         console.log("error in fetching destination suggestions : ", e);
       }
-    }, 800);
+    }, 500);
     
     setDestinationDebounceTimer(newTimer);
   };
