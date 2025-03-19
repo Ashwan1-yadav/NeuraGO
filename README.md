@@ -1,9 +1,11 @@
 <div align="center">
 	<img src="./assets/neurago-banner.png" alt="NeuraGo Banner" width="100%">
 	<h1>NeuraGo - Smart Urban Mobility</h1>
+	<p><strong>Connect Riders with Drivers in Real-Time</strong></p>
 </div>
 
-## 🚀 About NeuraGo
+# 🚗 NeuraGO - Modern Ride-Hailing Platform
+
 
 NeuraGo is a cutting-edge ride-hailing platform that connects passengers with drivers for seamless urban transportation. Built with modern technologies, it offers real-time tracking, secure payments, and an intuitive user experience for both riders and drivers.
 
@@ -174,15 +176,15 @@ Required environment variables for the frontend:
 - [x] Core ride booking functionality
 - [x] Real-time driver tracking
 - [x] Dynamic fare calculation
-- [x] Payment gateway integration
-- [x] Push notifications
-- [x] Ride scheduling
-- [x] Driver rating system
-- [x] Ride cancellation
-- [x] Ride rating system
-- [x] Ride review system
-- [x] Ride booking history
-- [x] Multi-language support
+- [ ] Payment gateway integration
+- [ ] Push notifications
+- [ ] Ride scheduling
+- [ ] Driver rating system
+- [ ] Ride cancellation
+- [ ] Ride rating system
+- [ ] Ride review system
+- [ ] Ride booking history
+- [ ] Multi-language support
 
 ## 🎯 Usage
 
