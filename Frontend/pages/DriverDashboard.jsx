@@ -6,12 +6,13 @@ import NewRideAvailable from "../components/NewRideAvailable";
 import { useContext, useEffect, useState } from "react";
 import { DriverDataContext } from "../context/DriverContext";
 import { SocketContext } from "../context/SocketContext";
+import { RideDataContext } from "../context/RideContext";
 import axios from "axios";
-import DriverRiding from "./DriverRiding";
 
 const DriverDashboard = () => {
   const { driver } = useContext(DriverDataContext);
   const { socket } = useContext(SocketContext);
+  const { setRideContext } = useContext(RideDataContext);
   
   const [ride, setride] = useState(null)
   const [newRideAvailablePanel, setnewRideAvailablePanel] = useState(false);
@@ -58,6 +59,7 @@ const DriverDashboard = () => {
       });
       
       if (response.status === 200) {
+        setRideContext(ride)
         setnewRideAvailablePanel(false);
         socket.emit("ride_confirmed", {
           rideId: ride._id,

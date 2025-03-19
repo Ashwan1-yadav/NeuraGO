@@ -5,15 +5,18 @@ import { BrowserRouter } from "react-router-dom";
 import UserContext from "../context/UserContext.jsx";
 import DriverContext from "../context/DriverContext.jsx";
 import SocketContext from "../context/SocketContext.jsx";
+import RideContext from "../context/RideContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-    <DriverContext>
-      <UserContext>
+  <DriverContext>
+    <UserContext>
+      <RideContext>
         <SocketContext>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </SocketContext>
-      </UserContext>
-    </DriverContext>
+      </RideContext>
+    </UserContext>
+  </DriverContext>
 );

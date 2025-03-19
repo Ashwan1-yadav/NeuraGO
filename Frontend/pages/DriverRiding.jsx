@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { FaAngleUp } from "react-icons/fa6";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import FinishRide from "../components/FinishRide";
+import { RideDataContext } from "../context/RideContext";
 
 const DriverRiding = ({ ride }) => {
   const [finishRidePanel, setfinishRidePanel] = useState(false);
+  const { RideContext } = useContext(RideDataContext);
 
   return (
     <div>
@@ -31,7 +33,7 @@ const DriverRiding = ({ ride }) => {
               setfinishRidePanel(true);
             }}
           />
-          <h1 className="font-bold">{ride?.distance} away</h1>
+          <h1 className="font-bold">{RideContext?.distance} away</h1>
           <Link className="bg-yellow-500 active:bg-yellow-600 text-zinc-900 shadow-lg text-md font-bold w-[1/2] rounded-full px-4 py-1 mt-1">
             Pick Up Passenger
           </Link>
@@ -40,7 +42,7 @@ const DriverRiding = ({ ride }) => {
       <FinishRide
         finishRidePanel={finishRidePanel}
         setfinishRidePanel={setfinishRidePanel}
-        ride={ride}
+        ride={RideContext}
       />
     </div>
   );

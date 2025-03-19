@@ -54,7 +54,7 @@ const FinishRide = ({ finishRidePanel, setfinishRidePanel,ride }) => {
               src="../driver-placeholder.png"
               alt="driver image"
             />
-            <p className="text-sm font-bold capitalize">{ride?.user.firstName + " " + ride?.user.lastName}</p>
+            <p className="text-sm font-bold capitalize">{ride?.user?.firstName + " " + ride?.user?.lastName}</p>
           </div>
           <div className="flex items-center gap-1">
             <div className="flex flex-col gap-1">

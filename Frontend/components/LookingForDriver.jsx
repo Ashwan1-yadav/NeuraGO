@@ -87,10 +87,7 @@ const LookingForDriver = ({
           {destination}
         </p>
         <hr className="mt-4 mb-2 border-zinc-200" />
-        <button  className="bg-yellow-400 font-bold text-black rounded-lg px-4 py-2 mt-4 flex justify-center items-center w-full " onClick={() => {
-            setRideDriverInfoPanel(true);
-            setlookingForDriverPanel(false);
-        }}>Get Driver Info</button>
+        
       </div>
     </div>
   );

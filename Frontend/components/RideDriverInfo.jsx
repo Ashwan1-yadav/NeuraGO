@@ -55,9 +55,9 @@ const RideDriverInfo = ({
         <div className="flex justify-between  items-center mt-[20px]">
           <img className="h-17 w-30 " src="../car-2.png" alt="car image" />
           <div className="flex flex-col">
-          <h1 className="text-xl font-bold flex items-center gap-1">{driverDetails?.driver?.firstName} {driverDetails?.driver?.lastName}</h1>
-          <h1 className="text-lg text-zinc-700 ml-8">{driverDetails?.driver?.vehicleNoPlate}</h1>
-          <h1 className="text-sm text-zinc-400 ml-6">{} | {driverDetails?.driver?.vehicleType} | {driverDetails?.driver?.vehicleColor}</h1>
+          <h1 className="text-xl font-bold flex items-center gap-1 capitalize">{driverDetails?.driver?.firstName} {driverDetails?.driver?.lastName}</h1>
+          <h1 className="text-lg text-zinc-700 font-mono font-bold ">{driverDetails?.driver?.vehicleNoPlate}</h1>
+          <h1 className="text-sm text-zinc-500 capitalize">{}  {driverDetails?.driver?.vehicleType} <span className="text-black">|</span> {driverDetails?.driver?.vehicleColor}</h1>
           </div>
         </div>
         <hr className="mt-4 mb-2 border-zinc-200" />

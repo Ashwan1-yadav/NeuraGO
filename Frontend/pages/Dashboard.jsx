@@ -28,6 +28,8 @@ const Dashboard = () => {
   const [RideDriverInfoPanel, setRideDriverInfoPanel] = useState(false);
   const [vehicleType, setVehicleType] = useState(null);
   const [driverDetails, setDriverDetails] = useState(null);
+  const [locationDebounceTimer, setLocationDebounceTimer] = useState(null);
+  const [destinationDebounceTimer, setDestinationDebounceTimer] = useState(null);
 
   const searchPanelRef = useRef(null);
   const panelRef = useRef(null);
@@ -54,38 +56,52 @@ const Dashboard = () => {
 
   const handleLocationChange = async (e) => {
     setLocation(e.target.value);
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/maps/getSuggestedLocations`,
-        {
-          params: { address: e.target.value },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("user-token")}`,
-          },
-        }
-      );
-      setlocationSuggestions(response.data);
-    } catch {
-      console.log("error in location suggestion api");
-    }
+    
+    if (locationDebounceTimer) clearTimeout(locationDebounceTimer);
+    
+    const newTimer = setTimeout(async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/maps/getSuggestedLocations`,
+          {
+            params: { address: e.target.value },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user-token")}`,
+            },
+          }
+        );
+        setlocationSuggestions(response.data);
+      } catch(e) {
+        console.log("error in location suggestion api : ", e);
+      }
+    }, 800);
+    
+    setLocationDebounceTimer(newTimer);
   };
 
   const handleDestinationChange = async (e) => {
     setDestination(e.target.value);
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/maps/getSuggestedLocations`,
-        {
-          params: { address: e.target.value },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("user-token")}`,
-          },
-        }
-      );
-      setdestinationSuggestions(response.data);
-    } catch {
-      // handle error
-    }
+    
+    if (destinationDebounceTimer) clearTimeout(destinationDebounceTimer);
+    
+    const newTimer = setTimeout(async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/maps/getSuggestedLocations`,
+          {
+            params: { address: e.target.value },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user-token")}`,
+            },
+          }
+        );
+        setdestinationSuggestions(response.data);
+      } catch(e) {
+        console.log("error in fetching destination suggestions : ", e);
+      }
+    }, 800);
+    
+    setDestinationDebounceTimer(newTimer);
   };
 
   async function selectRide(){
