@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const NewRideConfirmation = ({
   NewRideConfirmationPanel,
@@ -36,6 +37,18 @@ const NewRideConfirmation = ({
     },
     { dependencies: [NewRideConfirmationPanel] }
   );
+
+  const confirmRide = async () => {
+    await axios.get(`${import.meta.env.VITE_BASE_URL}/ride/rideOngoing`,{
+      params : {
+        rideId: ride?._id,
+        driverId: ride?.driver,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("driver-token")}`,
+      },
+    })
+  }
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">
@@ -78,20 +91,20 @@ const NewRideConfirmation = ({
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
           <FaMapLocationDot />
-          <h2 className="text-sm font-bold">{ride?.pickUpAddress}</h2>
+          <h2 className="text-sm font-bold">Pickup Location</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
           {" "}
-          Pickup Location
+          {ride?.pickUpAddress}
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
           <FaLocationArrow />
-          <h2 className="text-sm font-bold">{ride?.destination}</h2>
+          <h2 className="text-sm font-bold">Destination Location</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
           {" "}
-          Destination Location
+          {ride?.destination}
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
@@ -102,6 +115,9 @@ const NewRideConfirmation = ({
         </div>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <Link
+          onClick={() => {
+            confirmRide()
+          }}
           to="/driver-riding"
           className=" inline-block text-center shadow-lg bg-green-400 active:bg-green-600 text-zinc-800 text-md font-bold w-full rounded-lg px-4 py-1 mt-4"
         >

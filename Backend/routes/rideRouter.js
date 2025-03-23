@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { body,query } = require("express-validator");
 const { isLoggedInDriver, isLoggedInUser } = require("../middlewares/authMiddleware");
-const { createRide, getRideFare, confirmRide } = require("../controllers/rideController");
+const { createRide, getRideFare, confirmRide, ongoingRide, finishedRide } = require("../controllers/rideController");
 
 
 router.post(
@@ -35,5 +35,15 @@ router.post('/confirmRide',
   body('driverId').isString().withMessage("Invalid driver id"),
   confirmRide
 )
+
+router.get("/rideOngoing", isLoggedInDriver,
+  query('rideId').isString().withMessage("Invalid ride id"),
+  ongoingRide
+);
+
+router.get("/rideFinished", isLoggedInDriver,
+  query('rideId').isString().withMessage("Invalid ride id"),
+  finishedRide
+);
 
 module.exports = router;

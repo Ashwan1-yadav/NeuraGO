@@ -169,3 +169,34 @@ module.exports.confirmRide = async (rideId, driverId) => {
   
   return ride;
 }
+
+module.exports.ongoingRide = async (rideId) => {
+  if (!rideId) {
+    throw new Error("Ride id is required");
+  }
+  
+  await RideModel.findByIdAndUpdate({ _id: rideId }, { $set: { status: "ongoing" } });
+
+  const ride = await RideModel.findById(rideId).populate("user").populate("driver");
+
+  if (!ride) {
+    throw new Error("Ride not found"); 
+  }
+  
+  return ride;
+}
+
+module.exports.finishedRide = async (rideId) => {
+  if (!rideId) {
+    throw new Error("Ride id is required");
+  } 
+  await RideModel.findByIdAndUpdate({ _id: rideId }, { $set: { status: "completed" } });
+
+  const ride = await RideModel.findById(rideId).populate("user").populate("driver");
+
+  if (!ride) {
+    throw new Error("Ride not found"); 
+  }
+  
+  return ride;
+}

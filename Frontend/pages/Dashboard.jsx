@@ -13,6 +13,8 @@ import LookingForDriver from "../components/LookingForDriver";
 import RideDriverInfo from "../components/RideDriverInfo";
 import { SocketContext } from "../context/SocketContext";
 import {UserDataContext} from "../context/UserContext";
+import {RideDataContext} from "../context/RideContext";
+import PaymentPage from "../components/PaymentPage";
 
 const Dashboard = () => {
   const [location, setLocation] = useState("");
@@ -30,6 +32,7 @@ const Dashboard = () => {
   const [driverDetails, setDriverDetails] = useState(null);
   const [locationDebounceTimer, setLocationDebounceTimer] = useState(null);
   const [destinationDebounceTimer, setDestinationDebounceTimer] = useState(null);
+  const [paymentPage, setpaymentPage] = useState(false);
 
   const searchPanelRef = useRef(null);
   const panelRef = useRef(null);
@@ -37,6 +40,7 @@ const Dashboard = () => {
 
   const {socket} = useContext(SocketContext);
   const {user} = useContext(UserDataContext);
+  const {setRideContext} = useContext(RideDataContext);
   
   useEffect(() => {
     if(user !== ""){
@@ -52,6 +56,17 @@ const Dashboard = () => {
     setRideDriverInfoPanel(true);
     setlookingForDriverPanel(false);
     setDriverDetails(data);
+  });
+
+  socket.on("ride_ongoing", (data) => {
+    setRideContext(data)
+    setpaymentPage(true)
+    setRideDriverInfoPanel(false);
+  });
+
+  socket.on("ride_finished", (data) => {
+    setRideContext(data)
+    setpaymentPage(false)
   });
 
   const handleLocationChange = async (e) => {
@@ -272,7 +287,9 @@ const Dashboard = () => {
             driverDetails={driverDetails}
           />
         </div>
-        
+        <div>
+          <PaymentPage paymentPage={paymentPage} setpaymentPage={setpaymentPage} driverDetails={driverDetails}/>
+        </div>
       </div>
     </div>
   );

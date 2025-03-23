@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import {Link} from "react-router-dom"
 import gsap from "gsap";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
@@ -9,44 +8,41 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import { FaAddressCard } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa6";
 
-
-
-const RideDriverInfo = ({
-  RideDriverInfoPanel,
-  setRideDriverInfoPanel, 
-  setSearchPanel,
-  driverDetails
+const PaymentPage = ({
+  paymentPage,
+  setpaymentPage,
+  driverDetails,
 }) => {
-  const RideDriverInfoPanelRef = useRef(null);
+  const PaymentPageRef = useRef(null);
 
   useGSAP(() => {
-    if (RideDriverInfoPanel) {
-      gsap.to(RideDriverInfoPanelRef.current, {
+    if (paymentPage) {
+      gsap.to(PaymentPageRef.current, {
         transform: "translateY(0%)",
         duration: 0.5,
         ease: "power2.inOut",
       });
     } else {
-      gsap.to(RideDriverInfoPanelRef.current, {
+      gsap.to(PaymentPageRef.current, {
         transform: "translateY(100%)",
         duration: 0.5,
         ease: "power2.inOut",
       });
     }
-  }, [RideDriverInfoPanel]);
+  }, [paymentPage]);
 
   return (
     <div>
       <div
-        ref={RideDriverInfoPanelRef}
+        ref={PaymentPageRef}
         className="fixed w-full rounded-t-lg shadow-t-lg bg-white z-10 bottom-0 px-3 py-3 translate-y-0"
       >
         <h1 className="text-xl gap-2 font-bold flex items-center">
-          <FaAddressCard/>Waiting For Driver ...</h1>
+          <FaAddressCard/>Payment Page</h1>
         <p>
           <MdOutlineKeyboardDoubleArrowDown
             onClick={() => {
-              setRideDriverInfoPanel(false);
+              setpaymentPage(false);
             }}
             className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1  mr-2 absolute  top-5  right-2"
           />
@@ -84,10 +80,10 @@ const RideDriverInfo = ({
           <h2 className="text-xl font-bold">{driverDetails?.fare}</h2>
         </div>
         <hr className="mt-4 border-zinc-200" />
+        <button className="bg-green-400 text-black rounded-lg font-bold px-4 py-2 mt-4 flex justify-center items-center w-full active:bg-green-600">Make Payment</button> 
       </div>
-      
     </div>
   );
 };
 
-export default RideDriverInfo;
+export default PaymentPage;

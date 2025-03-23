@@ -9,7 +9,9 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa6";
 import { FaRegClock } from "react-icons/fa";
+import axios from "axios";
 const FinishRide = ({ finishRidePanel, setfinishRidePanel,ride }) => {
+
   const finishRidePanelRef = useRef(null);
 
   useGSAP(
@@ -30,6 +32,18 @@ const FinishRide = ({ finishRidePanel, setfinishRidePanel,ride }) => {
     },
     { dependencies: [finishRidePanel] }
   );
+
+  async function finishRide(){
+    await axios.get(`${import.meta.env.VITE_BASE_URL}/ride/rideFinished`,{
+      params : {
+        rideId: ride?._id,
+        driverId: ride?.driver,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("driver-token")}`,
+      },
+    })
+  }
   return (
     <div className="h-screen w-screen relative overflow-hidden">
       <div
@@ -95,6 +109,9 @@ const FinishRide = ({ finishRidePanel, setfinishRidePanel,ride }) => {
         </div>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <Link
+          onClick={() => {
+            finishRide()
+          }}
           to="/driver-dashboard"
           className=" inline-block text-center shadow-lg bg-green-400 active:bg-green-600 text-zinc-800 text-md font-bold w-full rounded-lg px-4 py-1 mt-4"
         >

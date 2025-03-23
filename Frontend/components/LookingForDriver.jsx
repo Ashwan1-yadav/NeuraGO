@@ -11,7 +11,6 @@ import { FaLocationArrow } from "react-icons/fa6";
 const LookingForDriver = ({
   lookingForDriverPanel,
   setlookingForDriverPanel,
-  setRideDriverInfoPanel,
   location,
   destination,
   vehicleType,
@@ -87,7 +86,6 @@ const LookingForDriver = ({
           {destination}
         </p>
         <hr className="mt-4 mb-2 border-zinc-200" />
-        
       </div>
     </div>
   );

@@ -77,20 +77,20 @@ const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride,
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
           <FaMapLocationDot />
-          <h2 className="text-sm font-bold">{ride?.pickUpAddress}</h2>
+          <h2 className="text-sm font-bold">Pickup Location</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
           {" "}
-          Pickup Location
+          {ride?.pickUpAddress}
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
           <FaLocationArrow />
-          <h2 className="text-sm font-bold">{ride?.destination}</h2>
+          <h2 className="text-sm font-bold">Destination Location</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
           {" "}
-          Destination Location
+          {ride?.destination}
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">

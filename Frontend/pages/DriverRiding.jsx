@@ -4,7 +4,7 @@ import { useState,useContext } from "react";
 import FinishRide from "../components/FinishRide";
 import { RideDataContext } from "../context/RideContext";
 
-const DriverRiding = ({ ride }) => {
+const DriverRiding = () => {
   const [finishRidePanel, setfinishRidePanel] = useState(false);
   const { RideContext } = useContext(RideDataContext);
 

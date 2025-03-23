@@ -13,18 +13,15 @@ function initSocket(server) {
     });
 
     io.on('connection', function(socket){
-        console.log(`Client connected : ${socket.id}`);
+
 
         socket.on('join', async (data) => {
             const {userId,userType,firstName} = data;
 
-            console.log(`Username : ${firstName}, id : ${userId} joined as ${userType}`)
             if(userType === 'user'){
                 await userModel.findByIdAndUpdate(userId,{$set:{socket_id:socket.id}});
-                console.log(`user connected : ${socket.id}`);
             } else if(userType === 'driver'){
                 await driverModel.findByIdAndUpdate(userId,{$set:{socket_id:socket.id}});
-                console.log(`driver connected : ${socket.id}`);
             }
         });
         socket.on('driver-location-update', async (data) => {
@@ -33,10 +30,6 @@ function initSocket(server) {
             await driverModel.findByIdAndUpdate(driverId,{$set:{location:{latitude,longitude}}});
             
         });
-        socket.on('disconnect', function(){
-            console.log('Client disconnected');
-        });
-
     });
 }
 
