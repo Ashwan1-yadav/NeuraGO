@@ -9,5 +9,9 @@ export default defineConfig({
     react(),    
     tailwindcss(),
   ],
-  
+  server: {
+    fs: {
+      strict: false, // Allow access to any file
+    },
+  }
 })

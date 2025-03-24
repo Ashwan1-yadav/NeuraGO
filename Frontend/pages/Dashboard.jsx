@@ -15,6 +15,7 @@ import { SocketContext } from "../context/SocketContext";
 import {UserDataContext} from "../context/UserContext";
 import {RideDataContext} from "../context/RideContext";
 import PaymentPage from "../components/PaymentPage";
+import RideTracking from "../components/RideTracking";
 
 const Dashboard = () => {
   const [location, setLocation] = useState("");
@@ -184,11 +185,12 @@ const Dashboard = () => {
         NeuraGO
       </p>
       <div className="h-screen w-screen">
-        <img
+        {/* <img
           src="../dashboard-background.png"
           alt="Map Background"
           className="w-full h-full object-cover"
-        />
+        /> */}
+        <RideTracking/>
       </div>
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl">
         <div
