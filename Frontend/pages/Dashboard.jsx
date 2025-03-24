@@ -184,26 +184,23 @@ const Dashboard = () => {
       <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg">
         NeuraGO
       </p>
-      <div className="h-screen w-screen">
-        {/* <img
-          src="../dashboard-background.png"
-          alt="Map Background"
-          className="w-full h-full object-cover"
-        /> */}
-        <RideTracking/>
+      <div className="h-screen w-screen fixed">
+        <RideTracking 
+        />
       </div>
+      
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl">
         <div
           ref={panelRef}
-          className="bg-transparent  bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-t-2xl shadow-black h-[30%] relative p-5"
+          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[30%] relative p-5 z-10"
         >
-          <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex">
-            <p ref={panelCloseButtonRef}>
+          <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex items-center">
+            <p ref={panelCloseButtonRef} className="absolute top-5 right-2">
               <MdOutlineKeyboardDoubleArrowDown
                 onClick={() => {
                   setSearchPanel(false);
                 }}
-                className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1  mr-2 absolute  top-5  right-2"
+                className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1 cursor-pointer hover:bg-zinc-300 transition-colors"
               />
             </p>
             <FaCar className="text-3xl mr-2" />

@@ -8,6 +8,7 @@ import { DriverDataContext } from "../context/DriverContext";
 import { SocketContext } from "../context/SocketContext";
 import { RideDataContext } from "../context/RideContext";
 import axios from "axios";
+import RideTracking from "../components/RideTracking";
 
 const DriverDashboard = () => {
   const { driver } = useContext(DriverDataContext);
@@ -78,11 +79,7 @@ const DriverDashboard = () => {
         NeuraGO
       </p>
       <div className="h-screen w-screen">
-        <img
-          src="../driver-home.gif"
-          alt="Map Background"
-          className="w-full h-full object-cover"
-        />
+      <RideTracking/>
       </div>
       <div className="fixed w-full rounded-t-lg shadow-t-lg  bg-clip-padding backdrop-filter backdrop-blur-3xl bg-zinc-100 bg-opacity-8  bottom-0 px-3 py-3 translate-y-0">
         <div className="flex justify-between items-center">

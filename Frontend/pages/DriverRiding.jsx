@@ -3,6 +3,7 @@ import { FaAngleUp } from "react-icons/fa6";
 import { useState,useContext } from "react";
 import FinishRide from "../components/FinishRide";
 import { RideDataContext } from "../context/RideContext";
+import RideTracking from "../components/RideTracking";
 
 const DriverRiding = () => {
   const [finishRidePanel, setfinishRidePanel] = useState(false);
@@ -13,12 +14,8 @@ const DriverRiding = () => {
       <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center text-gray-200 shadow-lg">
         NeuraGO
       </p>
-      <div className="h-screen w-screen">
-        <img
-          src="../driver-home.gif"
-          alt="Map Background"
-          className="w-full h-full object-cover"
-        />
+      <div className="h-screen w-screen ">
+      <RideTracking />
       </div>
       <div className="fixed w-full rounded-t-lg shadow-t-lg bg-yellow-400 flex items-center  shadow-lg bottom-0 px-3 py-3">
         <div
