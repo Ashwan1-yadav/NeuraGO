@@ -25,6 +25,10 @@ const driverSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profileImage: {
+    type: String,
+    default: "Not Uploaded",
+  },
   socketId: {
     type: String,
   },

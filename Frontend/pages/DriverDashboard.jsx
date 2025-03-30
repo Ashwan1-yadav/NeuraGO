@@ -86,7 +86,7 @@ const DriverDashboard = () => {
           <div className="flex overflow-hidden  items-center gap-3">
             <img
               className="h-10 border-1 shadow-lg w-10 rounded-full  object-cover"
-              src="../driver-placeholder.png"
+              src={`${import.meta.env.VITE_BASE_URL}${driver.profileImage}`}
               alt="driver image"
             />
             <h2 className="text-md font-bold capitalize">

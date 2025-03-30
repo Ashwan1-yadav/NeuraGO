@@ -69,6 +69,46 @@ const UserSignup = () => {
             className="flex gap-4 flex-col justify-center"
             encType="multipart/form-data"
           >
+            <div>
+              <p className="text-zinc-800 text-md font-bold mb-4">Profile Image</p>
+              {profileImagepreview ? <div className='flex items-center justify-center w-full'>
+                <img src={profileImagepreview} className="h-18 w-18 border-1 shadow-md rounded-full object-cover" alt="profile-image" />
+              </div> : <div className="flex items-center justify-center w-full">
+                <label
+                  htmlFor="profileImage"
+                  className="flex flex-col items-center justify-center w-full h-12 border-2 border-dashed rounded-md cursor-pointer bg-gray-50 hover:bg-gray-100"
+                >
+                  <div className="flex flex-col items-center justify-center pt-1 pb-2">
+                    <svg
+                      aria-hidden="true"
+                      className="w-4 h-4 mb-1 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M7 16V12M7 12V8M7 12H3M7 12h4m6 4v-4m0 0V8m0 4h4m-4 0h-4m-6 4v-4m0 0V8m0 4H3m4 0h4"
+                      ></path>
+                    </svg>
+                    <p className="mb-0.5 text-xs text-gray-500">
+                      <span className="font-semibold">Upload</span>
+                    </p>
+                  </div>
+                  <input
+                    id="profileImage"
+                    name="profileImage"
+                    type="file"
+                    className="hidden"
+                    onChange={handleProfileImageChange}
+                  />
+                </label>
+              </div>}
+               
+            </div>
             <p className="text-zinc-800 text-md font-bold">
               What&apos;s your name?
             </p>
@@ -120,44 +160,6 @@ const UserSignup = () => {
               type="password"
               placeholder="john@Doe"
             />
-            <div>
-              <p className="text-zinc-800 text-md font-bold mb-4">Profile Image</p>
-              {profileImagepreview ? <img src={profileImagepreview} alt="profile-image" className="w-full h-full rounded-md"/> : <div className="flex items-center justify-center w-full">
-                <label
-                  htmlFor="profileImage"
-                  className="flex flex-col items-center justify-center w-full h-12 border-2 border-dashed rounded-md cursor-pointer bg-gray-50 hover:bg-gray-100"
-                >
-                  <div className="flex flex-col items-center justify-center pt-1 pb-2">
-                    <svg
-                      aria-hidden="true"
-                      className="w-4 h-4 mb-1 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M7 16V12M7 12V8M7 12H3M7 12h4m6 4v-4m0 0V8m0 4h4m-4 0h-4m-6 4v-4m0 0V8m0 4H3m4 0h4"
-                      ></path>
-                    </svg>
-                    <p className="mb-0.5 text-xs text-gray-500">
-                      <span className="font-semibold">Upload</span>
-                    </p>
-                  </div>
-                  <input
-                    id="profileImage"
-                    name="profileImage"
-                    type="file"
-                    className="hidden"
-                    onChange={handleProfileImageChange}
-                  />
-                </label>
-              </div>}
-               
-            </div>
             <button
               type="submit"
               className="bg-zinc-900 hover:bg-black text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl"

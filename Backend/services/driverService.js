@@ -1,6 +1,6 @@
 const driverModel = require("../models/driverModel");
 
-const createDriver = async ({ firstName, lastName, email, password, vehicleColor, vehicleType, vehicleNoPlate, vehicleCapacity }) => {
+const createDriver = async ({ firstName, lastName, email, password, vehicleColor, vehicleType, vehicleNoPlate, vehicleCapacity, profileImage }) => {
      
     const driver = await driverModel.create({
 
@@ -8,6 +8,7 @@ const createDriver = async ({ firstName, lastName, email, password, vehicleColor
         lastName,
         email,
         password,
+        profileImage,
         vehicleColor,
         vehicleType,
         vehicleNoPlate,

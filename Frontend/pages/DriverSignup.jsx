@@ -11,6 +11,8 @@ const DriverSignup = () => {
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
+  const [profileImagepreview, setProfileImagepreview] = useState(null);
   const [vehicleColor, setVehicleColor] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState("");
   const [vehicleType, setVehicleType] = useState("");
@@ -18,23 +20,32 @@ const DriverSignup = () => {
 
   const {setDriver} = useContext(DriverDataContext)
 
+  const handleProfileImageChange = async (e) => {
+    setProfileImage(e.target.files[0]);
+    setProfileImagepreview(URL.createObjectURL(e.target.files[0]));
+  };
+
   const submithandler = async (e) => {
     e.preventDefault();
 
-    const newDriver = {
-      firstName: firstName, 
-      lastName: lastName,
-      email: email, 
-      password: password,
-      vehicleColor: vehicleColor,
-      vehicleCapacity: vehicleCapacity,
-      vehicleType: vehicleType,
-      vehicleNoPlate : vehicleNoPlate
-    };
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("profileImage", profileImage);
+    formData.append("vehicleColor", vehicleColor);
+    formData.append("vehicleCapacity", vehicleCapacity);
+    formData.append("vehicleType", vehicleType);
+    formData.append("vehicleNoPlate", vehicleNoPlate);
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/driver/register`, newDriver);
-    
-    if(response.status === 200){
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/driver/register`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+      if(response.status === 200){
       const data = response.data;
       setDriver(data.driver);
       localStorage.setItem("driver-token", data.token);
@@ -64,7 +75,48 @@ const DriverSignup = () => {
           <form
             onSubmit={submithandler}
             className="flex gap-4 flex-col justify-center"
+            encType="multipart/form-data"
           >
+            <div>
+              <p className="text-zinc-800 text-md font-bold mb-4">Profile Image</p>
+              {profileImagepreview ? <div className='flex items-center justify-center w-full'>
+                <img src={profileImagepreview} className="h-18 w-18 border-1 shadow-md rounded-full object-cover" alt="profile-image" />
+              </div> : <div className="flex items-center justify-center w-full">
+                <label
+                  htmlFor="profileImage"
+                  className="flex flex-col items-center justify-center w-full h-12 border-2 border-dashed rounded-md cursor-pointer bg-gray-50 hover:bg-gray-100"
+                >
+                  <div className="flex flex-col items-center justify-center pt-1 pb-2">
+                    <svg
+                      aria-hidden="true"
+                      className="w-4 h-4 mb-1 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M7 16V12M7 12V8M7 12H3M7 12h4m6 4v-4m0 0V8m0 4h4m-4 0h-4m-6 4v-4m0 0V8m0 4H3m4 0h4"
+                      ></path>
+                    </svg>
+                    <p className="mb-0.5 text-xs text-gray-500">
+                      <span className="font-semibold">Upload</span>
+                    </p>
+                  </div>
+                  <input
+                    id="profileImage"
+                    name="profileImage"
+                    type="file"
+                    className="hidden"
+                    onChange={handleProfileImageChange}
+                  />
+                </label>
+              </div>}
+               
+            </div>
             <p className="text-zinc-800 text-md font-bold">
               Name 
             </p>
@@ -116,6 +168,7 @@ const DriverSignup = () => {
               type="password"
               placeholder="john@Doe"
             />
+            
             <p className="text-zinc-800 text-md font-bold">Vehicle Details</p>
             <div className='flex gap-3 mt-[-18px]'>
             <input
@@ -160,8 +213,8 @@ const DriverSignup = () => {
             >
               <option value="">Select Vehicle Type</option>
               <option value="car">car</option>
-              <option value="bike">bike</option>
-              <option value="van">van</option>
+              <option value="van">auto</option>
+              <option value="bike">motorcycle</option>
             </select>
             </div>
             <button

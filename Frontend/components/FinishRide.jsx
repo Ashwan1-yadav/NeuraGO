@@ -65,7 +65,7 @@ const FinishRide = ({ finishRidePanel, setfinishRidePanel,ride }) => {
           <div className="flex items-center gap-2">
             <img
               className="h-8 w-8 object-cover shadow-md rounded-full border-1"
-              src="../driver-placeholder.png"
+              src={`${import.meta.env.VITE_BASE_URL}${ride?.user?.profileImage}`}
               alt="driver image"
             />
             <p className="text-sm font-bold capitalize">{ride?.user?.firstName + " " + ride?.user?.lastName}</p>

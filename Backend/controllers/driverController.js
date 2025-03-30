@@ -9,6 +9,8 @@ const registerDriver = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   const { firstName, lastName, email, password, vehicleColor, vehicleType, vehicleNoPlate, vehicleCapacity } = req.body;
+  
+  const profileImage = req.file ? `/images/${req.file.filename}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHoXjUbvtFit9xDzRgvR_5Su0twbkyeS608A&s";
 
   const isDriverExist = await driverModel.findOne({ email });
 
@@ -23,6 +25,7 @@ const registerDriver = async (req, res) => {
     lastName,
     email,
     password : hashPass,
+    profileImage,
     vehicleColor,
     vehicleType,
     vehicleNoPlate,
@@ -52,6 +55,11 @@ const driverLogin = async (req, res) => {
     return res.status(401).json({ message: "Invalid email or password" });
   }
 
+  if(driver.status === "inactive"){
+    driver.status = "active"
+    await driver.save()
+  }
+
   const token = await driver.genAuthToken()
 
   res.cookie("token", token);
@@ -66,13 +74,13 @@ const driverProfile = async (req, res) => {
 const driverLogout = async (req, res) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
   await BlockedTokenModel.create({ token });
-  
+  const driverId = req.driver._id
+  const driver = await driverModel.findOne({ _id: driverId })
+  driver.status = "inactive"
+  await driver.save()
   res.clearCookie("token");
   res.status(200).json({ message: "Driver Logged Out" });
 };
-
-
-
 
 module.exports = {
   registerDriver,

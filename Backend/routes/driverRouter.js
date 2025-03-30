@@ -3,9 +3,11 @@ const router = express.Router();
 const { body } = require("express-validator");
 const { registerDriver, driverLogin, driverLogout, driverProfile } = require("../controllers/driverController");
 const { isLoggedInDriver } = require("../middlewares/authMiddleware");
+const upload = require("../utilities/multer");
 
 router.post(
   "/register",
+  upload.single("profileImage"),
   [
     body("firstName", "First Name must be at least 3 characters long").isLength({ min: 3 }),
     body("email", "Invalid Email").isEmail(),
