@@ -180,19 +180,18 @@ const Dashboard = () => {
   }, [searchPanel]);
 
   return (
-    <div className="h-screen w-screen relative overflow-hidden">
+    <div className=" relative overflow-hidden">
+      <div className="h-screen w-screen">
+        <RideTracking/>
+      </div>
       <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg">
         NeuraGO
       </p>
-      <div className="h-screen w-screen fixed">
-        <RideTracking 
-        />
-      </div>
       
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl">
         <div
           ref={panelRef}
-          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[30%] relative p-5 z-10"
+          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[30%] relative p-5 "
         >
           <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex items-center">
             <p ref={panelCloseButtonRef} className="absolute top-5 right-2">

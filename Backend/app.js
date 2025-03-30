@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
+const path = require("path");
 const morgan = require("morgan")
 const cookieParser = require("cookie-parser");
 
@@ -22,6 +23,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use("/images/uploads", express.static(path.join(__dirname, "../public/images/uploads")));
 
 app.use("/user", userRouter);
 app.use("/driver", driverRouter);
