@@ -180,18 +180,29 @@ const Dashboard = () => {
   }, [searchPanel]);
 
   return (
-    <div className=" relative overflow-hidden">
-      <div className="h-screen w-screen">
-        <RideTracking/>
+    <div className="h-screen w-screen relative overflow-hidden">
+      <div className="h-screen w-screen relative z-0">
+        <RideTracking 
+          customControls={true}
+          onMapLoad={(mapInstance) => {
+            window.mapInstance = mapInstance;
+          }}
+        />
       </div>
-      <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg">
-        NeuraGO
-      </p>
+      <div className="absolute top-0 left-0 right-0 z-10 pointer-events-none">
+        <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3 text-zinc-600 font-bold bg-white rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg pointer-events-auto">
+          NeuraGO
+        </p>
+        <p className="w-36 h-8 flex gap-3 p-3 items-center absolute right-3 top-3 text-zinc-600 font-bold bg-white rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg pointer-events-auto">
+          <img src={`${import.meta.env.VITE_BASE_URL}${user?.profileImage}`} alt="profile-image" className="w-6 border-1 h-6 rounded-full object-cover" />
+          <span>{user?.firstName + " " + user?.lastName}</span>
+        </p>
+      </div>
       
-      <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl">
+      <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl z-10 pointer-events-none">
         <div
           ref={panelRef}
-          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[30%] relative p-5 "
+          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[30%] relative p-5 pointer-events-auto"
         >
           <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex items-center">
             <p ref={panelCloseButtonRef} className="absolute top-5 right-2">

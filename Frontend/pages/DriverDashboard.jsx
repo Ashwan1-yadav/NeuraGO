@@ -79,7 +79,12 @@ const DriverDashboard = () => {
         NeuraGO
       </p>
       <div className="h-screen w-screen">
-      <RideTracking/>
+      <RideTracking
+      customControls={true}
+      onMapLoad={(mapInstance) => {
+        window.mapInstance = mapInstance;
+      }}
+      />
       </div>
       <div className="fixed w-full rounded-t-lg shadow-t-lg  bg-clip-padding backdrop-filter backdrop-blur-3xl bg-zinc-100 bg-opacity-8  bottom-0 px-3 py-3 translate-y-0">
         <div className="flex justify-between items-center">
@@ -89,16 +94,19 @@ const DriverDashboard = () => {
               src={`${import.meta.env.VITE_BASE_URL}${driver.profileImage}`}
               alt="driver image"
             />
-            <h2 className="text-md font-bold capitalize">
+            <div className="flex flex-col gap-[-14px]">
+            <h2 className="text-md font-bold capitalize mb-[-5px]">
               {driver.firstName} {driver.lastName}
             </h2>
+            {driver.status === "active" ? <p className="text-sm text-teal-500"><span>• </span>online</p> : <p className="text-md text-red-500">offline</p>}
+            </div>
           </div>
-          <div className="flex flex-col text-md gap-[-14px]">
+          <div className="flex flex-col text-md">
             <div className="flex items-center">
               <FaIndianRupeeSign />
               <h2 className="text-md font-bold">200</h2>
             </div>
-            <p className="text-zinc-500 ml-[20px] text-[13px]">Earned</p>
+            <p className="text-zinc-500 ml-[10px] text-[13px]">Earning</p>
           </div>
         </div>
         <hr className="mt-3 mb-3 border-zinc-300" />
