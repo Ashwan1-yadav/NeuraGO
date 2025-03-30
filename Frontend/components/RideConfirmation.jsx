@@ -65,7 +65,7 @@ const RideConfirmation = ({
     <div>
       <div
         ref={rideConfirmationPanelRef}
-        className="fixed w-full rounded-t-lg shadow-t-lg bg-white bottom-0 px-4 translate-y-full z-2"
+        className="fixed w-full rounded-t-lg shadow-t-lg bg-white bottom-0 px-4 translate-y-full z-2 pointer-events-auto"
       >
         <h1 className="text-2xl font-bold mt-2">Confirm your ride</h1>
         <p>

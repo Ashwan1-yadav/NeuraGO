@@ -181,7 +181,7 @@ const Dashboard = () => {
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">
-      <div className="h-screen w-screen relative z-0">
+      <div className="h-screen w-screen relative z-10">
         <RideTracking 
           customControls={true}
           onMapLoad={(mapInstance) => {

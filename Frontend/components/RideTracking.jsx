@@ -7,7 +7,8 @@ const containerStyle = {
     width: '100%',
     height: '100%',
     borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    
 };
 
 const center = {
@@ -132,7 +133,7 @@ const RideTracking = ({ onMapLoad, customControls = false }) => {
             </LoadScript>
             
             {customControls && (
-                <div className="map-controls flex flex-col absolute bottom-[35%] right-4 z-10">
+                <div className="map-controls flex flex-col absolute bottom-[35%] right-4">
                     <button 
                         onClick={zoomIn} 
                         className="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center mb-2"

@@ -38,7 +38,7 @@ const NewRideAvailable = ({newRideAvailablePanel, setnewRideAvailablePanel,ride,
     <div>
       <div
         ref={newRideAvailablePanelRef}
-        className="fixed w-full rounded-t-lg shadow-t-lg bg-white bottom-0 px-3 py-3"
+        className="fixed w-full rounded-t-lg shadow-t-lg bg-white bottom-0 px-3 py-3 z-4"
         style={{ transform: "translateY(0%)" }}
       >
         <h1 className="text-xl font-bold">New Ride Available !</h1>

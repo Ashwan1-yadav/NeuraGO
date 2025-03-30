@@ -10,12 +10,17 @@ const DriverRiding = () => {
   const { RideContext } = useContext(RideDataContext);
 
   return (
-    <div>
+    <div className="h-screen w-screen relative overflow-hidden">
       <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3  text-zinc-600 font-bold  bg-transparent rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center text-gray-200 shadow-lg">
         NeuraGO
       </p>
-      <div className="h-screen w-screen ">
-      <RideTracking />
+      <div className="h-screen w-screen">
+      <RideTracking
+      customControls={true}
+      onMapLoad={(mapInstance) => {
+        window.mapInstance = mapInstance;
+      }}
+      />
       </div>
       <div className="fixed w-full rounded-t-lg shadow-t-lg bg-yellow-400 flex items-center  shadow-lg bottom-0 px-3 py-3">
         <div

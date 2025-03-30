@@ -34,7 +34,7 @@ const RideSelection = ({
   return (
     <div
       ref={rideSelectionPanelRef}
-      className="fixed w-full rounded-t-lg shadow-t-lg bg-white z-10 bottom-0 px-3 py-3 translate-y-full"
+      className="fixed w-full rounded-t-lg shadow-t-lg bg-white z-10 bottom-0 px-3 py-3 translate-y-full pointer-events-auto"
     >
       <h1 className="text-2xl font-bold">Select a ride</h1>
       <p>

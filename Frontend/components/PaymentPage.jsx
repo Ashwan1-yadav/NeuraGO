@@ -35,7 +35,7 @@ const PaymentPage = ({
     <div>
       <div
         ref={PaymentPageRef}
-        className="fixed w-full rounded-t-lg shadow-t-lg bg-white z-10 bottom-0 px-3 py-3 translate-y-0"
+        className="fixed w-full rounded-t-lg shadow-t-lg bg-white z-10 bottom-0 px-3 py-3 translate-y-0 pointer-events-auto"
       >
         <h1 className="text-xl gap-2 font-bold flex items-center">
           <FaAddressCard/>Payment Page</h1>
