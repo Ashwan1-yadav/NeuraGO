@@ -1,17 +1,20 @@
 const express = require("express");
 const { body } = require("express-validator");
 const router = express.Router();
-
 const {
   userRegister,
   userLogin,
   userProfile,
-  userLogout
+  userLogout,
 } = require("../controllers/userController");
+
 const { isLoggedInUser } = require("../middlewares/authMiddleware");
+const upload = require("../utilities/multer");
+
 
 router.post(
   "/register",
+  upload.single("profileImage"),
   [
     body("firstName")
       .isLength({ min: 3 })
@@ -34,6 +37,7 @@ router.post(
   ],
   userLogin
 );
+
 
 router.get("/profile", isLoggedInUser, userProfile);
 

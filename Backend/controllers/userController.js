@@ -10,6 +10,8 @@ const userRegister = async (req, res) => {
   }
   const { firstName, lastName, email, password } = req.body;
 
+  const profileImage = req.file ? `/images/uploads/${req.file.filename}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHoXjUbvtFit9xDzRgvR_5Su0twbkyeS608A&s";
+  
   const isUserExist = await userModel.findOne({ email });
 
   if (isUserExist) {
@@ -23,6 +25,7 @@ const userRegister = async (req, res) => {
     lastName,
     email,
     password: hashedPass,
+    profileImage,
   });
 
   const token = await user.genAuthToken();
@@ -60,6 +63,7 @@ const userLogin = async (req, res, next) => {
 const userProfile = async (req, res) => {
   res.status(200).json({ user : req.user});
 };
+
 
 const userLogout = async (req, res) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
