@@ -10,7 +10,7 @@ const userRegister = async (req, res) => {
   }
   const { firstName, lastName, email, password } = req.body;
 
-  const profileImage = req.file ? `/images/uploads/${req.file.filename}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHoXjUbvtFit9xDzRgvR_5Su0twbkyeS608A&s";
+  const profileImage = req.file ? `/images/${req.file.filename}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHoXjUbvtFit9xDzRgvR_5Su0twbkyeS608A&s";
   
   const isUserExist = await userModel.findOne({ email });
 

@@ -23,12 +23,12 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.use("/images/uploads", express.static(path.join(__dirname, "../public/images/uploads")));
 
 app.use("/user", userRouter);
 app.use("/driver", driverRouter);
 app.use("/maps", mapRouter);
 app.use("/ride", rideRouter);
+app.use("/images", express.static(path.join(__dirname, "public/images/uploads")));
 
 app.get("/", (req, res) => {
   res.send("Hello From NeuraGO Backend");
