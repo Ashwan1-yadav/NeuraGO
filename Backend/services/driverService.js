@@ -15,6 +15,11 @@ const createDriver = async ({ firstName, lastName, email, password, vehicleColor
         vehicleCapacity
 
     });
+
+    if(driver.status === "inactive"){
+        driver.status = "active"
+        await driver.save()
+    }
     return driver;
 };
 

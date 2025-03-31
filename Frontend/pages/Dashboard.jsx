@@ -153,7 +153,7 @@ const Dashboard = () => {
     const tl = gsap.timeline();
 
     tl.to(searchPanelRef.current, {
-      height: searchPanel ? "70%" : "0%",
+      height: searchPanel ? "80%" : "0%",
       duration: 0.5,
       ease: "power2.inOut",
     })
@@ -181,7 +181,7 @@ const Dashboard = () => {
 
   return (
     <div className="h-screen w-screen relative overflow-hidden">
-      <div className="h-screen w-screen relative z-10">
+      <div className="h-74 w-77 border-2 border-zinc-700  absolute top-[38%] left-[5%] rounded-lg z-10  flex items-center">
         <RideTracking 
           customControls={true}
           onMapLoad={(mapInstance) => {
@@ -189,20 +189,45 @@ const Dashboard = () => {
           }}
         />
       </div>
-      <div className="absolute top-0 left-0 right-0 z-10 pointer-events-none">
-        <p className="w-26 h-8 flex justify-center items-center absolute left-3 top-3 text-zinc-600 font-bold bg-white rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg pointer-events-auto">
-          NeuraGO
-        </p>
-        <p className="w-36 h-8 flex gap-3 p-3 items-center absolute right-3 top-3 text-zinc-600 font-bold bg-white rounded-full bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-8 border border-gray-500 text-[22px] text-center shadow-lg pointer-events-auto">
-          <img src={`${import.meta.env.VITE_BASE_URL}${user?.profileImage}`} alt="profile-image" className="w-6 border-1 h-6 rounded-full object-cover" />
-          <span>{user?.firstName + " " + user?.lastName}</span>
-        </p>
+      <div className="absolute top-2 left-3 right-0 rounded-md z-10 h-24 w-[94%] bg-yellow-400 flex items-center">
+      <div className="w-[50%] p-5">
+        <p className="text-xl flex flex-col text-black font-bold">Your journey<span className="text-indigo-500">starts here.</span></p>
       </div>
+      <div className="w-[50%] p-5 flex justify-around">
+        <img src="../phone.png" className="h-24 w-17" alt="" />
+      </div>
+      </div>
+
+     <div className=" gap-2">
+     <div className="flex justify-around p-1  items-center h-28 w-full bg-white-300 rounded-md mt-30 ">
+          <div className="flex flex-col justify-center items-center gap-1">
+          <div className="bg-indigo-50 rounded-full h-18 w-18 flex justify-center items-center">
+            <img src="../car.png" className="h-8 w-20" alt="" />
+          </div>
+          <p className="text-[14px]">Standard 4-seat</p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-1">
+          <div className="bg-indigo-50 rounded-full h-18 w-18 flex justify-center items-center">
+            <img src="../car2.png" className="h-8 w-20" alt="" />
+          </div>
+          <p className="text-[14px]">Premium 4-seat</p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-1">
+          <div className="bg-indigo-50 rounded-full h-18 w-18 flex justify-center items-center">
+            <img src="../car3.png" className="h-8 w-25" alt="" />
+          </div>
+          <p className="text-[14px]">Standard 6-seat</p>
+          </div>
+        </div>
+     </div>
+     <div className="px-4 mt-4">
+      <h1 className="text-xl font-bold">Your current location</h1>
+     </div>
       
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl z-10 pointer-events-none">
         <div
           ref={panelRef}
-          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[30%] relative p-5 pointer-events-auto"
+          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[20%] relative p-5 pointer-events-auto"
         >
           <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex items-center">
             <p ref={panelCloseButtonRef} className="absolute top-5 right-2">
@@ -213,11 +238,10 @@ const Dashboard = () => {
                 className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1 cursor-pointer hover:bg-zinc-300 transition-colors"
               />
             </p>
-            <FaCar className="text-3xl mr-2" />
-            Book a ride
+          <p className="text-xl font-bold">Get a ride</p>
           </h2>
           <form onSubmit={(e) => submithandler(e)}>
-            <IoLocationSharp className="absolute top-16 left-7 text-zinc-400 text-lg" />
+            <IoLocationSharp className="absolute top-15 left-7 text-indigo-400 text-lg" />
             <input
               value={location}
               onChange={handleLocationChange}
@@ -230,7 +254,7 @@ const Dashboard = () => {
               placeholder="Search for a place or address"
             />
 
-            <FaLocationArrow className="absolute top-26 left-7 text-zinc-400 text-lg" />
+            <FaLocationArrow className="absolute top-25 left-7 text-indigo-400 text-lg" />
             <input
               value={destination}
               onClick={() => {

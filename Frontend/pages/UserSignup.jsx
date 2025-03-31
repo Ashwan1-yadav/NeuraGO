@@ -55,15 +55,11 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="bg-zinc-200 h-screen w-full">
-      <div className="p-2 flex justify-center items-center bg-zinc-900 h-[80px] w-full rounded-b-xl shadow-lg">
-      <img src="../login-icon.png" alt="car-icon" className="w-7 h-7 mr-2" />
-        <p className="text-zinc-100 font-bold text-center  text-xl">
-          Signup as User
-        </p>
-      </div>
-      <div className="bg-zinc-200 h-screen mt-[10px] rounded-t-xl shadow-2xl">
-        <div className="p-7 bg-zinc-100 rounded-xl shadow-2xl h-full">
+    <div className="bg-zinc-200 h-[100px] w-full oveflow-hidden">
+       <div className="bg-zinc-200 h-screen rounded-t-xl shadow-2xl oveflow-hidden">
+        <div className="p-7 bg-indigo-50 rounded-xl shadow-2xl h-full oveflow-hidden">
+        <h1 className='text-zinc-800 flex items-center mt-[-15px] mb-5 text-xl font-bold '>Neura <span className='text-indigo-600'>G</span><span className='text-indigo-500'><img src="../GO.svg" alt="neura-logo" className='w-4 h-4' /></span></h1>
+          <p className='font-bold text-2xl mb-4'>Set up your <span className='text-indigo-500'>account</span> </p>
           <form
             onSubmit={submithandler}
             className="flex gap-4 flex-col justify-center"
@@ -76,9 +72,9 @@ const UserSignup = () => {
               </div> : <div className="flex items-center justify-center w-full">
                 <label
                   htmlFor="profileImage"
-                  className="flex flex-col items-center justify-center w-full h-12 border-2 border-dashed rounded-md cursor-pointer bg-gray-50 hover:bg-gray-100"
+                  className="flex flex-col items-center justify-center w-full h-12 border-2 border-dashed rounded-md cursor-pointer bg-indigo-100 hover:bg-indigo-200"
                 >
-                  <div className="flex flex-col items-center justify-center pt-1 pb-2">
+                  <div className="flex flex-col items-center justify-center pt-1 pb-2 ">
                     <svg
                       aria-hidden="true"
                       className="w-4 h-4 mb-1 text-gray-400"
@@ -119,7 +115,7 @@ const UserSignup = () => {
                 setfirstName(e.target.value);
               }}
               name="firstName"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
               type="text"
               placeholder="first name"
             />
@@ -129,7 +125,7 @@ const UserSignup = () => {
                 setlastName(e.target.value);
               }}
               name="lastName"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
               type="text"
               placeholder="last name"
             />
@@ -143,7 +139,7 @@ const UserSignup = () => {
                 setemail(e.target.value);
               }}
               name="email"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
               type="email"
               placeholder="johnDoe@gmail.com"
             />
@@ -156,13 +152,13 @@ const UserSignup = () => {
                 setpassword(e.target.value);
               }}
               name="password"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
               type="password"
               placeholder="john@Doe"
             />
             <button
               type="submit"
-              className="bg-zinc-900 hover:bg-black text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl"
+              className="bg-[#535CE8] hover:bg-indigo-500 text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl cursor-pointer"
             >
               Create Account
             </button>
@@ -171,7 +167,7 @@ const UserSignup = () => {
             Already have an account ? &nbsp;
             <Link
               to="/user-login"
-              className="text-emerald-600 font-bold hover:text-black"
+              className="text-indigo-500 font-bold hover:text-indigo-600"
             >
               Login
             </Link>

@@ -63,16 +63,11 @@ const DriverSignup = () => {
   };
 
   return (
-    <div className="bg-zinc-200 h-screen w-full">
-      <div className="p-2 flex justify-center items-center bg-zinc-900 h-[80px] w-full rounded-b-xl shadow-lg">
-      <img src="../car-icon.png" alt="car-icon" className="w-14 h-14 mr-2" />
-        <p className="text-zinc-100 font-bold text-center  text-xl">
-          Join NeuraGO
-        </p>
-      </div>
-      <div className="bg-zinc-200 h-screen mt-[10px] rounded-t-xl shadow-2xl">
-        <div className="p-5 bg-zinc-100 rounded-xl shadow-2xl h-full">
-          <form
+    <div className="bg-zinc-200 h-[100px] w-full oveflow-hidden">
+      <div className="bg-zinc-200 h-screen rounded-t-xl shadow-2xl oveflow-hidden">
+        <div className="p-5 bg-indigo-50 rounded-xl shadow-2xl h-screen">
+        <h1 className='text-zinc-800 flex items-center mt-[-10px] mb-5 text-2xl font-bold '>Join Neura <span className='text-indigo-600'>G</span><span className='text-indigo-500'><img src="../GO.svg" alt="neura-logo" className='w-5 h-5' /></span></h1>
+         <form
             onSubmit={submithandler}
             className="flex gap-4 flex-col justify-center"
             encType="multipart/form-data"
@@ -80,11 +75,11 @@ const DriverSignup = () => {
             <div>
               <p className="text-zinc-800 text-md font-bold mb-4">Profile Image</p>
               {profileImagepreview ? <div className='flex items-center justify-center w-full'>
-                <img src={profileImagepreview} className="h-18 w-18 border-1 shadow-md rounded-full object-cover" alt="profile-image" />
+                <img src={profileImagepreview} className="mt-[-15px] mb-[-20px] h-16 w-16 border-1 shadow-md rounded-full object-cover" alt="profile-image" />
               </div> : <div className="flex items-center justify-center w-full">
                 <label
                   htmlFor="profileImage"
-                  className="flex flex-col items-center justify-center w-full h-12 border-2 border-dashed rounded-md cursor-pointer bg-gray-50 hover:bg-gray-100"
+                  className="flex flex-col items-center justify-center w-full h-12 border-2 border-dashed rounded-md cursor-pointer bg-indigo-100 hover:bg-indigo-200"
                 >
                   <div className="flex flex-col items-center justify-center pt-1 pb-2">
                     <svg
@@ -127,7 +122,7 @@ const DriverSignup = () => {
                 setfirstName(e.target.value);
               }}
               name="firstName"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px]"
               type="text"
               placeholder="first name"
             />
@@ -137,7 +132,7 @@ const DriverSignup = () => {
                 setlastName(e.target.value);
               }}
               name="lastName"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px] "
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[16px] "
               type="text"
               placeholder="last name"
             />
@@ -151,7 +146,7 @@ const DriverSignup = () => {
                 setemail(e.target.value);
               }}
               name="email"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px] mt-[-18px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px] mt-[-18px]"
               type="email"
               placeholder="johnDoe@gmail.com"
             />
@@ -164,7 +159,7 @@ const DriverSignup = () => {
                 setpassword(e.target.value);
               }}
               name="password"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px] mt-[-18px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px] mt-[-18px]"
               type="password"
               placeholder="john@Doe"
             />
@@ -177,7 +172,7 @@ const DriverSignup = () => {
                 setVehicleNoPlate(e.target.value);
               }}
               name="vehicleNoPlate"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px] "
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px] "
               type="text"
               placeholder="Vehicle No"
             />
@@ -187,7 +182,7 @@ const DriverSignup = () => {
               setVehicleColor(e.target.value);
               }}
               name="vehicleColor"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px]"
               type="text"
               placeholder="Vehicle Color"
             />
@@ -199,7 +194,7 @@ const DriverSignup = () => {
               setVehicleCapacity(e.target.value);
               }}
               name="vehicleCapacity"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-1/2 h-9 text-sm placeholder:text-[15px]"
               type="number"
               placeholder="Vehicle Capacity"
             />
@@ -209,26 +204,26 @@ const DriverSignup = () => {
               setVehicleType(e.target.value);
               }}
               name="vehicleType"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none w-1/2 h-9 text-[15px] text-zinc-900"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none w-1/2 h-9 text-[15px] text-zinc-500"
             >
-              <option value="">Select Vehicle Type</option>
-              <option value="car">car</option>
-              <option value="van">auto</option>
-              <option value="bike">motorcycle</option>
+              <option>Vehicle Type</option>
+              <option value="car" className='text-zinc-900'>car</option>
+              <option value="auto" className='text-zinc-900'>auto</option>
+              <option value="bike" className='text-zinc-900'>motorcycle</option>
             </select>
             </div>
             <button
               type="submit"
-              className="bg-zinc-900 hover:bg-black text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl"
+              className="bg-[#535CE8] hover:bg-indigo-500 text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl cursor-pointer"
             >
-              Register as Driver
+              Create Account
             </button>
           </form>
           <p className=" mt-[15px] text-zinc-700 text-center text-sm">
-            Already registered ? &nbsp;
+            Already a Driver ? &nbsp;
             <Link
               to="/driver-login"
-              className="text-emerald-600 font-bold hover:text-black"
+              className="text-indigo-500 font-bold hover:text-indigo-600"
             >
               Login
             </Link>

@@ -133,58 +133,58 @@ const RideTracking = ({ onMapLoad, customControls = false }) => {
             </LoadScript>
             
             {customControls && (
-                <div className="map-controls flex flex-col absolute bottom-[35%] right-4">
+                <div className="map-controls flex flex-col absolute bottom-[6%] right-3">
                     <button 
                         onClick={zoomIn} 
-                        className="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center mb-2"
+                        className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center mb-1.5"
                         aria-label="Zoom in"
                     >
-                        <IoIosAdd className="text-2xl text-gray-700" />
+                        <IoIosAdd className="text-xl text-gray-700" />
                     </button>
                     <button 
                         onClick={zoomOut} 
-                        className="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center mb-2"
+                        className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center mb-1.5"
                         aria-label="Zoom out"
                     >
-                        <IoIosRemove className="text-2xl text-gray-700" />
+                        <IoIosRemove className="text-xl text-gray-700" />
                     </button>
                     <button 
                         onClick={panTo} 
-                        className="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center mb-2"
+                        className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center mb-1.5"
                         aria-label="Center map"
                     >
-                        <MdMyLocation className="text-xl text-gray-700" />
+                        <MdMyLocation className="text-lg text-gray-700" />
                     </button>
                     <div className="relative">
                         <button 
                             onClick={toggleMapTypeOptions} 
-                            className="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center"
+                            className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center"
                             aria-label="Map type"
                         >
-                            <MdLayers className="text-xl text-gray-700" />
+                            <MdLayers className="text-lg text-gray-700" />
                         </button>
                         
                         {showMapTypeOptions && (
-                            <div className="absolute right-12 bottom-0 bg-white rounded-lg shadow-md p-2 flex flex-col">
+                            <div className="absolute right-10 bottom-0 bg-white rounded-lg shadow-md p-1 flex flex-col text-xs">
                                 <button 
                                     onClick={() => changeMapType('roadmap')} 
-                                    className={`flex items-center px-3 py-2 rounded ${mapType === 'roadmap' ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
+                                    className={`flex items-center px-2 py-1 rounded ${mapType === 'roadmap' ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
                                 >
-                                    <MdMap className="mr-2 text-gray-700" />
+                                    <MdMap className="mr-1 text-sm text-gray-700" />
                                     <span className="whitespace-nowrap">Map</span>
                                 </button>
                                 <button 
                                     onClick={() => changeMapType('satellite')} 
-                                    className={`flex items-center px-3 py-2 rounded ${mapType === 'satellite' ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
+                                    className={`flex items-center px-2 py-1 rounded ${mapType === 'satellite' ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
                                 >
-                                    <MdSatellite className="mr-2 text-gray-700" />
+                                    <MdSatellite className="mr-1 text-sm text-gray-700" />
                                     <span className="whitespace-nowrap">Satellite</span>
                                 </button>
                                 <button 
                                     onClick={() => changeMapType('hybrid')} 
-                                    className={`flex items-center px-3 py-2 rounded ${mapType === 'hybrid' ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
+                                    className={`flex items-center px-2 py-1 rounded ${mapType === 'hybrid' ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
                                 >
-                                    <MdLayers className="mr-2 text-gray-700" />
+                                    <MdLayers className="mr-1 text-sm text-gray-700" />
                                     <span className="whitespace-nowrap">Hybrid</span>
                                 </button>
                             </div>

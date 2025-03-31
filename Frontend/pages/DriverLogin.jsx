@@ -3,6 +3,9 @@ import React, { useState,useContext } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import {DriverDataContext} from '../context/DriverContext'
 import axios from "axios" 
+import { FaRegUser } from "react-icons/fa";
+
+
 
 const DriverLogin = () => {
   const navigate = useNavigate();
@@ -32,15 +35,11 @@ const DriverLogin = () => {
   };
 
   return (
-    <div className="bg-zinc-200 h-screen w-full">
-      <div className="p-2 flex justify-center items-center bg-zinc-900 h-[80px] w-full rounded-b-xl shadow-lg">
-        <img src="../car-icon.png" alt="car-icon" className="w-14 h-14 mr-2" />
-        <p className="text-zinc-100 font-bold text-center  text-xl">
-          Login as Driver
-        </p>
-      </div>
-      <div className="bg-zinc-200 h-screen mt-[10px] rounded-t-xl shadow-2xl">
-        <div className="p-7 bg-zinc-100 rounded-xl shadow-2xl h-full">
+    <div className="bg-zinc-200 h-[100px] w-full oveflow-hidden">
+    <div className="bg-zinc-200 h-screen rounded-t-xl shadow-2xl oveflow-hidden">
+        <div className="p-7 bg-indigo-50 rounded-xl shadow-2xl h-full">
+        <h1 className='text-zinc-800 flex items-center mt-[-15px] mb-5 text-xl font-bold '>Neura <span className='text-indigo-600'>G</span><span className='text-indigo-500'><img src="../GO.svg" alt="neura-logo" className='w-4 h-4' /></span></h1>
+        <p className='font-bold text-2xl mb-4'>Login as <span className='text-indigo-500'>driver</span> </p>
           <form
             onSubmit={submithandler}
             className="flex gap-4 flex-col justify-center"
@@ -54,7 +53,7 @@ const DriverLogin = () => {
                 setemail(e.target.value);
               }}
               name="email"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
               type="email"
               placeholder="johnDoe@gmail.com"
             />
@@ -67,13 +66,13 @@ const DriverLogin = () => {
                 setpassword(e.target.value);
               }}
               name="password"
-              className="bg-[#eeeeee] rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
+              className="bg-indigo-100 rounded px-4 py-1 outline-none  w-full h-9 text-sm placeholder:text-[16px]"
               type="password"
               placeholder="john@Doe"
             />
             <button
               type="submit"
-              className="bg-zinc-900 hover:bg-black text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl"
+              className="bg-[#535CE8] hover:bg-indigo-500 text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl cursor-pointer"
             >
               Login
             </button>
@@ -82,15 +81,15 @@ const DriverLogin = () => {
             Join NeuraGO ? &nbsp;
             <Link
               to="/driver-signup"
-              className="text-emerald-600 font-bold hover:text-black"
+              className="text-indigo-500 font-bold hover:text-indigo-600"
             >
               Register as Driver
             </Link>
           </p>
           <Link
             to="/user-login"
-            className=" absolute bottom-5 left-[16px] inline-block bg-orange-300 hover:bg-orange-400 text-black font-bold py-1 px-5 rounded-lg w-[90%] text-[20px] text-center text-lg"
-          >
+            className="h-10 w-full bg-transparent border-1 rounded-md flex justify-center items-center text-indigo-500 font-bold hover:text-indigo-600 hover:bg-indigo-100 mt-[15px] shadow-xs cursor-pointer"
+          ><FaRegUser className="text-xl text-indigo-600"/> &nbsp;
             Continue as User &rarr;
           </Link>
         </div>
