@@ -35,11 +35,11 @@ const RideConfirmation = ({
   const getVehicleImage = () => {
     switch(vehicleType) {
       case 'car':
-        return "../car-2.png";
+        return "../car3.png";
       case 'auto':
-        return "../auto.png";
+        return "../car2.png";
       case 'bike':
-        return "../moto.png";
+        return "../car.png";
       default:
         return "";
     }
@@ -67,41 +67,43 @@ const RideConfirmation = ({
         ref={rideConfirmationPanelRef}
         className="fixed w-full rounded-t-lg shadow-t-lg bg-white bottom-0 px-4 translate-y-full z-2 pointer-events-auto"
       >
-        <h1 className="text-2xl font-bold mt-2">Confirm your ride</h1>
+        <h1 className="text-2xl font-bold mt-2">Confirm your <span className="text-indigo-600">ride</span></h1>
         <p>
           <MdOutlineKeyboardDoubleArrowDown
             onClick={() => {
               setrideConfirmationPanel(false);
             }}
-            className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1  mr-2 absolute  top-5  right-2"
+            className="text-xl bg-indigo-100 rounded-full h-5 w-5 p-1  mr-2 absolute  top-3 shadow-lg  right-2"
           />
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
-        <div className="flex justify-center items-center mt-[20px]">
-          <img className="h-20 w-35 " src={getVehicleImage()} alt={`${vehicleType} image`} />
+        <div className="flex flex-col justify-center items-center gap-1">
+          <div className="bg-indigo-50 shadow-md rounded-full h-28 w-28 flex justify-center items-center">
+            <img src={getVehicleImage()} className="h-12 w-25" alt="" />
+          </div>
         </div>
         <hr className="mt-4 mb-2 border-zinc-200" />
         <div className="h-10 w-[90%] flex items-center gap-2">
-          <FaMapLocationDot />
+          <FaMapLocationDot className="text-indigo-500 text-xl" />
           <h2 className="text-lg font-bold">Pickup Address</h2>
         </div>
         
-        <p className="text-[18px] text-zinc-500 mt-[-8px] ml-[29px]">
+        <p className="text-[18px] text-zinc-500 mt-[-8px] ml-[33px]">
           {location}
         </p>
         <hr className="mt-4 mb-2 border-zinc-200" />
         <div className="h-10 w-[90%] flex items-center gap-2">
-          <FaLocationArrow />
-          <h2 className="text-lg font-bold">Destination Address</h2>
+          <FaLocationArrow className="text-indigo-500 text-xl" />
+          <h2 className="text-lg ml-[-2px] font-bold">Destination Address</h2>
         </div>
         
-        <p className="text-[18px] text-zinc-500 mt-[-8px] ml-[29px]">
+        <p className="text-[18px] text-zinc-500 mt-[-8px] ml-[33px]">
           {" "}
           {destination}
         </p>
         <hr className="mt-4 mb-2 border-zinc-200" />
         <div className="h-10 w-[90%] flex items-center gap-2">
-          <FaIndianRupeeSign />
+          <FaIndianRupeeSign className="text-indigo-500 text-xl" />
           <h2 className="text-lg font-bold">
             {
              getVehiclePrice(vehicleType,rideFare) 
@@ -115,7 +117,7 @@ const RideConfirmation = ({
             setrideConfirmationPanel(false);
             createRide();
           }}
-          className=" bg-green-400 active:bg-green-600 text-zinc-800 text-xl font-bold w-full rounded-lg px-4 py-1 mt-4 mb-2"
+          className="bg-[#535CE8] hover:bg-indigo-500 text-white font-bold py-2 px-2 rounded-lg w-full text-[20px] text-center text-lg shadow-xl cursor-pointer my-4"
         >
           Confirm
         </button>

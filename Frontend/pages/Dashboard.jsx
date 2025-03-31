@@ -4,7 +4,6 @@ import gsap from "gsap";
 import axios from "axios";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaLocationArrow } from "react-icons/fa6";
-import { FaCar } from "react-icons/fa";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import LocationPanel from "../components/LocationPanel";
 import RideSelection from "../components/RideSelection";
@@ -16,6 +15,8 @@ import {UserDataContext} from "../context/UserContext";
 import {RideDataContext} from "../context/RideContext";
 import PaymentPage from "../components/PaymentPage";
 import RideTracking from "../components/RideTracking";
+import { FaSearch } from "react-icons/fa";
+
 
 const Dashboard = () => {
   const [location, setLocation] = useState("");
@@ -180,7 +181,7 @@ const Dashboard = () => {
   }, [searchPanel]);
 
   return (
-    <div className="h-screen w-screen relative overflow-hidden">
+    <div className="h-screen w-screen relative overflow-hidden ">
       <div className="h-74 w-77 border-2 border-zinc-700  absolute top-[38%] left-[5%] rounded-lg z-10  flex items-center">
         <RideTracking 
           customControls={true}
@@ -204,19 +205,19 @@ const Dashboard = () => {
           <div className="bg-indigo-50 rounded-full h-18 w-18 flex justify-center items-center">
             <img src="../car.png" className="h-8 w-20" alt="" />
           </div>
-          <p className="text-[14px]">Standard 4-seat</p>
+          <p className="text-[14px]">Standard 3-seat</p>
           </div>
           <div className="flex flex-col justify-center items-center gap-1">
           <div className="bg-indigo-50 rounded-full h-18 w-18 flex justify-center items-center">
             <img src="../car2.png" className="h-8 w-20" alt="" />
           </div>
-          <p className="text-[14px]">Premium 4-seat</p>
+          <p className="text-[14px]">Premium 2-seat</p>
           </div>
           <div className="flex flex-col justify-center items-center gap-1">
           <div className="bg-indigo-50 rounded-full h-18 w-18 flex justify-center items-center">
             <img src="../car3.png" className="h-8 w-25" alt="" />
           </div>
-          <p className="text-[14px]">Standard 6-seat</p>
+          <p className="text-[14px]">Luxury 1-seat</p>
           </div>
         </div>
      </div>
@@ -227,7 +228,7 @@ const Dashboard = () => {
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full border-1 border-zinc-900 shadow-2xl z-10 pointer-events-none">
         <div
           ref={panelRef}
-          className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[20%] relative p-5 pointer-events-auto"
+          className="bg-transparent bg-clip-padding  backdrop-blur-2xl bg-opacity-10 border border-gray-500 rounded-t-2xl shadow-lg h-[20%] relative p-5 pointer-events-auto"
         >
           <h2 className="font-bold text-zinc-800 text-2xl mt-[-10px] mb-3 flex items-center">
             <p ref={panelCloseButtonRef} className="absolute top-5 right-2">
@@ -238,10 +239,11 @@ const Dashboard = () => {
                 className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1 cursor-pointer hover:bg-zinc-300 transition-colors"
               />
             </p>
-          <p className="text-xl font-bold">Get a ride</p>
+          <p className="text-xl font-bold">Get a <span className="text-indigo-600">ride</span></p>
           </h2>
+          <div className="flex items-center justify-center">
           <form onSubmit={(e) => submithandler(e)}>
-            <IoLocationSharp className="absolute top-15 left-7 text-indigo-400 text-lg" />
+            <IoLocationSharp className="absolute top-15 left-7 text-indigo-500 text-lg" />
             <input
               value={location}
               onChange={handleLocationChange}
@@ -249,12 +251,12 @@ const Dashboard = () => {
                 setSearchPanel(true)
                 setActiveField("location")
               }}
-              className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
+              className="outline-zinc-500 px-8 py-2 rounded-lg w-[91%] h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
               type="text"
               placeholder="Search for a place or address"
             />
 
-            <FaLocationArrow className="absolute top-25 left-7 text-indigo-400 text-lg" />
+            <FaLocationArrow className="absolute top-25 left-7 text-indigo-500 text-lg" />
             <input
               value={destination}
               onClick={() => {
@@ -262,16 +264,19 @@ const Dashboard = () => {
                 setActiveField("destination")
               }}
               onChange={handleDestinationChange}
-              className="outline-zinc-500 px-8 py-2 rounded-lg w-full h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
+              className="outline-zinc-500 px-8 py-2 rounded-lg w-[91%] h-8 text-sm placeholder:text-[17px] bg-transparent bg-clip-padding backdrop-filter backdrop-blur-3xl shadow-md bg-opacity-10 border-1 border-zinc-600 mb-2"
               type="text"
               placeholder="Enter your destination"
             />
           </form>
+           <div onClick={()=>{selectRide()}} className="h-9 w-10 bg-indigo-50 rounded-full border-1 border-indigo-500 flex justify-center items-center cursor-pointer">
+             <FaSearch className="text-xl text-indigo-500 p-[6px] flex items-center h-7 w-9" />
+           </div>
+          </div>
           
         </div>
         <div ref={searchPanelRef} className="bg-zinc-100 h-0">
           <LocationPanel
-            selectRide={selectRide}
             setrideSelectionPanel={setrideSelectionPanel}
             setSearchPanel={setSearchPanel}
             activeField={activeField}
@@ -308,6 +313,7 @@ const Dashboard = () => {
             setlookingForDriverPanel={setlookingForDriverPanel}
             setRideDriverInfoPanel={setRideDriverInfoPanel}
             location={location}
+            rideFare={rideFare}
             vehicleType={vehicleType}
             destination={destination}
           />
