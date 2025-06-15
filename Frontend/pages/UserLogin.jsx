@@ -3,6 +3,8 @@ import React, { useState,useContext } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import {UserDataContext} from '../context/UserContext'
 import { GiSteeringWheel } from "react-icons/gi";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios'
 
@@ -19,15 +21,26 @@ const UserLogin = () => {
       email: email,
       password: password,
     };
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData);
-    if (response.status === 200) {
-      const data = response.data;
-      setUser(data.user);
-      localStorage.setItem("user-token", data.token);
-      navigate("/dashboard");
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData);
+      if (response.status === 200) {
+        const data = response.data;
+        setUser(data.user);
+        localStorage.setItem("user-token", data.token);
+        toast.success('Login successful!');
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || 'Login failed. Please try again.');
+      } else if (error.request) {
+        toast.error('No response from server. Please check your connection.');
+      } else {
+        toast.error('An error occurred. Please try again.');
+      }
+      setemail("");
+      setpassword("");
     }
-    setemail("");
-    setpassword("");
   };
 
   return (

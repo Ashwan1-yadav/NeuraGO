@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {useContext} from 'react'
 import {UserDataContext} from '../context/UserContext'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // eslint-disable-next-line react/prop-types
 const DriverRouteProtector = ({children}) => {
     const navigate = useNavigate()
@@ -10,8 +12,10 @@ const DriverRouteProtector = ({children}) => {
     const [isLoading, setIsLoading] = useState(true)
     const {setUser} = useContext(UserDataContext)
 
+    
     useEffect(() => {
         if(!token) {
+            setIsLoading(false)
             navigate('/user-login')
         }
         axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`, {
@@ -25,18 +29,29 @@ const DriverRouteProtector = ({children}) => {
             }
         })
             .catch((e) => {
-                console.log(e)
                 localStorage.removeItem('user-token')
+                toast.error(e.response.data.message)
                 navigate('/user-login')
             })
         setIsLoading(false)
     }, [token, navigate, setUser])
 
+
     if(isLoading) {
         return <div>Loading...</div>
     }
     
-    return <>{children}</>
+    return <><ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />{children}</>
 }
 
 export default DriverRouteProtector

@@ -2,6 +2,8 @@ import { useState,useContext } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {UserDataContext} from '../context/UserContext'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserSignup = () => {
   const [firstName, setfirstName] = useState("");
@@ -30,21 +32,32 @@ const UserSignup = () => {
       formData.append("profileImage", profileImage);
     }
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/user/register`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/user/register`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      
+      if (response.status === 201) {
+        const data = response.data;
+        setUser(data.user);
+        localStorage.setItem("user-token", data.token);
+        toast.success('Account created successfully!');
+        navigate("/dashboard");
       }
-    );
-    
-    if (response.status === 201) {
-      const data = response.data;
-      setUser(data.user);
-      localStorage.setItem("user-token", data.token);
-      navigate("/dashboard");
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || 'Registration failed. Please try again.');
+      } else if (error.request) {
+        toast.error('No response from server. Please check your connection.');
+      } else {
+        toast.error('An error occurred. Please try again.');
+      }
     }
 
     setfirstName("");

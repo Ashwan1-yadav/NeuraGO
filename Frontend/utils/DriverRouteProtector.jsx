@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {useContext} from 'react'
 import {DriverDataContext} from '../context/DriverContext'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 // eslint-disable-next-line react/prop-types
 const DriverRouteProtector = ({children}) => {
     const navigate = useNavigate()
@@ -12,6 +16,7 @@ const DriverRouteProtector = ({children}) => {
 
     useEffect(() => {
         if(!token) {
+            toast.error('Access Denied. Please login to continue.');
             navigate('/driver-login')
         }
         axios.get(`${import.meta.env.VITE_BASE_URL}/driver/profile`, {
@@ -25,7 +30,7 @@ const DriverRouteProtector = ({children}) => {
             }
         })
             .catch((e) => {
-                console.log(e)
+                toast.error('Session expired. Please login again.');
                 localStorage.removeItem('driver-token')
                 navigate('/driver-login')
             })
@@ -36,7 +41,22 @@ const DriverRouteProtector = ({children}) => {
         return <div>Loading...</div>
     }
     
-    return <>{children}</>
+    return (
+        <>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            {children}
+        </>
+    )
 }
 
 export default DriverRouteProtector

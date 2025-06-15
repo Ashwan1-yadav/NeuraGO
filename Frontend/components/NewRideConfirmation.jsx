@@ -57,24 +57,24 @@ const NewRideConfirmation = ({
         className="fixed w-full h-screen rounded-t-lg shadow-t-lg bg-white  bottom-0 px-3 py-3"
         style={{ transform: "translateY(0%)" }}
       >
-        <h1 className="text-xl font-bold">Confirm your ride</h1>
+        <h1 className="text-xl font-bold">Confirm your <span className="text-indigo-600">Ride</span></h1>
         <p>
           <MdOutlineKeyboardDoubleArrowDown
             onClick={() => {
               setNewRideConfirmationPanel(false);
             }}
-            className="text-xl bg-zinc-200 rounded-full h-5 w-5 p-1  mr-2 absolute  top-4  right-2"
+            className="text-xl bg-indigo-200 rounded-full h-5 w-5 p-1  mr-2 absolute  top-4  right-2"
           />
         </p>
         <hr className="border-zinc-300 mt-2 mb-2" />
-        <div className="flex justify-between items-center bg-yellow-300  shadow-md p-2 rounded-lg">
+        <div className="flex justify-between items-center h-18 bg-indigo-200  shadow-md p-2 rounded-lg">
           <div className="flex items-center gap-2">
             <img
-              className="h-8 w-8 object-cover shadow-md rounded-full border-1"
+              className="h-12 w-12 object-cover shadow-md rounded-full border-1"
               src={`${import.meta.env.VITE_BASE_URL}${ride?.user.profileImage}`}
               alt="driver image"
             />
-            <p className="text-sm font-bold capitalize">{ride?.user.firstName + " " + ride?.user.lastName}</p>
+            <p className="text-lg font-bold capitalize">{ride?.user.firstName + " " + ride?.user.lastName}</p>
           </div>
           <div className="flex items-center gap-1">
             <div className="flex flex-col gap-1">
@@ -90,7 +90,7 @@ const NewRideConfirmation = ({
         </div>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
-          <FaMapLocationDot />
+          <FaMapLocationDot className="text-indigo-500"/>
           <h2 className="text-sm font-bold">Pickup Location</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
@@ -99,7 +99,7 @@ const NewRideConfirmation = ({
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
-          <FaLocationArrow />
+          <FaLocationArrow className="text-indigo-500"/>
           <h2 className="text-sm font-bold">Destination Location</h2>
         </div>
         <p className="text-xs text-zinc-500 mt-[-3px] ml-[29px] ">
@@ -108,7 +108,7 @@ const NewRideConfirmation = ({
         </p>
         <hr className="mt-2 mb-2 border-zinc-200" />
         <div className="h-7 w-[90%] flex items-center gap-2">
-          <FaIndianRupeeSign />
+          <FaIndianRupeeSign className="text-indigo-500"/>
           <div className="flex items-center">
             <h2 className="text-md font-bold">{ride?.fare}</h2>
           </div>
@@ -119,7 +119,7 @@ const NewRideConfirmation = ({
             confirmRide()
           }}
           to="/driver-riding"
-          className=" inline-block text-center shadow-lg bg-green-400 active:bg-green-600 text-zinc-800 text-md font-bold w-full rounded-lg px-4 py-1 mt-4"
+          className=" inline-block text-center shadow-lg bg-indigo-500 active:bg-indigo-600 text-white text-md font-bold w-full rounded-lg px-4 py-1 mt-4"
         >
           Confirm
         </Link>
@@ -128,7 +128,7 @@ const NewRideConfirmation = ({
             setNewRideConfirmationPanel(false);
             setnewRideAvailablePanel(false);
           }}
-          className=" bg-red-500 active:bg-red-500 text-zinc-800 shadow-lg text-md font-bold w-full rounded-lg px-4 py-1 mt-2"
+          className=" bg-red-500 active:bg-red-500 text-white shadow-lg text-md font-bold w-full rounded-lg px-4 py-1 mt-2"
         >
           Cancel
         </button>

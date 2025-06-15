@@ -98,7 +98,7 @@ const DriverDashboard = () => {
             <h2 className="text-md font-bold capitalize mb-[-5px]">
               {driver.firstName} {driver.lastName}
             </h2>
-            {driver.status === "active" ? <p className="text-sm text-teal-500"><span>• </span>online</p> : <p className="text-md text-red-500">offline</p>}
+            {driver.status === "active" ? <p className="text-sm text-teal-500"><span>• </span>online</p> : <p className="text-sm text-red-500">offline</p>}
             </div>
           </div>
           <div className="flex flex-col text-md">
@@ -110,21 +110,21 @@ const DriverDashboard = () => {
           </div>
         </div>
         <hr className="mt-3 mb-3 border-zinc-300" />
-        <div className="flex justify-around p-5 items-center h-16 w-full bg-orange-300 border-1 border-orange-600 shadow-lg rounded-xl ">
+        <div className="flex justify-around p-5 items-center h-18 w-full bg-indigo-200 border-1 border-indigo-600 shadow-lg rounded-xl ">
           <div className="text-lg flex flex-col  items-center">
             <FaRegClock className="text-md" />
             <p className="text-[15px]">Hours</p>
-            <p className="text-[10px]">2 hrs</p>
+            <p className="text-[12px] font-bold">2 hrs</p>
           </div>
           <div className="text-lg flex flex-col items-center">
             <MdOutlineSpeed className="text-md" />
             <p className="text-[15px]">Speed</p>
-            <p className="text-[10px]">50 km/h</p>
+            <p className="text-[12px] font-bold">50 km/h</p>
           </div>
           <div className="text-lg flex flex-col items-center">
             <LuNotebookTabs className="text-md" />
             <p className="text-[15px]">Pickup</p>
-            <p className="text-[10px]">12</p>
+            <p className="text-[12px] font-bold">12</p>
           </div>
         </div>
       </div>

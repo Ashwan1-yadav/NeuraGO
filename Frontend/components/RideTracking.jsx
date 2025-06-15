@@ -133,35 +133,35 @@ const RideTracking = ({ onMapLoad, customControls = false }) => {
             </LoadScript>
             
             {customControls && (
-                <div className="map-controls flex flex-col absolute bottom-[6%] right-3">
+                <div className="map-controls flex flex-col absolute bottom-[26%] right-3">
                     <button 
                         onClick={zoomIn} 
-                        className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center mb-1.5"
+                        className="bg-white w-9 h-9 rounded-full shadow-md flex items-center justify-center mb-1.5"
                         aria-label="Zoom in"
                     >
-                        <IoIosAdd className="text-xl text-gray-700" />
+                        <IoIosAdd className="text-2xl  text-indigo-600" />
                     </button>
                     <button 
                         onClick={zoomOut} 
-                        className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center mb-1.5"
+                        className="bg-white w-9 h-9 rounded-full shadow-md flex items-center justify-center mb-1.5"
                         aria-label="Zoom out"
                     >
-                        <IoIosRemove className="text-xl text-gray-700" />
+                        <IoIosRemove className="text-2xl  text-indigo-600" />
                     </button>
                     <button 
                         onClick={panTo} 
-                        className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center mb-1.5"
+                        className="bg-white w-9 h-9 rounded-full shadow-md flex items-center justify-center mb-1.5"
                         aria-label="Center map"
                     >
-                        <MdMyLocation className="text-lg text-gray-700" />
+                        <MdMyLocation className="text-2xl  text-indigo-600" />
                     </button>
                     <div className="relative">
                         <button 
                             onClick={toggleMapTypeOptions} 
-                            className="bg-white w-7 h-7 rounded-full shadow-md flex items-center justify-center"
+                            className="bg-white w-9 h-9 rounded-full shadow-md flex items-center justify-center"
                             aria-label="Map type"
                         >
-                            <MdLayers className="text-lg text-gray-700" />
+                            <MdLayers className="text-2xl  text-indigo-600" />
                         </button>
                         
                         {showMapTypeOptions && (

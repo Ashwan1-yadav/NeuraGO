@@ -2,6 +2,8 @@ import { Link,useNavigate } from 'react-router-dom'
 import { useState,useContext } from 'react'
 import {DriverDataContext} from '../context/DriverContext'
 import axios from 'axios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DriverSignup = () => {
 
@@ -39,17 +41,32 @@ const DriverSignup = () => {
     formData.append("vehicleType", vehicleType);
     formData.append("vehicleNoPlate", vehicleNoPlate);
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/driver/register`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/driver/register`, 
+        formData, 
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      if(response.status === 200){
-      const data = response.data;
-      setDriver(data.driver);
-      localStorage.setItem("driver-token", data.token);
-      navigate('/driver-dashboard')
+      if(response.status === 200) {
+        const data = response.data;
+        setDriver(data.driver);
+        localStorage.setItem("driver-token", data.token);
+        toast.success('Driver account created successfully!');
+        navigate('/driver-dashboard');
+      }
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || 'Registration failed. Please try again.');
+      } else if (error.request) {
+        toast.error('No response from server. Please check your connection.');
+      } else {
+        toast.error('An error occurred. Please try again.');
+      }
     }
     
     setfirstName("");

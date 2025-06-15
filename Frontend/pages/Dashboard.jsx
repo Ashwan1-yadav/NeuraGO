@@ -89,7 +89,7 @@ const Dashboard = () => {
         );
         setlocationSuggestions(response.data);
       } catch(e) {
-        console.log("error in location suggestion api : ", e);
+        //
       }
     }, 500);
     
@@ -114,7 +114,7 @@ const Dashboard = () => {
         );
         setdestinationSuggestions(response.data);
       } catch(e) {
-        console.log("error in fetching destination suggestions : ", e);
+        // console.log("error in fetching destination suggestions : ", e);
       }
     }, 500);
     
@@ -182,7 +182,7 @@ const Dashboard = () => {
 
   return (
     <div className="h-screen w-screen relative overflow-hidden ">
-      <div className="h-74 w-77 border-2 border-zinc-700  absolute top-[38%] left-[5%] rounded-lg z-10  flex items-center">
+      <div className="h-74 w-87 border-2 border-zinc-700  absolute top-[38%] left-[5%] rounded-lg z-10  flex items-center">
         <RideTracking 
           customControls={true}
           onMapLoad={(mapInstance) => {
@@ -190,7 +190,7 @@ const Dashboard = () => {
           }}
         />
       </div>
-      <div className="absolute top-2 left-3 right-0 rounded-md z-10 h-24 w-[94%] bg-yellow-400 flex items-center">
+      <div className="absolute top-2 left-3 right-0 rounded-md z-10 h-24 w-[94%] bg-yellow-500 flex items-center">
       <div className="w-[50%] p-5">
         <p className="text-xl flex flex-col text-black font-bold">Your journey<span className="text-indigo-500">starts here.</span></p>
       </div>
